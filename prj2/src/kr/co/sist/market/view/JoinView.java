@@ -14,8 +14,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 
 public class JoinView extends JFrame {
 
@@ -30,7 +32,6 @@ public class JoinView extends JFrame {
 
       JPanel jplbBox=new JPanel(); //라벨을 담을 패널
       JPanel jptfBox=new JPanel(); // 입력칸들을 담을 패널
-      JPanel jptaIntro=new JPanel(); // 자기소개 담을 패널
       JPanel jpimg=new JPanel(); // 프로필 담을 패널
       JPanel jpbutton=new JPanel(); // 버튼 담을 패널
       JPanel jpspace=new JPanel();//버튼 사이 공간 패널
@@ -52,8 +53,10 @@ public class JoinView extends JFrame {
        jpwPass=new JPasswordField();
        jpwPassChk=new JPasswordField();
        
+       jtaIntro.setBorder(new TitledBorder("자기소개"));
+       JScrollPane jsIntro=new JScrollPane(jtaIntro);
       
-      ImageIcon profile=new ImageIcon("C:/dev/workspace/prj2/src/kr/co/sist/market/img/default.jpg");
+      ImageIcon profile=new ImageIcon("C:/dev/workspace/market_prj2/src/kr/co/sist/market/img/default.jpg");
       
       JLabel jlName=new JLabel("이름");
       JLabel jlSsn=new JLabel("주민번호");
@@ -64,17 +67,14 @@ public class JoinView extends JFrame {
       JLabel jlAnswer=new JLabel("비밀번호 답변");
       JLabel jlhyphen=new JLabel("-");
       JLabel jlimg=new JLabel(profile);
-      JLabel jlIntro=new JLabel(" 자기소개");
       
       setLayout(null); //수동배치
       
       //패널 레이아웃 설정
       jplbBox.setLayout(new GridLayout(7, 1));
       jptfBox.setLayout(new GridLayout(7, 1));
-      jptaIntro.setLayout(new BorderLayout());
       jpimg.setLayout(new BorderLayout());
       jpbutton.setLayout(new FlowLayout());
-     // jpSsn.setLayout(new FlowLayout());
       
       
       //jpSsn삽입
@@ -105,10 +105,6 @@ public class JoinView extends JFrame {
       jpimg.add(jlimg);
       jpimg.add("South", jbImage);
       
-      //자기소개 패널
-      jptaIntro.add("North", jlIntro);
-      jptaIntro.add(jtaIntro);
-      
      //각 버튼 패널에 버튼 넣기
       jpSignUpButton.add(jbSignUp);
       jpCancelButton.add(jbCancel);
@@ -122,7 +118,7 @@ public class JoinView extends JFrame {
       add(jptfBox);
       add(jplbBox);
       add(jpimg);
-      add(jptaIntro);
+      add(jsIntro);
       add(jpbutton);
 
       //각 패널 배치
@@ -130,7 +126,7 @@ public class JoinView extends JFrame {
       jpimg.setBounds(10, 10, 180, 230);
       jplbBox.setBounds(250, 10, 100, 230);
       jptfBox.setBounds(360, 10, 200, 230);
-      jptaIntro.setBounds(10, 250, 550, 150);
+      jsIntro.setBounds(10, 250, 550, 150);
       jpbutton.setBounds(380, 400, 190, 70);
 
       
