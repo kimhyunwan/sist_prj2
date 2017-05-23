@@ -3,9 +3,6 @@ package kr.co.sist.market.vo;
 public class IdVO {
 	private String name, ssn;
 	
-	public IdVO() {
-	}
-
 	public IdVO(String name, String ssn) {
 		this.name = name;
 		this.ssn = ssn;
