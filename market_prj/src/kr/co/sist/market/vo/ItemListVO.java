@@ -5,7 +5,7 @@ public class ItemListVO {
 	private int price;
 	
 	public ItemListVO() {
-		
+	
 	}
 	
 	public ItemListVO(String itemName, String itemCode, String itemInfo, String hiredate, String image, int price) {
