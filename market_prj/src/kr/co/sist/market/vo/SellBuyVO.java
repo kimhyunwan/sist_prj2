@@ -4,7 +4,6 @@ public class SellBuyVO {
 	private String id, itemCode, itemName, tradeDate;
 
 	public SellBuyVO(String id, String itemCode, String itemName, String tradeDate) {
-		super();
 		this.id = id;
 		this.itemCode = itemCode;
 		this.itemName = itemName;
@@ -12,9 +11,8 @@ public class SellBuyVO {
 	}
 	
 	public SellBuyVO() {
-		super();
-	}
 
+	}
 
 	public String getId() {
 		return id;

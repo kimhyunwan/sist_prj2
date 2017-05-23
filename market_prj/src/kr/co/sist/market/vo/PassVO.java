@@ -5,7 +5,6 @@ public class PassVO {
 	private int quNum;
 	
 	public PassVO(String name, String ssn, String id, String passAnswer, int quNum) {
-		super();
 		this.name = name;
 		this.ssn = ssn;
 		this.id = id;
@@ -14,7 +13,7 @@ public class PassVO {
 	}
 
 	public PassVO() {
-		super();
+
 	}
 
 	public String getName() {

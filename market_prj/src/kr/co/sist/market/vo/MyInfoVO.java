@@ -4,7 +4,6 @@ public class MyInfoVO {
 	private String id, img;
 	private int sellWait, buyWait, nonChkMsg;
 	public MyInfoVO(String id, String img, int sellWait, int buyWait, int nonChkMsg) {
-		super();
 		this.id = id;
 		this.img = img;
 		this.sellWait = sellWait;
@@ -12,7 +11,7 @@ public class MyInfoVO {
 		this.nonChkMsg = nonChkMsg;
 	}
 	public MyInfoVO() {
-		super();
+
 	}
 	public String getId() {
 		return id;

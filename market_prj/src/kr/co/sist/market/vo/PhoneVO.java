@@ -4,14 +4,13 @@ public class PhoneVO {
 	private String id, phone, itemCode;
 
 	public PhoneVO(String id, String phone, String itemCode) {
-		super();
 		this.id = id;
 		this.phone = phone;
 		this.itemCode = itemCode;
 	}
 
 	public PhoneVO() {
-		super();
+
 	}
 
 	public String getId() {

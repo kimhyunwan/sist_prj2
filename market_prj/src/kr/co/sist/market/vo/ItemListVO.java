@@ -5,11 +5,10 @@ public class ItemListVO {
 	private int price;
 	
 	public ItemListVO() {
-		super();
+		
 	}
 	
 	public ItemListVO(String itemName, String itemCode, String itemInfo, String hiredate, String image, int price) {
-		super();
 		this.itemName = itemName;
 		this.itemCode = itemCode;
 		this.itemInfo = itemInfo;

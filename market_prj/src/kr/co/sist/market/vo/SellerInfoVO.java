@@ -1,25 +1,24 @@
 package kr.co.sist.market.vo;
 
 public class SellerInfoVO {
-	private String Id, info, img;
+	private String id, info, img;
 
 	public SellerInfoVO(String id, String info, String img) {
-		super();
-		Id = id;
+		this.id = id;
 		this.info = info;
 		this.img = img;
 	}
 
 	public SellerInfoVO() {
-		super();
+		
 	}
 
 	public String getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(String id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getInfo() {

@@ -1,13 +1,13 @@
 package kr.co.sist.market.vo;
 
 public class MsgListVO {
-	private String Id, Item, msgDate;
+	private String id, item, msgDate;
 	private boolean flag;
 	
 	public MsgListVO(String id, String item, String msgDate, boolean flag) {
 		super();
-		Id = id;
-		Item = item;
+		this.id = id;
+		this.item = item;
 		this.msgDate = msgDate;
 		this.flag = flag;
 	}
@@ -17,19 +17,19 @@ public class MsgListVO {
 	}
 
 	public String getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(String id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getItem() {
-		return Item;
+		return item;
 	}
 
 	public void setItem(String item) {
-		Item = item;
+		this.item = item;
 	}
 
 	public String getMsgDate() {

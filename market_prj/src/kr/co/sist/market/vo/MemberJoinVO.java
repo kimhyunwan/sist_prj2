@@ -5,11 +5,10 @@ public class MemberJoinVO {
 	private int quNum;
 	
 	public MemberJoinVO() {
-		super();
+
 	}
 	
-	public MemberJoinVO(String id, String ssn, String name, String pass, String passAnswer, String image, String info,
-			int quNum) {
+	public MemberJoinVO(String id, String ssn, String name, String pass, String passAnswer, String image, String info, int quNum) {
 		this.id = id;
 		this.ssn = ssn;
 		this.name = name;

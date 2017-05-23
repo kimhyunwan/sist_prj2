@@ -23,10 +23,5 @@ public class IdVO {
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
 	}
-
-	@Override
-	public String toString() {
-		return "IdVO [name=" + name + ", ssn=" + ssn + "]";
-	}
 	
 }

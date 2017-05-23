@@ -5,10 +5,9 @@ public class MemberInfoVO {
 	private int quNum;
 	
 	public MemberInfoVO() {
-		super();
+	
 	}
 	public MemberInfoVO(String id, String pass, String passAnswer, String image, String info, int quNum) {
-		super();
 		this.id = id;
 		this.pass = pass;
 		this.passAnswer = passAnswer;

@@ -4,11 +4,10 @@ public class MsgViewVO {
 	private String id, msg;
 	
 	public MsgViewVO() {
-		super();
+		
 	}
 
 	public MsgViewVO(String id, String msg) {
-		super();
 		this.id = id;
 		this.msg = msg;
 	}
