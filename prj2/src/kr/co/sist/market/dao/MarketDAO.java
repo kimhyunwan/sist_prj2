@@ -26,10 +26,10 @@ public class MarketDAO {
 	private MarketDAO(){
 		
 	}//MarketDAO
-	
+	//¹¹Áö???
 	private static MarketDAO getInstance(){
 		if(m_dao==null){
-			m_dao=new MarketDAO();
+			m_dao=new MarketDAO(); 
 		}//end if
 		
 		return m_dao;
