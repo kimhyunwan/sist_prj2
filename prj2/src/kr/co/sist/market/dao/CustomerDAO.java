@@ -24,6 +24,11 @@ import kr.co.sist.market.vo.PassVO;
 import kr.co.sist.market.vo.PhoneVO;
 
 
+/**
+ * test
+ * @author user
+ *
+ */
 public class CustomerDAO {
 	
 	private static CustomerDAO c_dao;
