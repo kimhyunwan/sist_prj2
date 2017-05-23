@@ -64,7 +64,6 @@ public class MarketDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}//end catch
-		
 		return con;
 	}//getConnection
 	
