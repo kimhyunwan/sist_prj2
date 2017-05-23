@@ -13,9 +13,15 @@ import java.util.Properties;
 
 import javax.swing.JOptionPane;
 
+import kr.co.sist.market.vo.IdVO;
 import kr.co.sist.market.vo.ItemInfoVO;
 import kr.co.sist.market.vo.LoginVO;
 import kr.co.sist.market.vo.MemberInfoVO;
+import kr.co.sist.market.vo.MemberJoinVO;
+import kr.co.sist.market.vo.MsgListVO;
+import kr.co.sist.market.vo.MyInfoVO;
+import kr.co.sist.market.vo.PassVO;
+import kr.co.sist.market.vo.PhoneVO;
 
 
 public class CustomerDAO {
@@ -65,25 +71,24 @@ public class CustomerDAO {
 		return con;
 	}//getConnection()
 	
-	//////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	//////////////////////////////////////////////메소드//////////////////////////////////////////////////////
 	/**
 	 * 로그인 성공여부를 결정하는 일
 	 * @return boolean
 	 * @param LoginVO
 	 */
-	public boolean selectLogin(LoginVO lv){
+	public boolean selectLogin(LoginVO lv) throws SQLException{
 		Boolean flag=false;
 		
 		return flag;
 	}//selectLogin
-	
 
+	
 	/**
 	 * 비밀번호 질문을 선택하여 불러오는 일
 	 * @return List<String>
 	 */
-	public List<String> selectPassQu(){
+	public List<String> selectPassQu() throws SQLException{
 		List<String> list=new ArrayList<>();
 		
 		return list;
@@ -92,9 +97,9 @@ public class CustomerDAO {
 	
 	/**
 	 * 판매할 상품을 물품테이블에 등록하는 일
-	 * @param itemInfoVO
+	 * @param ItemInfoVO
 	 */
-	public void insertItem(ItemInfoVO iiv){
+	public void insertItem(ItemInfoVO iiv) throws SQLException{
 		
 	}//insertItem
 	
@@ -104,106 +109,115 @@ public class CustomerDAO {
 	 * @param id
 	 * @return MemberInfoVO
 	 */
-	public MemberInfoVO selectPreMember(String id){
+	public MemberInfoVO selectPreMember(String id) throws SQLException{
 		MemberInfoVO miv=null;
 		
 		return miv;
 	}//selectPreMember
-//	
-//	
-//	/**
-//	 * 입력한 회원정보로 회원테이블에 추가하는 일
-//	 * @param MemberJoinVO
-//	 */
-//	public void insertMember(MemberJoinVO){
-//		
-//	}//insertMember
-//	
-//	
-//	/**
-//	 * 회원의 정보를 수정하는 일
-//	 * @param MemberInfoVO
-//	 */
-//	public void updateMember(MemberInfoVO){
-//		
-//	}//updateMember
-//	
-//	
-//	/**
-//	 * 입력한 메세지를 보낸메세지에 추가하는 일
-//	 * @param MsgListVO
-//	 */
-//	public void insertSendMsg(MsgListVO){
-//		
-//	}//insertSendMsg
-//	
-//	
-//	/**
-//	 *  메세지정보를 받은 메세지에 추가하는 일
-//	 * @param MsgListVO
-//	 */
-//	public void insertGetMsg(MsgListVO){
-//		
-//	}//insertGetMsg
-//	
-//	
-//	/**
-//	 * 자신의 아이디를 조회하는 일
-//	 * @param IdVO
-//	 * @return String
-//	 */
-//	public String selectMyId(IdVO){
-//		
-//	}
-//	
-//	
-//	/**
-//	 * 자신의 비밀번호를 조회하는 일
-//	 * @param PassVO
-//	 * @return String
-//	 */
-//	public String selectMyPass(PassVO){
-//		
-//	}
-//	
-//	
-//	/**
-//	 * 휴대전화번호를 추가하는 일
-//	 * @param PhoneVO
-//	 */
-//	public void insertPhone(PhoneVO){
-//	
-//	}
-//	
-//	
-//	/**
-//	 * 휴대전화번호를 조회하는 일
-//	 * @param itemCode
-//	 * @return String
-//	 */
-//	public String selectPhone(String itemCode){
-//	
-//	}
-//	
-//	
-//	/**
-//	 * 나의 회원정보를 조회하는 일
-//	 * @param id
-//	 * @return MyInfoVO
-//	 */
-//	public MyInfoVO selectMyInfo(String id){
-//	
-//	}
-//	
-//	
-//	/**
-//	 * 메세지의 내용을 조회하는 일
-//	 * @param id
-//	 * @return String
-//	 */
-//	public String selectMsgInfo(String id){
-//	
-//	}
 	
+	
+	/**
+	 * 입력한 회원정보로 회원테이블에 추가하는 일
+	 * @param MemberJoinVO
+	 */
+	public void insertMember(MemberJoinVO mjv) throws SQLException{
+		
+	}//insertMember
+	
+	
+	/**
+	 * 회원의 정보를 수정하는 일
+	 * @param MemberInfoVO
+	 */
+	public void updateMember(MemberInfoVO miv) throws SQLException{
+		
+	}//updateMember
+	
+	
+	/**
+	 * 입력한 메세지를 보낸메세지에 추가하는 일
+	 * @param MsgListVO
+	 */
+	public void insertSendMsg(MsgListVO mlv) throws SQLException{
+		
+	}//insertSendMsg
+	
+	
+	/**
+	 *  메세지정보를 받은 메세지에 추가하는 일
+	 * @param MsgListVO
+	 */
+	public void insertGetMsg(MsgListVO mlv) throws SQLException{
+		
+	}//insertGetMsg
+	
+	
+	/**
+	 * 자신의 아이디를 조회하는 일
+	 * @param IdVO
+	 * @return String
+	 */
+	public String selectMyId(IdVO iv) throws SQLException{
+		String id="";
+		
+		return id;
+	}//selectMyId
+	
+	
+	/**
+	 * 자신의 비밀번호를 조회하는 일
+	 * @param PassVO
+	 * @return String
+	 */
+	public String selectMyPass(PassVO pv) throws SQLException{
+		String pass="";
+		
+		return pass;
+	}//selectMyPass
+	
+	
+	/**
+	 * 휴대전화번호를 추가하는 일
+	 * @param PhoneVO
+	 */
+	public void insertPhone(PhoneVO phv) throws SQLException{
+		
+	}//insertPhone
+	
+	
+	/**
+	 * 휴대전화번호를 조회하는 일
+	 * @param itemCode
+	 * @return String
+	 */
+	public String selectPhone(String itemCode) throws SQLException{
+		String phone="";
+		
+		return phone;
+	}//selectPhone
+	
+	
+	/**
+	 * 나의 회원정보를 조회하는 일
+	 * @param id
+	 * @return MyInfoVO
+	 */
+	public MyInfoVO selectMyInfo(String id) throws SQLException{
+		MyInfoVO miv=null;
+		
+		return  miv;
+	}//selectMyInfo
+	
+	
+	/**
+	 * 메세지의 내용을 조회하는 일
+	 * @param id
+	 * @return String
+	 */
+	public String selectMsgInfo(String id) throws SQLException{
+		String msg="";
+		
+		return msg;
+	}//selectMsgInfo
 	
 }//class
