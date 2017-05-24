@@ -44,9 +44,9 @@ public class MsgWriteView extends JFrame {
 		jpMsg.setLayout(new BorderLayout());
 		
 		//배치
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 285);
 		jsMsg.setBounds(5, 5, 425, 195);
-		jpButton.setBounds(170, 205, 270, 100);
+		jpButton.setBounds(170, 200, 270, 100);
 		
 		//삽입
 		jpSend.add(jbSend);
@@ -73,7 +73,11 @@ public class MsgWriteView extends JFrame {
         });
     }//joinView
    
-   public static void main(String[] args) {
+   /**
+    * 검정과정. 추후 삭제요망
+ * @param args
+ */
+public static void main(String[] args) {
         new MsgWriteView();
    }//main
    
