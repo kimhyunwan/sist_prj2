@@ -19,6 +19,11 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+/**
+ * 회원 가입 창
+ * @author 장재훈
+ *
+ */
 public class JoinView extends JFrame {
 
    private JTextField jtfName, jtfSsn, jtfId, jtfAnswer;
