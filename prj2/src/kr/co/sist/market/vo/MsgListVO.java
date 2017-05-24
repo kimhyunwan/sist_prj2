@@ -1,19 +1,17 @@
 package kr.co.sist.market.vo;
 
 public class MsgListVO {
-	private String id, item, msgDate;
-	private boolean flag;
+	private String id, item, msgDate, flag;
 	
-	public MsgListVO(String id, String item, String msgDate, boolean flag) {
-		super();
+	public MsgListVO() {
+	
+	}
+
+	public MsgListVO(String id, String item, String msgDate, String flag) {
 		this.id = id;
 		this.item = item;
 		this.msgDate = msgDate;
 		this.flag = flag;
-	}
-
-	public MsgListVO() {
-		super();
 	}
 
 	public String getId() {
@@ -40,11 +38,11 @@ public class MsgListVO {
 		this.msgDate = msgDate;
 	}
 
-	public boolean isFlag() {
+	public String getFlag() {
 		return flag;
 	}
 
-	public void setFlag(boolean flag) {
+	public void setFlag(String flag) {
 		this.flag = flag;
 	}
 	

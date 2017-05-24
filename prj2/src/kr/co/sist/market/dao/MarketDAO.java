@@ -41,7 +41,7 @@ public class MarketDAO {
 		Properties prop=new Properties();
 		try {
 		
-			File file=new File("C:/dev/workspace/market_prj/src/kr/co/sist/market/dao/market.properties");
+			File file=new File("C:/dev/sist_prj2/prj2/src/kr/co/sist/market/dao/market.properties");
 		
 			if(file.exists()){
 				prop.load(new FileInputStream(file));
@@ -68,7 +68,13 @@ public class MarketDAO {
 		return con;
 	}//getConnection
 	
-	public List<ItemListVO> selectItemList(int typeCode){
+	/**
+	 * 물품 목록을 보이기 위한 method
+	 * @param typeCode
+	 * @return list
+	 * @throws SQLException 
+	 */
+	public List<ItemListVO> selectItemList(int typeCode) throws SQLException{
 		List<ItemListVO> list=new ArrayList<ItemListVO>();
 		
 		Connection con = null;
@@ -77,42 +83,315 @@ public class MarketDAO {
 		
 		try {
 			con=getConnection();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+			String selectItem="select item_name, item_code, item_info, hiredate, item_image, price from product";
+			
+			if(typeCode!=0){
+				selectItem+="where category_num=?";
+			}
+			pstmt=con.prepareStatement(selectItem);
+			pstmt.setInt(1, typeCode);
+			
+			rs=pstmt.executeQuery();
+			
+			ItemListVO ilv=null;
+			
+			while(rs.next()){
+				ilv=new ItemListVO();
+				ilv.setItemName(rs.getString("item_name"));
+				ilv.setItemCode(rs.getString("item_code"));
+				ilv.setItemInfo(rs.getString("item_info"));
+				ilv.setHiredate(rs.getString("hiredate"));
+				ilv.setImage(rs.getString("item_image"));
+				ilv.setPrice(rs.getInt("price"));
+				
+				list.add(ilv);
+			}//end while
+		} finally{
+			if (rs != null) {
+				rs.close();
+			} // end if
+
+			if (pstmt != null) {
+				pstmt.close();
+			} // end if
+
+			if (con != null) {
+				con.close();
+			} // end if
+		}//end finally
 		return list;
 	}//selectItemList
 	
-	public List<SellBuyVO> selectSellList(){
+	/**
+	 * 판매정보 리스트를 보여주기 위한 method
+	 * @return list
+	 * @throws SQLException
+	 */
+	public List<SellBuyVO> selectSellList(boolean flag) throws SQLException{
 		List<SellBuyVO> list=new ArrayList<SellBuyVO>();
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try{
+			con=getConnection();
+			
+			String selectSell="select buyer_id, item_code, item_name, sold_date from product where sold_flag=?";
+			pstmt=con.prepareStatement(selectSell);
+			if(flag){
+				pstmt.setString(1, "Y");
+			}else{
+				pstmt.setString(1, "N");
+			}
+			
+			rs=pstmt.executeQuery();
+			
+			SellBuyVO sbv=null;
+			while(rs.next()){
+				sbv=new SellBuyVO();
+				sbv.setId(rs.getString("buyer_id"));
+				sbv.setItemCode(rs.getString("item_code"));
+				sbv.setItemName(rs.getString("item_name"));
+				sbv.setTradeDate(rs.getString("sold_date"));
+				
+				list.add(sbv);
+			}//end while
+			
+		}finally{
+			if (rs != null) {
+				rs.close();
+			} // end if
+
+			if (pstmt != null) {
+				pstmt.close();
+			} // end if
+
+			if (con != null) {
+				con.close();
+			} // end if
+		}//end finally
 		return list;
 	}//selectSellList
 	
-	public SellerInfoVO selectSellerInfo(String ItemCode){
-		SellerInfoVO seller=new SellerInfoVO();
-		return seller;
+	/**
+	 * 판매자 정보를 조회하는 method
+	 * @param ItemCode
+	 * @return SellerInfoVO
+	 * @throws SQLException 
+	 */
+	public SellerInfoVO selectSellerInfo(String itemCode) throws SQLException{
+		SellerInfoVO siv=new SellerInfoVO();
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try{
+			con = getConnection();
+			String selectSeller="select m.id id, m.info info, m.image image from member m, product pwhere (m.id=p.id) and item_code=?";
+			pstmt=con.prepareStatement(selectSeller);
+			
+			pstmt.setString(1, itemCode);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()){
+				siv=new SellerInfoVO();
+				siv.setId(rs.getString("id"));
+				siv.setInfo(rs.getString("info"));
+				siv.setImg(rs.getString("image"));
+			}//end if
+			
+		}finally{
+			if (rs != null) {
+				rs.close();
+			} // end if
+
+			if (pstmt != null) {
+				pstmt.close();
+			} // end if
+
+			if (con != null) {
+				con.close();
+			} // end if
+		}
+		
+		return siv;
 	}//selectSellerInfo
 	
 	public void updateSellComp(boolean flag){
 		
 	}//updateSellComp
 	
-	public List<SellBuyVO> selectBuyList(){
+	/**
+	 * 내 구매정보를 보이기 위한 method
+	 * @param flag
+	 * @param id
+	 * @return list
+	 * @throws SQLException
+	 */
+	public List<SellBuyVO> selectBuyList(boolean flag, String id) throws SQLException{
 		List<SellBuyVO> list=new ArrayList<SellBuyVO>();
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try{
+			con=getConnection();
+			
+			String selectSell="select id, item_code, item_name, sold_date from product where sold_flag=? and buyer_id=?";
+			pstmt=con.prepareStatement(selectSell);
+			if(flag){
+				pstmt.setString(1, "y");
+			}else{
+				pstmt.setString(1, "n");
+			}
+			pstmt.setString(2, id);
+			rs=pstmt.executeQuery();
+			
+			SellBuyVO sbv=null;
+			while(rs.next()){
+				sbv=new SellBuyVO();
+				sbv.setId(rs.getString("buyer_id"));
+				sbv.setItemCode(rs.getString("item_code"));
+				sbv.setItemName(rs.getString("item_name"));
+				sbv.setTradeDate(rs.getString("sold_date"));
+				
+				list.add(sbv);
+			}//end while
+			
+		}finally{
+			if (rs != null) {
+				rs.close();
+			} // end if
+
+			if (pstmt != null) {
+				pstmt.close();
+			} // end if
+
+			if (con != null) {
+				con.close();
+			} // end if
+		}
 		return list;
 	}//selectBuyList
 	
-	public void updateBuyComp(boolean flag){
-		
+	/**
+	 * 구매가 확정 플래그로 변경해주는 method
+	 * @param itemCode
+	 * @param buyerId
+	 * @throws SQLException
+	 */
+	public void updateBuyComp(String itemCode, String buyerId) throws SQLException{
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try{
+			con=getConnection();
+			
+			String updateBuy="update product set sold_flag='y', buyer_id=?, sold_date=sysdate where item_code=?";
+			pstmt=con.prepareStatement(updateBuy);
+			
+			pstmt.setString(1, buyerId);
+			pstmt.setString(2, itemCode);
+			
+			pstmt.executeUpdate();
+		}finally{
+			if (pstmt != null) {
+				pstmt.close();
+			} // end if
+
+			if (con != null) {
+				con.close();
+			} // end if
+		}
 	}//updateBuyComp
 	
-	public List<MsgListVO> selectSendMsgList(){
+	public List<MsgListVO> selectSendMsgList(String id) throws SQLException{
 		List<MsgListVO> list=new ArrayList<MsgListVO>();
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try{
+			con=getConnection();
+			
+			String selectMsg="select send_id, item_code, send_date, msg_check_flag from send_msg where id=?";
+			pstmt=con.prepareStatement(selectMsg);
+			
+			pstmt.setString(1, id);
+			
+			rs=pstmt.executeQuery();
+			
+			MsgListVO mlv=null;
+			while(rs.next()){
+				mlv=new MsgListVO();
+				mlv.setId(rs.getString("send_id"));
+				mlv.setItem(rs.getString("item_code"));
+				mlv.setMsgDate(rs.getString("send_date"));
+				mlv.setFlag(rs.getString("msg_check_flag"));
+				
+				list.add(mlv);
+			}//end while
+		}finally{
+			if (rs != null) {
+				rs.close();
+			} // end if
+
+			if (pstmt != null) {
+				pstmt.close();
+			} // end if
+
+			if (con != null) {
+				con.close();
+			} // end if
+		}//end finally
+		
 		return list;
 	}//selectSendMsgList
 	
-	public List<MsgListVO> selectGetMsgList(){
+	public List<MsgListVO> selectGetMsgList(String id) throws SQLException{
 		List<MsgListVO> list=new ArrayList<MsgListVO>();
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try{
+			con=getConnection();
+			
+			String selectMsg="select send_id, item_code, send_date, msg_check_flag from receive_msg where id=?";
+			pstmt=con.prepareStatement(selectMsg);
+			
+			pstmt.setString(1, id);
+			
+			rs=pstmt.executeQuery();
+			MsgListVO mlv=null;
+			while(rs.next()){
+				mlv=new MsgListVO();
+				mlv.setId(rs.getString("send_id"));
+				mlv.setItem(rs.getString("item_code"));
+				mlv.setMsgDate(rs.getString("send_date"));
+				mlv.setFlag(rs.getString("msg_check_flag"));
+				
+				list.add(mlv);
+			}//end while
+		}finally{
+			if (rs != null) {
+				rs.close();
+			} // end if
+
+			if (pstmt != null) {
+				pstmt.close();
+			} // end if
+
+			if (con != null) {
+				con.close();
+			} // end if
+		}
+		
 		return list;
 	}//selectGetMsgList
 	
@@ -120,5 +399,7 @@ public class MarketDAO {
 		
 	}//updateChkMsg
 	
-	
+	public static void main(String[] args) throws SQLException{
+		System.out.println(MarketDAO.getInstance().getConnection());
+	}
 }//class
