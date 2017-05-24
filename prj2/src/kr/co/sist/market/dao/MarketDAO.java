@@ -19,6 +19,7 @@ import kr.co.sist.market.vo.ItemListVO;
 import kr.co.sist.market.vo.MsgListVO;
 import kr.co.sist.market.vo.SellBuyVO;
 import kr.co.sist.market.vo.SellerInfoVO;
+import kr.co.sist.market.vo.SellingVO;
 
 public class MarketDAO {
 	private static MarketDAO m_dao;
@@ -123,7 +124,7 @@ public class MarketDAO {
 	}//selectItemList
 	
 	/**
-	 * 판매정보 리스트를 보여주기 위한 method
+	 * 판매완료정보 리스트를 보여주기 위한 method
 	 * @return list
 	 * @throws SQLException
 	 */
@@ -137,13 +138,8 @@ public class MarketDAO {
 		try{
 			con=getConnection();
 			
-			String selectSell="select buyer_id, item_code, item_name, sold_date from product where sold_flag=?";
+			String selectSell="select buyer_id, item_code, item_name, sold_date from product where sold_flag='y";
 			pstmt=con.prepareStatement(selectSell);
-			if(flag){
-				pstmt.setString(1, "Y");
-			}else{
-				pstmt.setString(1, "N");
-			}
 			
 			rs=pstmt.executeQuery();
 			
@@ -173,6 +169,12 @@ public class MarketDAO {
 		}//end finally
 		return list;
 	}//selectSellList
+	
+	public List<SellingVO> selectSellWaitList(){
+		List<SellingVO> list=new ArrayList<SellingVO>();
+		
+		return list;
+	}
 	
 	/**
 	 * 판매자 정보를 조회하는 method
@@ -308,6 +310,12 @@ public class MarketDAO {
 		}
 	}//updateBuyComp
 	
+	/**
+	 * 보낸 메시지 리스트를 조회하는 method
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
 	public List<MsgListVO> selectSendMsgList(String id) throws SQLException{
 		List<MsgListVO> list=new ArrayList<MsgListVO>();
 		
@@ -318,7 +326,7 @@ public class MarketDAO {
 		try{
 			con=getConnection();
 			
-			String selectMsg="select send_id, item_code, send_date, msg_check_flag from send_msg where id=?";
+			String selectMsg="select msg_num, send_id, item_code, send_date, msg_check_flag from send_msg where id=?";
 			pstmt=con.prepareStatement(selectMsg);
 			
 			pstmt.setString(1, id);
@@ -328,6 +336,7 @@ public class MarketDAO {
 			MsgListVO mlv=null;
 			while(rs.next()){
 				mlv=new MsgListVO();
+				mlv.setMsgCode(rs.getString("msg_num"));
 				mlv.setId(rs.getString("send_id"));
 				mlv.setItem(rs.getString("item_code"));
 				mlv.setMsgDate(rs.getString("send_date"));
@@ -352,6 +361,12 @@ public class MarketDAO {
 		return list;
 	}//selectSendMsgList
 	
+	/**
+	 * 받은 메시지 리스트를 조회하는 method
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
 	public List<MsgListVO> selectGetMsgList(String id) throws SQLException{
 		List<MsgListVO> list=new ArrayList<MsgListVO>();
 		
@@ -362,7 +377,7 @@ public class MarketDAO {
 		try{
 			con=getConnection();
 			
-			String selectMsg="select send_id, item_code, send_date, msg_check_flag from receive_msg where id=?";
+			String selectMsg="select msg_num, send_id, item_code, send_date, msg_check_flag from receive_msg where id=?";
 			pstmt=con.prepareStatement(selectMsg);
 			
 			pstmt.setString(1, id);
@@ -371,6 +386,7 @@ public class MarketDAO {
 			MsgListVO mlv=null;
 			while(rs.next()){
 				mlv=new MsgListVO();
+				mlv.setMsgCode(rs.getString("msg_num"));
 				mlv.setId(rs.getString("send_id"));
 				mlv.setItem(rs.getString("item_code"));
 				mlv.setMsgDate(rs.getString("send_date"));
@@ -395,9 +411,34 @@ public class MarketDAO {
 		return list;
 	}//selectGetMsgList
 	
-	public void updateChkMsg(){
+	/**
+	 * 메시지 읽기 확인을 업데이트하는 method
+	 * @param msgCode
+	 * @throws SQLException
+	 */
+	public void updateChkSendMsg(String msgCode) throws SQLException{
+		Connection con = null;
+		PreparedStatement pstmt = null;
 		
-	}//updateChkMsg
+		try{
+			con=getConnection();
+			
+			String updateFlag="update send_msg set msg_check_flag='y' where msg_num=?";
+			pstmt=con.prepareStatement(updateFlag);
+			
+			pstmt.setString(1, msgCode);
+			
+			pstmt.executeUpdate();
+		}finally{
+			if (pstmt != null) {
+				pstmt.close();
+			} // end if
+
+			if (con != null) {
+				con.close();
+			} // end if	
+		}
+	}//updateChkSendMsg
 	
 	public static void main(String[] args) throws SQLException{
 		System.out.println(MarketDAO.getInstance().getConnection());

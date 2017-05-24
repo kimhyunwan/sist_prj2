@@ -1,17 +1,26 @@
 package kr.co.sist.market.vo;
 
 public class MsgListVO {
-	private String id, item, msgDate, flag;
+	private String msgCode, id, item, msgDate, flag;
 	
 	public MsgListVO() {
 	
 	}
 
-	public MsgListVO(String id, String item, String msgDate, String flag) {
+	public MsgListVO(String msgCode, String id, String item, String msgDate, String flag) {
+		this.msgCode = msgCode;
 		this.id = id;
 		this.item = item;
 		this.msgDate = msgDate;
 		this.flag = flag;
+	}
+	
+	public String getMsgCode() {
+		return msgCode;
+	}
+
+	public void setMsgCode(String msgCode) {
+		this.msgCode = msgCode;
 	}
 
 	public String getId() {
