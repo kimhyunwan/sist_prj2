@@ -132,7 +132,6 @@ public class MarketDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		//안올라간다
 		try{ 
 			con=getConnection();
 			
