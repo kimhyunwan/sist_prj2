@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 /**
- * 탭을 가지고 사용자에게 보여주는 Form
+ * 탭을 가지고 사용자에게 보여주는 Form.
  * @author user
  *
  */
