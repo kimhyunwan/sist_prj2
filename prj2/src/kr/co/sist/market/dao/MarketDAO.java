@@ -142,7 +142,7 @@ public class MarketDAO {
 			pstmt=con.prepareStatement(selectSell);
 			
 			rs=pstmt.executeQuery();
-			
+			 
 			SellBuyVO sbv=null;
 			while(rs.next()){
 				sbv=new SellBuyVO();
@@ -175,6 +175,10 @@ public class MarketDAO {
 		
 		return list;
 	}
+	
+	public void updateSellComp(boolean flag){
+		
+	}//updateSellComp
 	
 	/**
 	 * 판매자 정보를 조회하는 method
@@ -221,10 +225,6 @@ public class MarketDAO {
 		
 		return siv;
 	}//selectSellerInfo
-	
-	public void updateSellComp(boolean flag){
-		
-	}//updateSellComp
 	
 	/**
 	 * 내 구매정보를 보이기 위한 method
