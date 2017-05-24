@@ -45,7 +45,12 @@ public class SellBuyVO {
 	public void setTradeDate(String tradeDate) {
 		this.tradeDate = tradeDate;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "SellBuyVO [id=" + id + ", itemCode=" + itemCode + ", itemName=" + itemName + ", tradeDate=" + tradeDate
+				+ "]";
+	}
 	
 
 }
