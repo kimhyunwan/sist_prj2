@@ -13,6 +13,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
+import kr.co.sist.market.evt.MsgReadViewEvt;
+
 public class MsgReadView extends JFrame {
 	JTextArea jtaMsg;
 	JButton jbSend, jbOk;
@@ -58,6 +60,11 @@ public class MsgReadView extends JFrame {
 		add(jsMsg);
 		add(jpButton);
 		
+		//이벤트처리
+		MsgReadViewEvt mrve=new MsgReadViewEvt(this);
+		jbOk.addActionListener(mrve);
+		jbSend.addActionListener(mrve);
+		
 		//가시화
 		setVisible(true);
 		
@@ -73,6 +80,23 @@ public class MsgReadView extends JFrame {
    public static void main(String[] args) {
         new MsgReadView();
    }//main
+
+public JTextArea getJtaMsg() {
+	return jtaMsg;
+}
+
+public void setJtaMsg(JTextArea jtaMsg) {
+	this.jtaMsg = jtaMsg;
+}
+
+public JButton getJbSend() {
+	return jbSend;
+}
+
+public JButton getJbOk() {
+	return jbOk;
+}
+   
    
 }//class
 
