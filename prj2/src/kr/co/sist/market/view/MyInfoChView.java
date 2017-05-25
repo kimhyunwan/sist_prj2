@@ -13,6 +13,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import kr.co.sist.market.evt.MyInfoChViewEvt;
+
 
 @SuppressWarnings("serial")
 public class MyInfoChView extends JFrame {
@@ -80,6 +82,10 @@ public class MyInfoChView extends JFrame {
 		add(jbImage);
 		add(jbChange);
 		add(jbCancel);
+		
+		//이벤트 추가
+		MyInfoChViewEvt iive = new MyInfoChViewEvt(this);
+		jbCancel.addActionListener(iive);
 		
 		//윈도우의 크기
 		setBounds(300,80,630,470);

@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import kr.co.sist.market.evt.LoginViewEvt;
+
 
 @SuppressWarnings("serial")
 public class LoginView extends JFrame {
@@ -50,6 +52,12 @@ public class LoginView extends JFrame {
 		add(jbJoin);
 		add(jbFind);
 		
+		//이벤트 추가
+		LoginViewEvt lve = new LoginViewEvt(this);
+		jbLogin.addActionListener(lve);
+		jbJoin.addActionListener(lve);
+		jbFind.addActionListener(lve);
+		
 		//윈도우의 크기
 		setBounds(300,80,425,180);
 		//가시화
@@ -61,6 +69,7 @@ public class LoginView extends JFrame {
 				dispose();                                                     
 			}//windowClosing
 		});
+		
 	}//LoginView
 	public JTextField getJtfId() {
 		return jtfId;

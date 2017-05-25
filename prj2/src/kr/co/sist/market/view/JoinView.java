@@ -153,12 +153,5 @@ public class JoinView extends JFrame {
         });
     }//joinView
        
-   
-   public static void main(String[] args) {
-        new JoinView();
-   }//main
-   
-   
-   
-   
+
 }//class

@@ -12,6 +12,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import kr.co.sist.market.evt.MsgListViewEvt;
+import kr.co.sist.market.evt.MyInfoChViewEvt;
+
 
 /**
  * 탭을 가지고 사용자에게 보여주는 Form
@@ -23,7 +26,7 @@ public class MsgListView extends JFrame {
 	private JTable jtSendMsgList,jtReceiveMsgList    ;
 	private DefaultTableModel dtmSendMsgList,dtmReceiveMsgList;
 	private JTabbedPane jtpTab;
-	private JButton jbClose;
+	private JButton jbSClose,jbRClose;
 	
 	public MsgListView(){
 		super("메세지 확인");
@@ -31,7 +34,7 @@ public class MsgListView extends JFrame {
 		String[] columnNames={"받은사람","상품명","메세지 보낸날짜","메세지 확인 여부"};
 		String[][] data = {};
 		
-		jbClose = new JButton("닫기");
+		jbSClose = new JButton("닫기");
 		
 
 		dtmSendMsgList=new DefaultTableModel(data, columnNames){
@@ -65,11 +68,11 @@ public class MsgListView extends JFrame {
 		JScrollPane jspSendMsgList = new JScrollPane(jtSendMsgList);
 		
 		jspSendMsgList.setBounds(0, 0, 800, 500);
-		jbClose.setBounds(700, 505, 60, 25);
+		jbSClose.setBounds(700, 505, 60, 25);
 		
 		JPanel jpSendMsgList = new JPanel();
 		jpSendMsgList.add(jspSendMsgList);
-		jpSendMsgList.add(jbClose);
+		jpSendMsgList.add(jbSClose);
 		//수동배치
 		jpSendMsgList.setLayout(null);
 
@@ -77,7 +80,7 @@ public class MsgListView extends JFrame {
 		String[] columnRNames={"보낸사람","상품명","메세지 받은날짜","메세지 확인 여부"};
 		String[][] rdata = {};
 		
-		jbClose = new JButton("닫기");
+		jbRClose = new JButton("닫기");
 		
 
 		dtmReceiveMsgList=new DefaultTableModel(rdata, columnRNames){
@@ -111,11 +114,11 @@ public class MsgListView extends JFrame {
 		JScrollPane jspReceiveMsgList = new JScrollPane(jtReceiveMsgList);
 		
 		jspReceiveMsgList.setBounds(0, 0, 800, 500);
-		jbClose.setBounds(700, 505, 60, 25);
+		jbRClose.setBounds(700, 505, 60, 25);
 		
 		JPanel jpReceiveMsgList = new JPanel();
 		jpReceiveMsgList.add(jspReceiveMsgList);
-		jpReceiveMsgList.add(jbClose);
+		jpReceiveMsgList.add(jbRClose);
 		//수동배치
 		jpReceiveMsgList.setLayout(null);
 		///////////////////////////////////////////////////////////////////////////////////////////////
@@ -127,6 +130,11 @@ public class MsgListView extends JFrame {
 
 		jpSendMsgList.setBackground(Color.WHITE);
 		jpReceiveMsgList.setBackground(Color.WHITE);
+		
+		//이벤트 추가
+		MsgListViewEvt mlve = new MsgListViewEvt(this);
+		jbSClose.addActionListener(mlve);
+		jbRClose.addActionListener(mlve);
 		
 		addWindowListener(new WindowAdapter(){
 
@@ -141,6 +149,40 @@ public class MsgListView extends JFrame {
 		setBounds(10,10,800,600);
 		setVisible(true);
 	}//MenuForm
+
+
+	public JTable getJtSendMsgList() {
+		return jtSendMsgList;
+	}
+
+
+	public JTable getJtReceiveMsgList() {
+		return jtReceiveMsgList;
+	}
+
+
+	public DefaultTableModel getDtmSendMsgList() {
+		return dtmSendMsgList;
+	}
+
+
+	public DefaultTableModel getDtmReceiveMsgList() {
+		return dtmReceiveMsgList;
+	}
+
+
+	public JTabbedPane getJtpTab() {
+		return jtpTab;
+	}
+
+	public JButton getJbSClose() {
+		return jbSClose;
+	}
+
+
+	public JButton getJbRClose() {
+		return jbRClose;
+	}
 
 
 	public static void main(String[] args) {

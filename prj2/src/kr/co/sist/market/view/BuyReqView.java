@@ -10,6 +10,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import kr.co.sist.market.evt.BuyReqViewEvt;
+import kr.co.sist.market.evt.ItemInfoViewEvt;
+
 
 @SuppressWarnings("serial")
 public class BuyReqView extends JFrame {
@@ -52,6 +55,10 @@ public class BuyReqView extends JFrame {
 		add(jtfTotalPrice);
 		add(jbBuyReq);
 		add(jbCancel);
+		
+		//이벤트 추가
+		BuyReqViewEvt brve = new BuyReqViewEvt(this);
+		jbCancel.addActionListener(brve);
 		
 		//윈도우의 크기
 		setBounds(300,80,520,320);

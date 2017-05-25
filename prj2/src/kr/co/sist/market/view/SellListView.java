@@ -137,7 +137,7 @@ public class SellListView extends JFrame {
 			
 		});
 		
-		setBounds(10,10,800,600);
+		setBounds(50,50,800,600);
 		setVisible(true);
 	}//MenuForm
 

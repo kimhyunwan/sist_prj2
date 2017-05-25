@@ -11,6 +11,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import kr.co.sist.market.evt.ItemInfoViewEvt;
+import kr.co.sist.market.evt.SellerInfoViewEvt;
+
 
 @SuppressWarnings("serial")
 public class SellerInfoView extends JFrame {
@@ -47,6 +50,11 @@ public class SellerInfoView extends JFrame {
 		add(jspIntro);
 		add(jbMsg);
 		add(jbBuyReq);
+		
+		//이벤트 추가
+		SellerInfoViewEvt sive = new SellerInfoViewEvt(this);
+		jbMsg.addActionListener(sive);
+		jbBuyReq.addActionListener(sive);
 		
 		//윈도우의 크기
 		setBounds(300,80,520,320);
