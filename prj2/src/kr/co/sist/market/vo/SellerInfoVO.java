@@ -36,6 +36,11 @@ public class SellerInfoVO {
 	public void setImg(String img) {
 		this.img = img;
 	}
+
+	@Override
+	public String toString() {
+		return "SellerInfoVO [id=" + id + ", info=" + info + ", img=" + img + "]";
+	}
 	
 	
 }
