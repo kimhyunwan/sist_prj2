@@ -29,6 +29,7 @@ import kr.co.sist.market.vo.PhoneVO;
 import kr.co.sist.market.vo.SellerInfoVO;
 
 /**
+ * test
  * 고객중심의 일을 처리하는 DAO
  * @author user
  */
