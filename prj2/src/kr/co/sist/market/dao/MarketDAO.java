@@ -587,8 +587,8 @@ public class MarketDAO {
 	public static void main(String[] args) throws SQLException{
 		MarketDAO md=new MarketDAO();
 		
-		//System.out.println(MarketDAO.getInstance().getConnection());
-
+//		System.out.println(MarketDAO.getInstance().getConnection());
+//
 //		//selectItemList 단위테스트
 //		List<ItemListVO> list1=md.selectItemList(2);
 //		System.out.println(list1);
