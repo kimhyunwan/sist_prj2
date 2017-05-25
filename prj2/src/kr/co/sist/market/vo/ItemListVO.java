@@ -53,6 +53,11 @@ public class ItemListVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "ItemListVO [itemName=" + itemName + ", itemCode=" + itemCode + ", itemInfo=" + itemInfo + ", hiredate="
+				+ hiredate + ", image=" + image + ", price=" + price + "]";
+	}
 	
 }
