@@ -468,7 +468,6 @@ public class CustomerDAO {
 		return  miv;
 	}//selectMyInfo
 	
-	
 	/**
 	 * 메세지의 내용을 조회하는 일
 	 * @param id
