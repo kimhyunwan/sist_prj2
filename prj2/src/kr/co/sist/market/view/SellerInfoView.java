@@ -13,7 +13,6 @@ import javax.swing.JTextField;
 
 import kr.co.sist.market.evt.SellerInfoViewEvt;
 
-
 @SuppressWarnings("serial")
 public class SellerInfoView extends JFrame {
 	private JButton jbMsg,jbBuyReq;

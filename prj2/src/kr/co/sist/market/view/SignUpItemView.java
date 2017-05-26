@@ -123,7 +123,6 @@ public class SignUpItemView extends JFrame {
 	        });
 	    }//joinView
 	       
-	   
 	   public JTextField getJtfItemName() {
 		return jtfItemName;
 	}

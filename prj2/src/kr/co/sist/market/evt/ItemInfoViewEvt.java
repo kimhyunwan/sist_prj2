@@ -27,5 +27,4 @@ public class ItemInfoViewEvt extends WindowAdapter implements ActionListener {
 			iiv.dispose();
 		}//end if
 	}
-
 }

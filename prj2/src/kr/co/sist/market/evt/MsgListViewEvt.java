@@ -21,4 +21,5 @@ public class MsgListViewEvt extends MouseAdapter implements ActionListener {
 			mlv.dispose();
 		}
 	}
+	
 }

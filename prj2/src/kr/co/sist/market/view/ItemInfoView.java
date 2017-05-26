@@ -83,7 +83,6 @@ public class ItemInfoView extends JFrame {
 		jbBuyReq.addActionListener(iive);
 		jbCancel.addActionListener(iive);
 
-		
 		//윈도우의 크기
 		setBounds(300,80,470,400);
 		//가시화

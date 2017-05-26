@@ -18,7 +18,6 @@ import javax.swing.table.DefaultTableModel;
 
 import kr.co.sist.market.evt.MainViewEvt;
 
-
 /**
  * 탭을 가지고 사용자에게 보여주는 Form
  * @author user

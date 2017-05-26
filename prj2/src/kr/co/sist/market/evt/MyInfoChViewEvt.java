@@ -18,4 +18,5 @@ public class MyInfoChViewEvt extends WindowAdapter implements ActionListener {
 			micv.dispose();
 		}//end if
 	}
+	
 }

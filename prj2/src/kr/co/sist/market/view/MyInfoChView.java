@@ -125,5 +125,4 @@ public class MyInfoChView extends JFrame {
 	public static void main(String[] args) {
 		new MyInfoChView();
 	}//main
-
 }//class

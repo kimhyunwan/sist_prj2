@@ -33,7 +33,6 @@ public class BuyListView extends JFrame {
 		
 		jbClose = new JButton("닫기");
 		
-
 		dtmComplet=new DefaultTableModel(data, columnNames){
 			//편집불가
 			@Override

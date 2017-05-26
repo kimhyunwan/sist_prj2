@@ -24,5 +24,4 @@ public class SellerInfoViewEvt extends WindowAdapter implements ActionListener {
 			new BuyReqView();
 		}//end if
 	}
-
 }

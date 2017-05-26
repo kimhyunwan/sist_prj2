@@ -12,7 +12,6 @@ import javax.swing.JTextField;
 
 import kr.co.sist.market.evt.BuyReqViewEvt;
 
-
 @SuppressWarnings("serial")
 public class BuyReqView extends JFrame {
 	private JTextField jtfId, jtfTotalPrice;

@@ -16,7 +16,6 @@ public class LoginViewEvt extends WindowAdapter implements ActionListener {
 		this.lv=lv;
 	}//LoginViewEvt
 	
-	
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		

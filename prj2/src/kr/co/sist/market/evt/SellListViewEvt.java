@@ -22,4 +22,5 @@ public class SellListViewEvt extends WindowAdapter implements ActionListener {
 			slv.dispose();
 		}//end if
 	}
+	
 }

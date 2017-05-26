@@ -18,5 +18,4 @@ public class JoinViewEvt extends WindowAdapter implements ActionListener {
 			jv.dispose();
 		}//end if
 	}
-
 }

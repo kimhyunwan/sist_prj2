@@ -21,4 +21,5 @@ public class BuyListViewEvt extends WindowAdapter implements ActionListener {
 			blv.dispose();
 		}//end if
 	}
+	
 }

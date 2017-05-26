@@ -18,4 +18,5 @@ public class SignUpItemViewEvt extends WindowAdapter implements ActionListener {
 			suiv.dispose();
 		}//end if
 	}
+	
 }

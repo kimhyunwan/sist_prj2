@@ -83,7 +83,6 @@ public class JoinView extends JFrame {
       jpimg.setLayout(new BorderLayout());
       jpbutton.setLayout(new FlowLayout());
       
-      
       //jpSsn»ðÀÔ
       jpSsn.add(jtfSsn);
       jpSsn.add(jlhyphen);

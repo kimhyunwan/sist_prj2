@@ -18,7 +18,6 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 		this.mv=mv;
 	}//MainViewEvtEvt
 	
-	
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource()==mv.getJbMyInfoCh()){
