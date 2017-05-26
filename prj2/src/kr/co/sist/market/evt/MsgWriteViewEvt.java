@@ -11,6 +11,10 @@ import javax.swing.JOptionPane;
 
 import kr.co.sist.market.view.MsgWriteView;
 
+/**
+ * @author user
+ *
+ */
 public class MsgWriteViewEvt extends WindowAdapter implements ActionListener {
 	
 	private MsgWriteView mwv;

@@ -16,6 +16,10 @@ import javax.swing.JTextField;
 
 import kr.co.sist.market.evt.FindIdViewEvt;
 
+/**
+ * @author user
+ *
+ */
 public class FindIdView extends JFrame {
 
 	private JTextField jtfIdName, jtfIdSsn, jtfPwName, jtfPwSsn, jtfId, jtfAnswer;
