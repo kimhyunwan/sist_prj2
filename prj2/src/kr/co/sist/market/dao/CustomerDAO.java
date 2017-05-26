@@ -457,7 +457,6 @@ public class CustomerDAO {
 		return phone;
 	}//selectPhone
 	
-	
 	/**
 	 * 나의 회원정보를 조회하는 일
 	 * @param id
