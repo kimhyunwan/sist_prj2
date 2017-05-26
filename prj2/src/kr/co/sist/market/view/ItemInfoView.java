@@ -12,16 +12,17 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import kr.co.sist.market.evt.ItemInfoViewEvt;
+import kr.co.sist.market.vo.ItemListVO;
 
 @SuppressWarnings("serial")
 public class ItemInfoView extends JFrame {
 	private JTextField jtfItemName, jtfItemType, jtfPrice, jtfHiredate;
 	private JButton jbSellerInfo,jbBuyReq,jbCancel;
 	
-	public ItemInfoView(){
+	public ItemInfoView(JFrame jf, ItemListVO iv){
 		super("판매 글 제목");
 		ImageIcon pro = new ImageIcon("C:/dev/workspace/prj22/src/kr/co/sist/market/img/profile.jpg");
-		JLabel proImg = new JLabel(pro);
+		JLabel itemImg = new JLabel(pro);
 		JLabel jlItemName = new JLabel("상품명");
 		JLabel jlItemType = new JLabel("제품분류");
 		JLabel jlPrice = new JLabel("가격");
@@ -42,7 +43,7 @@ public class ItemInfoView extends JFrame {
 		//자동배치 해제
 		setLayout(null);
 		//컴포넌트의 배치 위치설정
-		proImg.setBounds(20, 20, 200, 200);
+		itemImg.setBounds(20, 20, 200, 200);
 		jlItemName.setBounds(235, 25, 50, 15);
 		jlItemType.setBounds(235, 60, 70, 15);
 		jlPrice.setBounds(235, 95, 70, 15);
@@ -59,7 +60,7 @@ public class ItemInfoView extends JFrame {
 		jbBuyReq.setBounds(235, 300, 90, 30);
 		jbCancel.setBounds(330, 300, 90, 30);
 		//컴포넌트 배치
-		add(proImg);
+		add(itemImg);
 		
 		add(jlItemName);
 		add(jlItemType);
@@ -116,8 +117,26 @@ public class ItemInfoView extends JFrame {
 	public JButton getJbCancel() {
 		return jbCancel;
 	}
-	public static void main(String[] args) {
-		new ItemInfoView();
-	}//main
+	public void setJtfItemName(JTextField jtfItemName) {
+		this.jtfItemName = jtfItemName;
+	}
+	public void setJtfItemType(JTextField jtfItemType) {
+		this.jtfItemType = jtfItemType;
+	}
+	public void setJtfPrice(JTextField jtfPrice) {
+		this.jtfPrice = jtfPrice;
+	}
+	public void setJtfHiredate(JTextField jtfHiredate) {
+		this.jtfHiredate = jtfHiredate;
+	}
+	public void setJbSellerInfo(JButton jbSellerInfo) {
+		this.jbSellerInfo = jbSellerInfo;
+	}
+	public void setJbBuyReq(JButton jbBuyReq) {
+		this.jbBuyReq = jbBuyReq;
+	}
+	public void setJbCancel(JButton jbCancel) {
+		this.jbCancel = jbCancel;
+	}
 
 }//class

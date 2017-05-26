@@ -28,7 +28,7 @@ public class MarketDAO {
 		
 	}//MarketDAO
 
-	private static MarketDAO getInstance(){
+	public static MarketDAO getInstance(){
 		if(m_dao==null){
 			m_dao=new MarketDAO(); 
 		}//end if
@@ -41,7 +41,7 @@ public class MarketDAO {
 		Properties prop=new Properties();
 		try {
 		
-			File file=new File("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/dao/market.properties");
+			File file=new File("C:/Users/user/git/sist_prj2/prj2/src/kr/co/sist/market/dao/market.properties");
 		
 			if(file.exists()){
 				prop.load(new FileInputStream(file));
@@ -88,8 +88,10 @@ public class MarketDAO {
 				selectItem+=" where category_num=?";
 			}
 			pstmt=con.prepareStatement(selectItem);
-			pstmt.setInt(1, typeCode);
 			
+			if(typeCode!=0){
+				pstmt.setInt(1, typeCode);
+			}
 			rs=pstmt.executeQuery();
 			
 			ItemListVO ilv=null;
@@ -590,8 +592,8 @@ public class MarketDAO {
 //		System.out.println(MarketDAO.getInstance().getConnection());
 //
 //		//selectItemList 단위테스트
-//		List<ItemListVO> list1=md.selectItemList(2);
-//		System.out.println(list1);
+		List<ItemListVO> list1=md.selectItemList(2);
+		System.out.println(list1);
 //
 //		//selectSellList 단위테스트
 //		List<SellBuyVO> list2=md.selectSellCompList();
