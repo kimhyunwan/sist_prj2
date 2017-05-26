@@ -18,6 +18,8 @@ public class LoginView extends JFrame {
 	private JTextField jtfId;
 	private JPasswordField jpwPass;
 	private JButton jbLogin,jbJoin,jbFind;
+	private boolean flag;
+	private int cnt;
 	
 	public LoginView(){
 		super("sist중고장터");
@@ -72,9 +74,6 @@ public class LoginView extends JFrame {
 		});
 		
 	}//LoginView
-	
-	private boolean flag;
-	private int cnt;
 
 	//LoginViewEvt에서 로그인 결과를 얻어간다.
 	public void setFlag(boolean flag, int cnt){
