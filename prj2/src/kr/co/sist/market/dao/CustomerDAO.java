@@ -495,7 +495,6 @@ public class CustomerDAO {
 		}//end try
 	}//insertGetMsg
 	
-	
 	/**
 	 * 자신의 아이디를 조회하는 일
 	 * @param IdVO
