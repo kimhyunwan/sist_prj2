@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 
 import kr.co.sist.market.view.JoinView;
-import kr.co.sist.market.view.SellListView;
 
 public class JoinViewEvt extends WindowAdapter implements ActionListener {
 	private JoinView jv;

@@ -37,7 +37,6 @@ public class SignUpItemView extends JFrame {
 	      JPanel jpCancelButton=new JPanel(); // 취소 버튼 담을 패널
 	      JPanel jpSsn=new JPanel(); // 주민번호 담을 패널
 	      
-	      
 	       jtfItemName=new JTextField(15);
 	       jtfPrice=new JTextField(15);
 	       jtfHiredate=new JTextField(15);

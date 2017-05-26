@@ -15,7 +15,6 @@ import javax.swing.JTextField;
 
 import kr.co.sist.market.evt.MyInfoChViewEvt;
 
-
 @SuppressWarnings("serial")
 public class MyInfoChView extends JFrame {
 	private JTextField jtfAnswer;

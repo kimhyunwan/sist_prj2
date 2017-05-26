@@ -18,5 +18,4 @@ public class BuyReqViewEvt extends WindowAdapter implements ActionListener {
 			brv.dispose();
 		}//end if
 	}
-
 }

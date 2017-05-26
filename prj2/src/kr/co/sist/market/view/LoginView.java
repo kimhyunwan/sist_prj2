@@ -12,7 +12,6 @@ import javax.swing.JTextField;
 
 import kr.co.sist.market.evt.LoginViewEvt;
 
-
 @SuppressWarnings("serial")
 public class LoginView extends JFrame {
 	private JTextField jtfId;

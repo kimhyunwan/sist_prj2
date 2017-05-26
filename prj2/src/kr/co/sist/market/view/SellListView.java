@@ -12,7 +12,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import kr.co.sist.market.evt.BuyListViewEvt;
 import kr.co.sist.market.evt.SellListViewEvt;
 
 

@@ -13,7 +13,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import kr.co.sist.market.evt.MsgListViewEvt;
-import kr.co.sist.market.evt.MyInfoChViewEvt;
 
 
 /**

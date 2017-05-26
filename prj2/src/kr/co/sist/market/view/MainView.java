@@ -16,7 +16,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import kr.co.sist.market.evt.LoginViewEvt;
 import kr.co.sist.market.evt.MainViewEvt;
 
 

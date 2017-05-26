@@ -11,7 +11,6 @@ import kr.co.sist.market.view.MyInfoChView;
 import kr.co.sist.market.view.SellListView;
 
 
-
 public class MainViewEvt extends MouseAdapter implements ActionListener {
 	private MainView mv;
 	

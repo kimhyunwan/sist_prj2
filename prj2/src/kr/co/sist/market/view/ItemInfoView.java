@@ -12,7 +12,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import kr.co.sist.market.evt.ItemInfoViewEvt;
-import kr.co.sist.market.evt.MainViewEvt;
 
 @SuppressWarnings("serial")
 public class ItemInfoView extends JFrame {
