@@ -16,7 +16,7 @@ import kr.co.sist.market.view.MainView;
 import kr.co.sist.market.vo.LoginVO;
 
 /**
- * 로그인 이벤트
+ * 로그인 이벤트 - 장재훈
  * @author user
  *
  */
