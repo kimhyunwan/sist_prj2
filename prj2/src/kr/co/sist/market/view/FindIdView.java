@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import kr.co.sist.market.evt.FindIdViewEvt;
 
 /**
+ * 아이디찾기
  * @author user
  *
  */
