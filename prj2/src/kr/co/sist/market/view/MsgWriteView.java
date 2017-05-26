@@ -15,6 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
+import kr.co.sist.market.evt.MsgWriteViewEvt;
+
 public class MsgWriteView extends JFrame {
 
 	JTextArea jtaMsg;
@@ -56,10 +58,15 @@ public class MsgWriteView extends JFrame {
 		jpButton.add(jpSpace);
 		jpButton.add(jpCancel);
 		
-		//jpMsg.add(jsMsg);
 		
 		add(jsMsg);
 		add(jpButton);
+		
+		//이벤트 처리
+		MsgWriteViewEvt mwve = new MsgWriteViewEvt(this);
+		jbSend.addActionListener(mwve);
+		jbCancel.addActionListener(mwve);
+		
 		
 		//가시화
 		setVisible(true);
@@ -80,5 +87,23 @@ public class MsgWriteView extends JFrame {
 public static void main(String[] args) {
         new MsgWriteView();
    }//main
+
+//메세지 값 내보내기
+public JTextArea getJtaMsg() {
+	return jtaMsg;
+}
+
+public void setJtaMsg(JTextArea jtaMsg) {
+	this.jtaMsg = jtaMsg;
+}
+
+public JButton getJbSend() {
+	return jbSend;
+}
+
+public JButton getJbCancel() {
+	return jbCancel;
+}
    
+
 }//class
