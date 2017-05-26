@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
 import javax.swing.JOptionPane;
 
 import kr.co.sist.market.vo.IdVO;
