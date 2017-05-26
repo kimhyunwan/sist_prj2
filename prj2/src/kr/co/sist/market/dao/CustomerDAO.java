@@ -54,7 +54,7 @@ public class CustomerDAO {
 		Properties prop=new Properties();
 		
 		try {
-				File file=new File("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/dao/market.properties");
+				File file=new File("C:/Users/user/git/sist_prj2/prj2/src/kr/co/sist/market/dao/market.properties");
 				if(file.exists()){ 
 						prop.load(new FileInputStream(file)); 
 						String driver=prop.getProperty("driver"); 

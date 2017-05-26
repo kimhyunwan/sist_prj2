@@ -33,7 +33,6 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 		m_dao=MarketDAO.getInstance();
 		
 		
-		JOptionPane.showMessageDialog(null, lve.id);
 	}//MainViewEvtEvt
 	
 	private void setItem(int item){
