@@ -54,6 +54,11 @@ public class MsgListVO {
 	public void setFlag(String flag) {
 		this.flag = flag;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "MsgListVO [msgCode=" + msgCode + ", id=" + id + ", item=" + item + ", msgDate=" + msgDate + ", flag="
+				+ flag + "]";
+	}
 	
 }

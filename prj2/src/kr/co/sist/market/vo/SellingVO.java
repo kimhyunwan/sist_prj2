@@ -1,17 +1,26 @@
 package kr.co.sist.market.vo;
 
 public class SellingVO {
-	private String itemCode, phone, id, reqDate;
+	private String itemCode, phone, id, reqDate, itemName;
 	
 	public SellingVO() {
 		
 	}
 
-	public SellingVO(String itemCode, String phone, String id, String reqDate) {
+	public SellingVO(String itemCode, String phone, String id, String reqDate, String itemName) {
 		this.itemCode = itemCode;
 		this.phone = phone;
 		this.id = id;
 		this.reqDate = reqDate;
+		this.itemName = itemName;
+	}
+
+	public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
 
 	public String getItemCode() {
@@ -45,5 +54,12 @@ public class SellingVO {
 	public void setReqDate(String reqDate) {
 		this.reqDate = reqDate;
 	}
+
+	@Override
+	public String toString() {
+		return "SellingVO [itemCode=" + itemCode + ", phone=" + phone + ", id=" + id + ", reqDate=" + reqDate
+				+ ", itemName=" + itemName + "]";
+	}
+
 	
 }
