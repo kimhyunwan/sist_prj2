@@ -27,6 +27,7 @@ public class MarketDAO {
 	private MarketDAO(){
 		
 	}//MarketDAO
+	
 	public static MarketDAO getInstance(){
 		if(m_dao==null){
 			m_dao=new MarketDAO(); 
