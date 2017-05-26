@@ -25,9 +25,9 @@ public class MarketDAO {
 	private static MarketDAO m_dao;
 	
 	private MarketDAO(){
-		
 	}//MarketDAO
 	
+
 	public static MarketDAO getInstance(){
 		if(m_dao==null){
 			m_dao=new MarketDAO(); 
@@ -41,7 +41,7 @@ public class MarketDAO {
 		Properties prop=new Properties();
 		try {
 		
-			File file=new File("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/dao/market.properties");
+			File file=new File("C:/Users/user/git/sist_prj2/prj2/src/kr/co/sist/market/dao/market.properties");
 		
 			if(file.exists()){
 				prop.load(new FileInputStream(file));
@@ -602,12 +602,12 @@ public class MarketDAO {
 //		List<ItemListVO> list1=md.selectItemList(0);
 //		System.out.println(list1);
 //
-//		//selectSellList 단위테스트
-//		List<SellBuyVO> list2=md.selectSellCompList();
+//		//selectSellCompList 단위테스트
+//		List<SellBuyVO> list2=md.selectSellCompList("dongha");
 //		System.out.println(list2);
 //		
 //		//selectSellWaitList 단위 테스트
-//		List<SellingVO> list3=md.selectSellWaitList("wkdwogns");
+//		List<SellingVO> list3=md.selectSellWaitList("dongha");
 //		System.out.println(list3);
 //		
 //		//deleteSellWait 단위 테스트

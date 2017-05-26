@@ -28,7 +28,7 @@ public class BuyListView extends JFrame {
 	
 	public BuyListView(){
 		super("구매목록");
-		String[] columnNames={"판매자","상품코드","상품명","구매완료 일시"};
+		String[] columnNames={"번호","판매자","상품코드","상품명","구매완료일시"};
 		String[][] data = {};
 		
 		jbClose = new JButton("닫기");
@@ -53,12 +53,13 @@ public class BuyListView extends JFrame {
 		//컬럼을 선택하여 움직이지 못하도록 설정
 		jtComplet.getTableHeader().setReorderingAllowed(false);
 		//컬럼의 높이 설정
-		jtComplet.setRowHeight(100);
+		jtComplet.setRowHeight(40);
 		//컬럼의 넓이 설정
-		jtComplet.getColumnModel().getColumn(0).setPreferredWidth(100);
-		jtComplet.getColumnModel().getColumn(1).setPreferredWidth(150);
-		jtComplet.getColumnModel().getColumn(2).setPreferredWidth(80);
-		jtComplet.getColumnModel().getColumn(3).setPreferredWidth(60);
+		jtComplet.getColumnModel().getColumn(0).setPreferredWidth(10);
+		jtComplet.getColumnModel().getColumn(1).setPreferredWidth(100);
+		jtComplet.getColumnModel().getColumn(2).setPreferredWidth(150);
+		jtComplet.getColumnModel().getColumn(3).setPreferredWidth(80);
+		jtComplet.getColumnModel().getColumn(4).setPreferredWidth(60);
 
 		
 		JScrollPane jspComplet = new JScrollPane(jtComplet);
@@ -73,7 +74,7 @@ public class BuyListView extends JFrame {
 		jpComplete.setLayout(null);
 
 	////////////////////////////////////// 구매대기 목록 탭 /////////////////////////////////////////
-		String[] columnWNames={"판매등록자","상품코드","상품명","신청일"};
+		String[] columnWNames={"번호","판매등록자","상품코드","상품명","신청일"};
 		String[][] wdata = {};
 		
 		jbWClose = new JButton("닫기");
@@ -99,13 +100,13 @@ public class BuyListView extends JFrame {
 		//컬럼을 선택하여 움직이지 못하도록 설정
 		jtWait.getTableHeader().setReorderingAllowed(false);
 		//컬럼의 높이 설정
-		jtWait.setRowHeight(100);
+		jtWait.setRowHeight(40);
 		//컬럼의 넓이 설정
-		jtWait.getColumnModel().getColumn(0).setPreferredWidth(100);
-		jtWait.getColumnModel().getColumn(1).setPreferredWidth(150);
-		jtWait.getColumnModel().getColumn(2).setPreferredWidth(80);
-		jtWait.getColumnModel().getColumn(3).setPreferredWidth(60);
-
+		jtWait.getColumnModel().getColumn(0).setPreferredWidth(10);
+		jtWait.getColumnModel().getColumn(1).setPreferredWidth(100);
+		jtWait.getColumnModel().getColumn(2).setPreferredWidth(150);
+		jtWait.getColumnModel().getColumn(3).setPreferredWidth(80);
+		jtWait.getColumnModel().getColumn(4).setPreferredWidth(60);
 		
 		JScrollPane jspWait = new JScrollPane(jtWait);
 		
