@@ -17,6 +17,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import kr.co.sist.market.evt.SignUpItemViewEvt;
+
 public class SignUpItemView extends JFrame {
 	private JTextField jtfItemName, jtfPrice, jtfHiredate;
 	   private JButton jbImage, jbSignUp, jbCancel;
@@ -106,7 +108,9 @@ public class SignUpItemView extends JFrame {
 	      jsIntro.setBounds(10, 250, 550, 150);
 	      jpbutton.setBounds(360, 400, 200, 100);
 
-	      
+		  //이벤트 추가
+	      SignUpItemViewEvt blve = new SignUpItemViewEvt(this);
+		  jbCancel.addActionListener(blve);
 	      
 	      //가시화
 	      setVisible(true);
@@ -121,7 +125,47 @@ public class SignUpItemView extends JFrame {
 	    }//joinView
 	       
 	   
-	   public static void main(String[] args) {
+	   public JTextField getJtfItemName() {
+		return jtfItemName;
+	}
+
+
+	public JTextField getJtfPrice() {
+		return jtfPrice;
+	}
+
+
+	public JTextField getJtfHiredate() {
+		return jtfHiredate;
+	}
+
+
+	public JButton getJbImage() {
+		return jbImage;
+	}
+
+
+	public JButton getJbSignUp() {
+		return jbSignUp;
+	}
+
+
+	public JButton getJbCancel() {
+		return jbCancel;
+	}
+
+
+	public JComboBox<String> getJcbType() {
+		return jcbType;
+	}
+
+
+	public JTextArea getJtaItemInfo() {
+		return jtaItemInfo;
+	}
+
+
+	public static void main(String[] args) {
 	        new SignUpItemView();
 	   }//main
 	   
