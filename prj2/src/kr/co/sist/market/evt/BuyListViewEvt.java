@@ -30,8 +30,8 @@ public class BuyListViewEvt extends WindowAdapter implements ActionListener {
 ///////////////////////////////////////////구매완료 목록을 띄우는 method////////////////////////////////////
 	public void setBuyListComp(){
 		try {
-//			String id=lve.id; //진데이터 ID
-			String id="hyunwan"; //가데이터 ID
+			String id=lve.id; //진데이터 ID
+//			String id="hyunwan"; //가데이터 ID
 			System.out.println("탄다1");
 			List<SellBuyVO> lstItem=m_dao.selectBuyCompList(id);
 			//"판매자", "번호", "상품명" , "구매완료일시"
@@ -61,7 +61,8 @@ public class BuyListViewEvt extends WindowAdapter implements ActionListener {
 ///////////////////////////////////////////구매대기 목록을 띄우는 method////////////////////////////////////
 	public void setBuyListWait(){
 		try {
-			String id="hyunwan"; //가데이터 ID
+			String id=lve.id; //진데이터 ID
+			//String id="hyunwan"; //가데이터 ID
 			List<SellBuyVO> lstItem=m_dao.selectBuyWaitList(id);
 			//"구매신청자", "상품코드", "상품명" , "신청일"
 			
@@ -87,15 +88,6 @@ public class BuyListViewEvt extends WindowAdapter implements ActionListener {
 			e.printStackTrace();
 		}
 	}//setSellList()
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	@Override
 	public void actionPerformed(ActionEvent ae) {

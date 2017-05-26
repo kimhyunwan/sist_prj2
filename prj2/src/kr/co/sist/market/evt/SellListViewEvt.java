@@ -29,8 +29,8 @@ public class SellListViewEvt extends WindowAdapter implements ActionListener {
 	///////////////////////////////////////////판매완료 목록을 띄우는 method////////////////////////////////////
 	public void setSellListComp(){
 		try {
-//			String id=lve.id; //진데이터 ID
-			String id="wkdwogns"; //가데이터 ID
+			String id=lve.id; //진데이터 ID
+			//String id="wkdwogns"; //가데이터 ID
 			List<SellBuyVO> lstItem=m_dao.selectSellCompList(id);
 			//"구매자", "번호", "상품명" , "판매완료일시"
 			
@@ -63,7 +63,8 @@ public class SellListViewEvt extends WindowAdapter implements ActionListener {
 ///////////////////////////////////////////판매대기 목록을 띄우는 method////////////////////////////////////
 	public void setSellListWait(){
 		try {
-			String id="dongha"; //가데이터 ID
+			String id=lve.id; //진데이터 ID
+			//String id="dongha"; //가데이터 ID
 			List<SellBuyVO> lstItem=m_dao.selectBuyWaitList(id);
 			//"구매신청자", "상품코드", "상품명" , "신청일"
 			

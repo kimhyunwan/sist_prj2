@@ -108,7 +108,6 @@ public class SellListView extends JFrame {
 		jtWait.getColumnModel().getColumn(2).setPreferredWidth(150);
 		jtWait.getColumnModel().getColumn(3).setPreferredWidth(80);
 		jtWait.getColumnModel().getColumn(4).setPreferredWidth(60);
-
 		
 		JScrollPane jspWait = new JScrollPane(jtWait);
 		
