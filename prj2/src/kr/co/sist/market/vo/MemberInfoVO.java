@@ -51,6 +51,10 @@ public class MemberInfoVO {
 	public void setQuNum(int quNum) {
 		this.quNum = quNum;
 	}
-	
+	@Override
+	public String toString() {
+		return "MemberInfoVO [id=" + id + ", pass=" + pass + ", passAnswer=" + passAnswer + ", image=" + image
+				+ ", info=" + info + ", quNum=" + quNum + "]";
+	}
 	
 }
