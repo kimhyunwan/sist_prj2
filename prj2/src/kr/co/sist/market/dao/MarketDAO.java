@@ -584,9 +584,9 @@ public class MarketDAO {
 		}
 	}//updateChkGetMsg
 	
-	public static void main(String[] args) throws SQLException{
-		MarketDAO md=new MarketDAO();
-		
+//	public static void main(String[] args) throws SQLException{
+//		MarketDAO md=new MarketDAO();
+//		
 //		System.out.println(MarketDAO.getInstance().getConnection());
 //
 //		//selectItemList 단위테스트
@@ -630,5 +630,5 @@ public class MarketDAO {
 //		
 //		//updateChkGetMsg 단위 테스트
 //		md.updateChkGetMsg("RC_0525000044");
-	}
+//	}
 }//class
