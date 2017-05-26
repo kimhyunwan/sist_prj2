@@ -126,7 +126,7 @@ public class MarketDAO {
 	 * @return list
 	 * @throws SQLException
 	 */
-	public List<SellBuyVO> selectSellList(String id) throws SQLException{
+	public List<SellBuyVO> selectSellCompList(String id) throws SQLException{
 		List<SellBuyVO> list=new ArrayList<SellBuyVO>();
 		
 		Connection con = null;
@@ -594,7 +594,7 @@ public class MarketDAO {
 //		System.out.println(list1);
 //
 //		//selectSellList 단위테스트
-//		List<SellBuyVO> list2=md.selectSellList();
+//		List<SellBuyVO> list2=md.selectSellCompList();
 //		System.out.println(list2);
 //		
 //		//selectSellWaitList 단위 테스트
