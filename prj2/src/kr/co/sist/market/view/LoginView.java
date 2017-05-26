@@ -33,6 +33,7 @@ public class LoginView extends JFrame {
 		
 		//자동배치 해제
 		setLayout(null);
+		
 		//컴포넌트의 배치 위치설정
 		logoImg.setBounds(20, 20, 80, 80);
 		jlId.setBounds(110, 30, 50, 15);
