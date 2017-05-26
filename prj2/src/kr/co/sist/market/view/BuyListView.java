@@ -12,6 +12,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import kr.co.sist.market.evt.BuyListViewEvt;
 
 /**
  * 탭을 가지고 사용자에게 보여주는 Form.
@@ -23,7 +24,7 @@ public class BuyListView extends JFrame {
 	private JTable jtComplet,jtWait ;
 	private DefaultTableModel dtmComplet,dtmWait;
 	private JTabbedPane jtpTab;
-	private JButton jbClose;
+	private JButton jbClose,jbWClose;
 	
 	public BuyListView(){
 		super("구매목록");
@@ -32,7 +33,6 @@ public class BuyListView extends JFrame {
 		
 		jbClose = new JButton("닫기");
 		
-
 		dtmComplet=new DefaultTableModel(data, columnNames){
 			//편집불가
 			@Override
@@ -72,11 +72,11 @@ public class BuyListView extends JFrame {
 		//수동배치
 		jpComplete.setLayout(null);
 
-	////////////////////////////////////// 받은 메세지 탭 /////////////////////////////////////////
+	////////////////////////////////////// 구매대기 목록 탭 /////////////////////////////////////////
 		String[] columnWNames={"판매등록자","상품코드","상품명","신청일"};
 		String[][] wdata = {};
 		
-		jbClose = new JButton("닫기");
+		jbWClose = new JButton("닫기");
 		
 
 		dtmWait=new DefaultTableModel(wdata, columnWNames){
@@ -110,11 +110,11 @@ public class BuyListView extends JFrame {
 		JScrollPane jspWait = new JScrollPane(jtWait);
 		
 		jspWait.setBounds(0, 0, 800, 500);
-		jbClose.setBounds(700, 505, 60, 25);
+		jbWClose.setBounds(700, 505, 60, 25);
 		
 		JPanel jpWait = new JPanel();
 		jpWait.add(jspWait);
-		jpWait.add(jbClose);
+		jpWait.add(jbWClose);
 		//수동배치
 		jpWait.setLayout(null);
 		///////////////////////////////////////////////////////////////////////////////////////////////
@@ -126,6 +126,11 @@ public class BuyListView extends JFrame {
 
 		jpComplete.setBackground(Color.WHITE);
 		jpWait.setBackground(Color.WHITE);
+		
+		//이벤트 추가
+		BuyListViewEvt blve = new BuyListViewEvt(this);
+		jbClose.addActionListener(blve);
+		jbWClose.addActionListener(blve);
 		
 		addWindowListener(new WindowAdapter(){
 
@@ -140,6 +145,41 @@ public class BuyListView extends JFrame {
 		setBounds(10,10,800,600);
 		setVisible(true);
 	}//MenuForm
+
+
+	public JTable getJtComplet() {
+		return jtComplet;
+	}
+
+
+	public JTable getJtWait() {
+		return jtWait;
+	}
+
+
+	public DefaultTableModel getDtmComplet() {
+		return dtmComplet;
+	}
+
+
+	public DefaultTableModel getDtmWait() {
+		return dtmWait;
+	}
+
+
+	public JTabbedPane getJtpTab() {
+		return jtpTab;
+	}
+
+
+	public JButton getJbClose() {
+		return jbClose;
+	}
+
+
+	public JButton getJbWClose() {
+		return jbWClose;
+	}
 
 
 	public static void main(String[] args) {

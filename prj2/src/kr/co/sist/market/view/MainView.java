@@ -16,6 +16,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import kr.co.sist.market.evt.MainViewEvt;
 
 /**
  * 탭을 가지고 사용자에게 보여주는 Form
@@ -134,6 +135,12 @@ public class MainView extends JFrame {
 		jpComInfo.add(jbSignUp);
 		jpComInfo.add(jbMsgList);
 		
+		//이벤트 추가
+		MainViewEvt mve = new MainViewEvt(this);
+		jbMyInfoCh.addActionListener(mve);
+		jbSellList.addActionListener(mve);
+		jbBuyList.addActionListener(mve);
+		jbMsgList.addActionListener(mve);
 		
 		//수동배치
 		jpComInfo.setLayout(null);

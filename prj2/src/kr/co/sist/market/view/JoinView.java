@@ -9,7 +9,6 @@ import java.awt.event.WindowEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +17,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import kr.co.sist.market.evt.BuyListViewEvt;
+import kr.co.sist.market.evt.JoinViewEvt;
 
 /**
  * 회원 가입 창
@@ -81,7 +83,6 @@ public class JoinView extends JFrame {
       jpimg.setLayout(new BorderLayout());
       jpbutton.setLayout(new FlowLayout());
       
-      
       //jpSsn삽입
       jpSsn.add(jtfSsn);
       jpSsn.add(jlhyphen);
@@ -133,13 +134,12 @@ public class JoinView extends JFrame {
       jptfBox.setBounds(360, 10, 200, 230);
       jsIntro.setBounds(10, 250, 550, 150);
       jpbutton.setBounds(380, 400, 190, 70);
-
       
       //이벤트 처리
       //jbImage.addActionListener();
       //jbSignUp.addActionListener();
-      //jbCancel.addActionListener();
-      
+      JoinViewEvt jve = new JoinViewEvt(this);
+      jbCancel.addActionListener(jve);
       
       //가시화
       setVisible(true);
@@ -152,13 +152,58 @@ public class JoinView extends JFrame {
          }//windowClosing
         });
     }//joinView
+   
+	public JTextField getJtfName() {
+	return jtfName;
+}
+
+public JTextField getJtfSsn() {
+	return jtfSsn;
+}
+
+public JTextField getJtfId() {
+	return jtfId;
+}
+
+public JTextField getJtfAnswer() {
+	return jtfAnswer;
+}
+
+public JButton getJbImage() {
+	return jbImage;
+}
+
+public JButton getJbSignUp() {
+	return jbSignUp;
+}
+
+public JButton getJbCancel() {
+	return jbCancel;
+}
+
+public JComboBox<String> getJcbQuest() {
+	return jcbQuest;
+}
+
+public JTextArea getJtaIntro() {
+	return jtaIntro;
+}
+
+public JPasswordField getJpwSsn() {
+	return jpwSsn;
+}
+
+public JPasswordField getJpwPass() {
+	return jpwPass;
+}
+
+public JPasswordField getJpwPassChk() {
+	return jpwPassChk;
+}
+
+	public static void main(String[] args) {
+		new JoinView();
+	}//main
        
-   
-   public static void main(String[] args) {
-        new JoinView();
-   }//main
-   
-   
-   
-   
+
 }//class
