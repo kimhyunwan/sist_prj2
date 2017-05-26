@@ -3,6 +3,7 @@ package kr.co.sist.market.view;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.security.auth.login.LoginException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -70,6 +71,25 @@ public class LoginView extends JFrame {
 		});
 		
 	}//LoginView
+	
+	private boolean flag;
+	private int cnt;
+
+	//LoginViewEvt에서 로그인 결과를 얻어간다.
+	public void setFlag(boolean flag, int cnt){
+		this.flag=flag;
+		this.cnt=cnt;
+	}//setFlag
+	
+	public boolean getFlag() throws LoginException{
+		//로그인을 수행했지만 아이디나 비밀번호가 틀려서 로그인 익셉션 강제발생
+		if(cnt==1&&!flag){
+			throw new LoginException();
+		}//end if
+		//로그인을 수행하지 않고 닫기를 클릭하면 무조건 false가 반환
+		return flag;
+	}//getFlag
+	
 	public JTextField getJtfId() {
 		return jtfId;
 	}

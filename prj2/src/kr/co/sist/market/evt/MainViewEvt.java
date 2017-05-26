@@ -12,6 +12,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import kr.co.sist.market.dao.MarketDAO;
+
 import kr.co.sist.market.view.BuyListView;
 import kr.co.sist.market.view.ItemInfoView;
 import kr.co.sist.market.view.MainView;
@@ -26,9 +27,13 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 	private MarketDAO m_dao;
 	
 	
+	LoginViewEvt lve;
 	public MainViewEvt(MainView mv){
 		this.mv=mv;
 		m_dao=MarketDAO.getInstance();
+		
+		
+		JOptionPane.showMessageDialog(null, lve.id);
 	}//MainViewEvtEvt
 	
 	private void setItem(int item){
