@@ -11,7 +11,7 @@ public class BuyListViewEvt extends WindowAdapter implements ActionListener {
 	
 	public BuyListViewEvt(BuyListView blv){
 		this.blv=blv;
-	}//BuyListViewEvt
+	}//BuyListViewEvt.
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource()==blv.getJbClose()){
