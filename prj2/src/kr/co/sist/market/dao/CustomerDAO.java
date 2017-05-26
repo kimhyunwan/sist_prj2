@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
 import javax.swing.JOptionPane;
 
 import kr.co.sist.market.vo.IdVO;
@@ -24,7 +23,6 @@ import kr.co.sist.market.vo.MemberInfoVO;
 import kr.co.sist.market.vo.MemberJoinVO;
 import kr.co.sist.market.vo.MsgListVO;
 import kr.co.sist.market.vo.MsgVO;
-import kr.co.sist.market.vo.MyInfoVO;
 import kr.co.sist.market.vo.PassVO;
 import kr.co.sist.market.vo.PhoneVO;
 import kr.co.sist.market.vo.SellerInfoVO;
@@ -56,7 +54,7 @@ public class CustomerDAO {
 		Properties prop=new Properties();
 		
 		try {
-				File file=new File("C:/Users/user/git/sist_prj2/prj2/src/kr/co/sist/market/dao/market.properties");
+				File file=new File("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/dao/market.properties");
 				if(file.exists()){ 
 						prop.load(new FileInputStream(file)); 
 						String driver=prop.getProperty("driver"); 
@@ -164,8 +162,8 @@ public class CustomerDAO {
 	 * @param int
 	 * @return String
 	 */
-	public String selectPassQu(int quNum) throws SQLException{
-		String result="";
+	public List<String> selectPassQu() throws SQLException{
+		List<String> list=new ArrayList<String>();
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -175,13 +173,12 @@ public class CustomerDAO {
 		//2.Connection 얻기
 			con=getConnection();
 		//3.쿼리문 생성객체 얻기
-			String selectPassQu="select question from pass_question where qu_num=?";
+			String selectPassQu="select question from pass_question";
 			pstmt=con.prepareStatement(selectPassQu);
 		//4.쿼리 실행 후, 결과 얻기 :  : 바인드변수가 1개 존재(qu_num)
-			pstmt.setInt(1, quNum); //<IdVO>의 getId()메소드를 호출하여 name변수에 담는다.
 			rs=pstmt.executeQuery(); //select이기 때문에 executeQuery()
-			if(rs.next()){
-				result=rs.getString("question");
+			while(rs.next()){
+				list.add(rs.getString("question"));
 			}//end if
 		}finally{
 		//5.연결끊기
@@ -190,23 +187,22 @@ public class CustomerDAO {
 			if( con != null) { con.close(); }
 		}//end try
 		
-		return result;
+		return list;
 	}//selectPassQu
-//	///////////////////selectPassQu()단위테스트/////////////////////////
+	///////////////////selectPassQu()단위테스트(완료)/////////////////////////
 //	public static void main(String[] args){
 //		try {
 //			//////////////////////////IdVO////////////////////////
 //			//String name, ssn;
-//				String result="";
+//				List<String> list=new ArrayList<String>();
 //				CustomerDAO cd=CustomerDAO.getInstance();
-//				int quNum=2;
-//				result=cd.selectPassQu(quNum);
-//				System.out.println("선택한 번호"+"에 해당하는 질문 : "+result);
+//				list=cd.selectPassQu();
+//				System.out.println(list);
 //		} catch (SQLException e) {
 //			e.printStackTrace();
 //		}//end catch
 //	}//main
-//	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
 	
 	/** => ItemInfoVO에 id를 추가하기
 	 * 판매할 상품을 물품테이블에 등록하는 일
@@ -224,14 +220,15 @@ public class CustomerDAO {
 			//2.Connection 얻기
 			con=getConnection();
 			//3.쿼리문 생성객체 얻기
-			String insertMenu="insert into product(item_code,item_name,item_image,item_info,price,hiredate,id,category_num) values(item_num,?,?,?,?,sysdate,'hyunwan',?)";
+			String insertMenu="insert into product(item_code,item_name,item_image,item_info,price,hiredate,id,category_num) values(item_num,?,?,?,?,sysdate,?,?)";
 			pstmt=con.prepareStatement(insertMenu);
 			//4.쿼리 실행 후, 결과 얻기 : 이 경우에 바인드변수가 8개 존재(id,ssn,name,pass,pass_answer,image,info,qu_num)
 			pstmt.setString(1, iiv.getItemName()); //<MemberJoinVO>의 getId()메소드를 호출하여 id변수에 담는다.
 			pstmt.setString(2, iiv.getImage()); 
 			pstmt.setString(3, iiv.getItemInfo()); 
 			pstmt.setInt(4, iiv.getPrice()); 
-			pstmt.setString(5, iiv.getItemType()); 
+			pstmt.setString(5, iiv.getId());
+			pstmt.setInt(6, iiv.getItemType()); 
 			
 			pstmt.executeUpdate(); //insert라서 executeUpdate()를 호출
 		}finally{
@@ -240,14 +237,14 @@ public class CustomerDAO {
 			if( con != null) { con.close(); }
 		}//end try
 	}//insertItem
-//	//////////////////////////////(미완료)insertItem()메소드 단위테스트////////////////////////////// id받아오는 부분이 약간 이상한듯? VO수정해야하나?
+//	//////////////////////////////(완료)insertItem()메소드 단위테스트////////////////////////////// id받아오는 부분이 약간 이상한듯? VO수정해야하나?
 //	public static void main(String[] args){
 //		try {
 //			//////////////////////////ItemInfoVO////////////////////////
 //			//String itemName, itemType, itemInfo, hiredate, image;
 //			//int price;
 //				CustomerDAO cd=CustomerDAO.getInstance();
-//				ItemInfoVO iiv=new ItemInfoVO("피카츄인형","2","아주귀여워요. 2000v짜리에요!","","pika.jpg",15000);
+//				ItemInfoVO iiv=new ItemInfoVO("라이츄인형", "110v에 충전하세요", "fkdlcb.jpg", "wkdwogns", 3, 30000);
 //				cd.insertItem(iiv);
 //				System.out.println("메뉴 추가성공!!");
 //		} catch (SQLException e) {
@@ -416,7 +413,7 @@ public class CustomerDAO {
 	
 	
 	
-	/** =>send_id를 추가한 VO를 새로만들고, 이 안에 코드는 동일하되 쿼리에서 테이블명만 recie..로 바꿔서 아래메소드에 추가하기
+	/** 
 	 * 입력한 메세지를 보낸메세지함에 추가하는 일
 	 * @param MsgListVO
 	 */
@@ -432,7 +429,7 @@ public class CustomerDAO {
 			//2.Connection 얻기
 				con=getConnection();
 			//3.쿼리문 생성객체 얻기
-				String insertSendMsg="insert into send_msg(msg_num,send_id,message,id,send_date,item_code) values(send_num,?,?,?,sysdate,?);";
+				String insertSendMsg="insert into send_msg(msg_num,send_id,message,id,send_date,item_code) values(send_num,?,?,?,sysdate,?)";
 				pstmt=con.prepareStatement(insertSendMsg);
 			//4.쿼리 실행 후, 결과 얻기 : 바인드변수가 4개 존재(sendId, msg, id, itemCode)
 				pstmt.setString(1, mv.getSendId()); 
@@ -447,7 +444,7 @@ public class CustomerDAO {
 			if( con != null) { con.close(); }
 		}//end try
 	}//insertSendMsg
-//	////////////////////////////////(미완료)insertSendMsg()메소드 단위테스트///////////////////////////////
+	////////////////////////////////(완료)insertSendMsg()메소드 단위테스트///////////////////////////////
 //	public static void main(String[] args){
 //		try {
 //			//////////////////////////MsgVO////////////////////////
@@ -460,10 +457,10 @@ public class CustomerDAO {
 //			e.printStackTrace();
 //		}//end catch
 //	}//main
-//	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	
-	/** => 위에 코드와 동일
+	/** 
 	 *  메세지정보를 받아 메시지테이블에 추가하는 일
 	 * @param MsgListVO
 	 */
@@ -479,7 +476,7 @@ public class CustomerDAO {
 			//2.Connection 얻기
 				con=getConnection();
 			//3.쿼리문 생성객체 얻기
-				String insertSendMsg="insert into receive_msg(msg_num,send_id,message,id,send_date,item_code) values(receive_num,?,?,?,sysdate,?);";
+				String insertSendMsg="insert into receive_msg(msg_num,send_id,message,id,send_date,item_code) values(receive_num,?,?,?,sysdate,?)";
 				pstmt=con.prepareStatement(insertSendMsg);
 			//4.쿼리 실행 후, 결과 얻기 : 바인드변수가 4개 존재(sendId, msg, id, itemCode)
 				pstmt.setString(1, mv.getSendId()); 
@@ -494,7 +491,20 @@ public class CustomerDAO {
 			if( con != null) { con.close(); }
 		}//end try
 	}//insertGetMsg
-	
+	//////////////////////////////(완료)insertSendMsg()메소드 단위테스트///////////////////////////////
+//	public static void main(String[] args){
+//		try {
+//			//////////////////////////MsgVO////////////////////////
+//			//String sendId, msg, id, itemCode;
+//				CustomerDAO cd=CustomerDAO.getInstance();
+//				MsgVO mv=new MsgVO("dongha","ㅋㅋㅋㅋㅋㅋㅋㅋㅋ","hyunwan","HY_1705240024"); //sendId, msg, id, itemCode
+//				cd.insertGetMsg(mv);
+//				System.out.println("메세지 추가성공!!");
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}//end catch
+//	}//main
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
 	 * 자신의 아이디를 조회하는 일
@@ -702,14 +712,132 @@ public class CustomerDAO {
 //	////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
-	 * 나의 회원정보를 조회하는 일
+	 * 나의 판매대기 건수를 보는 일
 	 * @param id
 	 * @return MyInfoVO
 	 */
-	public MyInfoVO selectMyInfo(String id) throws SQLException{
-		MyInfoVO  mifv=null;
+	public int selectCntBuyWait(String id) throws SQLException{
+		int cntBuyWait=0;
 		
-		return mifv;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try{
+			con=getConnection();
+			
+			String selectCnt="select count(*) count from product where sold_flag='n' group by id having id=?";
+			pstmt=con.prepareStatement(selectCnt);
+			
+			pstmt.setString(1, id);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()){
+				cntBuyWait=rs.getInt("count");
+			}
+			
+		}finally{
+			if( rs != null) {
+				rs.close(); 
+			}
+			
+			if( pstmt != null) {
+				pstmt.close(); 
+			}
+			
+			if( con != null) { 
+				con.close(); 
+			}
+		}
+		
+		return cntBuyWait;
+	}//selectMyInfo
+	
+	/**
+	 * 나의 구매대기 건수를 보는 일
+	 * @param id
+	 * @return MyInfoVO
+	 */
+	public int selectCntSellWait(String id) throws SQLException{
+		int cntSellWait=0;
+		
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try{
+			con=getConnection();
+			
+			String selectCnt="select count(*) count from buyer_contact group by id having id=?";
+			pstmt=con.prepareStatement(selectCnt);
+			
+			pstmt.setString(1, id);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()){
+				cntSellWait=rs.getInt("count");
+			}
+			
+		}finally{
+			if( rs != null) {
+				rs.close(); 
+			}
+			
+			if( pstmt != null) {
+				pstmt.close(); 
+			}
+			
+			if( con != null) { 
+				con.close(); 
+			}
+		}
+		
+		return cntSellWait;
+	}//selectMyInfo
+	
+	/**
+	 * 나의 안 읽은 메시지 건수를 보는 일
+	 * @param id
+	 * @return MyInfoVO
+	 */
+	public int selectCntMsg(String id) throws SQLException{
+		int cntNonChk=0;
+		
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try{
+			con=getConnection();
+			
+			String selectCnt="select count(*) count from receive_msg where sold_flag='n' group by id having id=?";
+			pstmt=con.prepareStatement(selectCnt);
+			
+			pstmt.setString(1, id);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()){
+				cntNonChk=rs.getInt("count");
+			}
+			
+		}finally{
+			if( rs != null) {
+				rs.close(); 
+			}
+			
+			if( pstmt != null) {
+				pstmt.close(); 
+			}
+			
+			if( con != null) { 
+				con.close(); 
+			}
+		}
+		
+		return cntNonChk;
 	}//selectMyInfo
 	
 	/** 

@@ -83,12 +83,16 @@ public class MarketDAO {
 		try {
 			con=getConnection();
 			String selectItem="select item_name, item_code, item_info, hiredate, item_image, price from product";
-			
 			if(typeCode!=0){
 				selectItem+=" where category_num=?";
+			} else {
+				
 			}
 			pstmt=con.prepareStatement(selectItem);
-			pstmt.setInt(1, typeCode);
+			
+			if(typeCode!=0){
+				pstmt.setInt(1, typeCode);
+			}
 			
 			rs=pstmt.executeQuery();
 			
@@ -584,14 +588,14 @@ public class MarketDAO {
 		}
 	}//updateChkGetMsg
 	
-//	public static void main(String[] args) throws SQLException{
-//		MarketDAO md=new MarketDAO();
+	public static void main(String[] args) throws SQLException{
+		MarketDAO md=new MarketDAO();
 //		
 //		System.out.println(MarketDAO.getInstance().getConnection());
 //
 //		//selectItemList 단위테스트
-//		List<ItemListVO> list1=md.selectItemList(2);
-//		System.out.println(list1);
+		List<ItemListVO> list1=md.selectItemList(0);
+		System.out.println(list1);
 //
 //		//selectSellList 단위테스트
 //		List<SellBuyVO> list2=md.selectSellCompList();
@@ -630,5 +634,5 @@ public class MarketDAO {
 //		
 //		//updateChkGetMsg 단위 테스트
 //		md.updateChkGetMsg("RC_0525000044");
-//	}
+	}
 }//class
