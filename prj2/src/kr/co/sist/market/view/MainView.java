@@ -141,7 +141,8 @@ public class MainView extends JFrame {
 		jbSellList.addActionListener(mve);
 		jbBuyList.addActionListener(mve);
 		jbMsgList.addActionListener(mve);
-		
+		jbType.addActionListener(mve);
+		jtItemList.addMouseListener(mve);
 		//수동배치
 		jpComInfo.setLayout(null);
 		jpComInfo.setBounds(10,10,800,600);
