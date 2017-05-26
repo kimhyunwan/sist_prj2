@@ -15,6 +15,11 @@ import kr.co.sist.market.view.LoginView;
 import kr.co.sist.market.view.MainView;
 import kr.co.sist.market.vo.LoginVO;
 
+/**
+ * 로그인 이벤트
+ * @author user
+ *
+ */
 public class LoginViewEvt extends WindowAdapter implements ActionListener {
 	private LoginView lv;
 	private LoginVO lvo;
