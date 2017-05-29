@@ -62,7 +62,6 @@ public class SellListView extends JFrame {
 		jtComplet.getColumnModel().getColumn(3).setPreferredWidth(80);
 		jtComplet.getColumnModel().getColumn(4).setPreferredWidth(60);
 
-		
 		JScrollPane jspComplet = new JScrollPane(jtComplet);
 		
 		jspComplet.setBounds(0, 0, 800, 500);
@@ -124,6 +123,8 @@ public class SellListView extends JFrame {
 		jtpTab.add("판매완료 목록", jpComplete);
 		jtpTab.addTab("판매대기 목록", jpWait);
 		
+		
+		
 		add("Center",jtpTab);
 
 		jpComplete.setBackground(Color.WHITE);
@@ -133,19 +134,23 @@ public class SellListView extends JFrame {
 		SellListViewEvt slve = new SellListViewEvt(this);
 		jbClose.addActionListener(slve);
 		jbWClose.addActionListener(slve);
+		jtpTab.addMouseListener(slve);
+		jtComplet.addMouseListener(slve);
+		jtWait.addMouseListener(slve);
 		
 		addWindowListener(new WindowAdapter(){
-
 			@Override
 			public void windowClosing(WindowEvent e) {
 				dispose();
 				System.exit(0);
 			}//windowClosing
-			
 		});
 		
 		setBounds(50,50,800,600);
+		//가시화
 		setVisible(true);
+		//창 크기 고정
+		setResizable(false);
 	}//MenuForm
 
 

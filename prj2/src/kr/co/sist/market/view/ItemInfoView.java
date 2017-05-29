@@ -88,6 +88,8 @@ public class ItemInfoView extends JFrame {
 		setBounds(300,80,470,400);
 		//가시화
 		setVisible(true);
+		//창 크기 고정
+		setResizable(false);
 		//종료이벤트처리
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -96,6 +98,8 @@ public class ItemInfoView extends JFrame {
 			}//windowClosing
 		});
 	}//LoginView
+	
+
 	public JTextField getJtfItemName() {
 		return jtfItemName;
 	}
