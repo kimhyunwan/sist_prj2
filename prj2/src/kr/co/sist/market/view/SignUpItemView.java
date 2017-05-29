@@ -48,7 +48,6 @@ public class SignUpItemView extends JFrame {
 	      jlimg =new JLabel(profile);
 	      
 	      setLayout(null); //수동배치
-	      
 	      //각 컴포넌트 배치
 	      setBounds(50, 50, 480, 500);
 	      jlimg.setBounds(20, 20, 180, 195);
