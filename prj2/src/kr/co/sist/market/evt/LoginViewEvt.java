@@ -23,7 +23,7 @@ public class LoginViewEvt extends WindowAdapter implements ActionListener {
 	private LoginView lv;
 	private LoginVO lvo;
 	private CustomerDAO cd;
-	static String id="";
+	public static String id="";
 	
 	public LoginViewEvt(LoginView lv){
 		this.lv=lv;

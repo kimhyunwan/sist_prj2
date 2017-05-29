@@ -13,26 +13,33 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import kr.co.sist.market.evt.LoginViewEvt;
 import kr.co.sist.market.evt.MyInfoChViewEvt;
+
 
 @SuppressWarnings("serial")
 public class MyInfoChView extends JFrame {
-	private JTextField jtfAnswer;
+	private JTextField jtfAnswer,jtfName;
 	private JButton jbImage,jbChange,jbCancel;
 	private JComboBox<String> jcbQuest;
 	private JTextArea jtaIntro;
 	private JPasswordField jtfPass,jtfPassChk;
-	
+	private LoginViewEvt lve;
+
 	public MyInfoChView(){
+
 		super("정보변경");
+		
 		ImageIcon itemImg = new ImageIcon("C:/dev/workspace/prj22/src/kr/co/sist/market/img/profile.jpg");
 		JLabel itemImage = new JLabel(itemImg);
+		JLabel jlName = new JLabel("이름");
 		JLabel jlPass = new JLabel("비밀번호");
 		JLabel jlPassChk = new JLabel("비밀번호 확인");
 		JLabel jlQuest = new JLabel("비밀번호 질문");
 		JLabel jlAnswer = new JLabel("비밀번호 답변");
 		
 		JLabel jlIntro = new JLabel("자기소개");
+		jtfName = new JTextField();
 		jtaIntro = new JTextArea();
 		JScrollPane jspIntro = new JScrollPane(jtaIntro);
 
@@ -51,23 +58,27 @@ public class MyInfoChView extends JFrame {
 		//자동배치 해제
 		setLayout(null);
 		//컴포넌트의 배치 위치설정
+		jlName.setBounds(220, 30, 65, 15);
+		jtfName.setBounds(330, 30, 140, 25);
 		itemImage.setBounds(20, 20, 180, 200);
-		jlPass.setBounds(220, 30, 65, 15);
-		jtfPass.setBounds(330, 30, 140,25);
-		jlPassChk.setBounds(220, 60, 85, 15);
-		jtfPassChk.setBounds(330, 60, 140,25);
-		jlQuest.setBounds(220, 90, 85, 15);
-		jcbQuest.setBounds(330, 90, 256,25);
-		jlAnswer.setBounds(220, 120, 85, 15);
-		jtfAnswer.setBounds(330, 120, 256,25);
-		jlIntro.setBounds(220, 150, 65, 15);
-		jspIntro.setBounds(220, 180, 368, 150);  
+		jlPass.setBounds(220, 60, 65, 15);
+		jtfPass.setBounds(330, 60, 140,25);
+		jlPassChk.setBounds(220, 90, 85, 15);
+		jtfPassChk.setBounds(330, 90, 140,25);
+		jlQuest.setBounds(220, 120, 85, 15);
+		jcbQuest.setBounds(330, 120, 256,25);
+		jlAnswer.setBounds(220, 150, 85, 15);
+		jtfAnswer.setBounds(330, 150, 256,25);
+		jlIntro.setBounds(220, 180, 65, 15);
+		jspIntro.setBounds(220, 210, 368, 150);  
 		jbImage.setBounds(55, 230, 120, 25);
-		jbChange.setBounds(450, 350, 60,25);
-		jbCancel.setBounds(520, 350, 60,25);		
+		jbChange.setBounds(450, 380, 60,25);
+		jbCancel.setBounds(520, 380, 60,25);		
 		
 		//컴포넌트 배치
 		add(itemImage);
+		add(jlName);
+		add(jtfName);
 		add(jlPass);
 		add(jtfPass);
 		add(jlPassChk);
@@ -90,6 +101,9 @@ public class MyInfoChView extends JFrame {
 		setBounds(300,80,630,470);
 		//가시화
 		setVisible(true);
+		//창 크기 고정
+		setResizable(false);
+		setTitle(lve.id+"정보변경");
 		//종료이벤트처리
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -121,6 +135,38 @@ public class MyInfoChView extends JFrame {
 	}
 	public JPasswordField getJtfPassChk() {
 		return jtfPassChk;
+	}
+	
+	public JTextField getJtfName() {
+		return jtfName;
+	}
+	
+	public void setJtfAnswer(JTextField jtfAnswer) {
+		this.jtfAnswer = jtfAnswer;
+	}
+	public void setJtfName(JTextField jtfName) {
+		this.jtfName = jtfName;
+	}
+	public void setJbImage(JButton jbImage) {
+		this.jbImage = jbImage;
+	}
+	public void setJbChange(JButton jbChange) {
+		this.jbChange = jbChange;
+	}
+	public void setJbCancel(JButton jbCancel) {
+		this.jbCancel = jbCancel;
+	}
+	public void setJcbQuest(JComboBox<String> jcbQuest) {
+		this.jcbQuest = jcbQuest;
+	}
+	public void setJtaIntro(JTextArea jtaIntro) {
+		this.jtaIntro = jtaIntro;
+	}
+	public void setJtfPass(JPasswordField jtfPass) {
+		this.jtfPass = jtfPass;
+	}
+	public void setJtfPassChk(JPasswordField jtfPassChk) {
+		this.jtfPassChk = jtfPassChk;
 	}
 	public static void main(String[] args) {
 		new MyInfoChView();

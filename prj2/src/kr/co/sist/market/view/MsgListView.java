@@ -145,7 +145,10 @@ public class MsgListView extends JFrame {
 		});
 		
 		setBounds(10,10,800,600);
+		//가시화
 		setVisible(true);
+		//창 크기 고정
+		setResizable(false);
 	}//MenuForm
 
 

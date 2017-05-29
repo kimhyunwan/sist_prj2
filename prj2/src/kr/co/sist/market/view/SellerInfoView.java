@@ -58,6 +58,8 @@ public class SellerInfoView extends JFrame {
 		setBounds(300,80,520,320);
 		//가시화
 		setVisible(true);
+		//창 크기 고정
+		setResizable(false);
 		//종료이벤트처리
 		addWindowListener(new WindowAdapter() {
 			@Override

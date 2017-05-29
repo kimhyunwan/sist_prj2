@@ -167,6 +167,8 @@ public class MainView extends JFrame {
 		
 		setBounds(10,10,800,600);
 		setVisible(true);
+		//창 크기 고정
+		setResizable(false);
 	}//MenuForm
 
 	public JTable getJtItemList() {

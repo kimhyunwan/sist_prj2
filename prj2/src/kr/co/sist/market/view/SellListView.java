@@ -145,7 +145,10 @@ public class SellListView extends JFrame {
 		});
 		
 		setBounds(50,50,800,600);
+		//가시화
 		setVisible(true);
+		//창 크기 고정
+		setResizable(false);
 	}//MenuForm
 
 
