@@ -127,6 +127,35 @@ public class MarketDAO {
 		return list;
 	}//selectItemList
 	
+	public List<String> selectItemType() throws SQLException{
+		List<String> list=new ArrayList<String>();
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try{
+		//1.드라이버 로딩
+		//2.Connection 얻기
+			con=getConnection();
+		//3.쿼리문 생성객체 얻기
+			String selectItemType="select product_group from product_category";
+			pstmt=con.prepareStatement(selectItemType);
+		//4.쿼리 실행 후, 결과 얻기 :  : 바인드변수가 1개 존재(qu_num)
+			rs=pstmt.executeQuery(); //select이기 때문에 executeQuery()
+			while(rs.next()){
+				list.add(rs.getString("product_group"));
+			}//end if
+		}finally{
+		//5.연결끊기
+			if( rs != null) { rs.close(); }
+			if( pstmt != null) { pstmt.close(); }
+			if( con != null) { con.close(); }
+		}//end try
+		
+		return list;
+	}//selectItemType
+
+	
 	/**
 	 * 판매완료정보 리스트를 보여주기 위한 method
 	 * @return list
