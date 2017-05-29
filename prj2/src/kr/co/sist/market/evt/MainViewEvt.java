@@ -26,7 +26,6 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 	private MainView mv;
 	private MarketDAO m_dao;
 	
-	
 	LoginViewEvt lve;
 	public MainViewEvt(MainView mv){
 		this.mv=mv;

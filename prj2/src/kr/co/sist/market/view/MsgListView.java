@@ -29,7 +29,7 @@ public class MsgListView extends JFrame {
 	public MsgListView(){
 		super("메세지 확인");
 	//////////////////////////////////////보낸 메세지 탭 /////////////////////////////////////////
-		String[] columnNames={"받은사람","상품명","메세지 보낸날짜","메세지 확인 여부"};
+		String[] columnNames={"번호","받은사람","상품명","메세지 보낸날짜","메세지 확인 여부"};
 		String[][] data = {};
 		
 		jbSClose = new JButton("닫기");
@@ -57,10 +57,11 @@ public class MsgListView extends JFrame {
 		//컬럼의 높이 설정
 		jtSendMsgList.setRowHeight(100);
 		//컬럼의 넓이 설정
-		jtSendMsgList.getColumnModel().getColumn(0).setPreferredWidth(100);
-		jtSendMsgList.getColumnModel().getColumn(1).setPreferredWidth(150);
-		jtSendMsgList.getColumnModel().getColumn(2).setPreferredWidth(80);
-		jtSendMsgList.getColumnModel().getColumn(3).setPreferredWidth(60);
+		jtSendMsgList.getColumnModel().getColumn(0).setPreferredWidth(15);
+		jtSendMsgList.getColumnModel().getColumn(1).setPreferredWidth(100);
+		jtSendMsgList.getColumnModel().getColumn(2).setPreferredWidth(150);
+		jtSendMsgList.getColumnModel().getColumn(3).setPreferredWidth(80);
+		jtSendMsgList.getColumnModel().getColumn(4).setPreferredWidth(60);
 
 		
 		JScrollPane jspSendMsgList = new JScrollPane(jtSendMsgList);
@@ -75,7 +76,7 @@ public class MsgListView extends JFrame {
 		jpSendMsgList.setLayout(null);
 
 	////////////////////////////////////// 받은 메세지 탭 /////////////////////////////////////////
-		String[] columnRNames={"보낸사람","상품명","메세지 받은날짜","메세지 확인 여부"};
+		String[] columnRNames={"번호","보낸사람","상품명","메세지 받은날짜","메세지 확인 여부"};
 		String[][] rdata = {};
 		
 		jbRClose = new JButton("닫기");
@@ -103,9 +104,10 @@ public class MsgListView extends JFrame {
 		//컬럼의 높이 설정
 		jtReceiveMsgList.setRowHeight(100);
 		//컬럼의 넓이 설정
-		jtReceiveMsgList.getColumnModel().getColumn(0).setPreferredWidth(100);
-		jtReceiveMsgList.getColumnModel().getColumn(1).setPreferredWidth(150);
-		jtReceiveMsgList.getColumnModel().getColumn(2).setPreferredWidth(80);
+		jtReceiveMsgList.getColumnModel().getColumn(0).setPreferredWidth(15);
+		jtReceiveMsgList.getColumnModel().getColumn(1).setPreferredWidth(100);
+		jtReceiveMsgList.getColumnModel().getColumn(2).setPreferredWidth(150);
+		jtReceiveMsgList.getColumnModel().getColumn(3).setPreferredWidth(80);
 		jtReceiveMsgList.getColumnModel().getColumn(3).setPreferredWidth(60);
 
 		
@@ -133,6 +135,9 @@ public class MsgListView extends JFrame {
 		MsgListViewEvt mlve = new MsgListViewEvt(this);
 		jbSClose.addActionListener(mlve);
 		jbRClose.addActionListener(mlve);
+		jtpTab.addMouseListener(mlve);
+		jtSendMsgList.addMouseListener(mlve);
+		jtReceiveMsgList.addMouseListener(mlve);
 		
 		addWindowListener(new WindowAdapter(){
 
