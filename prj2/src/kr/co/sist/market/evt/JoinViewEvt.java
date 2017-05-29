@@ -65,6 +65,7 @@ public class JoinViewEvt extends WindowAdapter implements ActionListener {
 		String ssn=jv.getJtfSsn().getText().trim()+ssnBack;
 		String id=jv.getJtfId().getText().trim();
 		String pass=new String(jv.getJpwPass().getPassword()).trim();
+		
 		String passChk=new String(jv.getJpwPassChk().getPassword()).trim();
 		int quNum=jv.getJcbQuest().getSelectedIndex()+1;
 		String answer=jv.getJtfAnswer().getText().trim();

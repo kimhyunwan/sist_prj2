@@ -592,8 +592,8 @@ public class MarketDAO {
 		}
 	}//updateChkGetMsg
 	
-//	public static void main(String[] args) throws SQLException{
-//		MarketDAO md=new MarketDAO();
+	public static void main(String[] args) throws SQLException{
+		MarketDAO md=new MarketDAO();
 //		
 //		System.out.println(MarketDAO.getInstance().getConnection());
 //
@@ -606,9 +606,9 @@ public class MarketDAO {
 //		List<SellBuyVO> list2=md.selectSellCompList("dongha");
 //		System.out.println(list2);
 //		
-//		//selectSellWaitList 단위 테스트
-//		List<SellingVO> list3=md.selectSellWaitList("dongha");
-//		System.out.println(list3);
+		//selectSellWaitList 단위 테스트
+		List<SellingVO> list3=md.selectSellWaitList("hyunwan");
+		System.out.println(list3);
 //		
 //		//deleteSellWait 단위 테스트
 //		md.deleteSellWait("HY_1705240021");
@@ -639,5 +639,5 @@ public class MarketDAO {
 //		
 //		//updateChkGetMsg 단위 테스트
 //		md.updateChkGetMsg("RC_0525000044");
-//	}
+	}
 }//class
