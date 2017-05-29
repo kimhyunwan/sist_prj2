@@ -7,25 +7,26 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.List;
 
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import kr.co.sist.market.dao.CustomerDAO;
 import kr.co.sist.market.dao.MarketDAO;
 import kr.co.sist.market.view.SellListView;
+import kr.co.sist.market.vo.ItemInfoVO;
 import kr.co.sist.market.vo.SellBuyVO;
 //
 public class SellListViewEvt extends MouseAdapter implements ActionListener {
 	private SellListView slv;
 	private MarketDAO m_dao;
+	private CustomerDAO c_dao;
 	LoginViewEvt lve;
-	int chkNum1=0;
-	int chkNum2=0;
+	int indexNum=0;
+	String phone="";
 	
 	public SellListViewEvt(SellListView slv){
 		this.slv=slv;
@@ -33,7 +34,7 @@ public class SellListViewEvt extends MouseAdapter implements ActionListener {
 		//판매완료리스트를 조회하여 설정한다.
 		setSellListComp();
 		//판매대기리스트를 조회하여 설정한다.
-		setSellListWait();
+		setSellListWait(); 
 	}//SellListViewEvt
 
 	///////////////////////////////////////////판매완료 목록을 띄우는 method////////////////////////////////////
@@ -120,40 +121,59 @@ public class SellListViewEvt extends MouseAdapter implements ActionListener {
 	/////////////////////////판매대기 목록에서 상품를 클릭했을 때////////////////////////////
 	@Override
 	public void mouseClicked(MouseEvent me) {
-		System.out.println(me.getSource());
-//		if(chkNum==1){
-//			System.out.println("1111111111111");
-//		}else if(chkNum==2){
-//			System.out.println("2222222222222");
-//		}
-//		JTabbedPane jtp=(JTabbedPane)me.getSource();
-//		int tabIndex=jtp.getSelectedIndex();
-		
-//		if(tabIndex==0){
-//			System.out.println("판매완료창입니다.");
-//		}else if(tabIndex==1){
-//			System.out.println("판매대기창입니다.");
-//		}//end if
-		
-		if(me.getClickCount()==2){ //더블클릭을 했다면 실행
-					JTable temp=slv.getJtWait(); //테이블을 가져오고
-					int selectedRow=temp.getSelectedRow();
-		//			MenuVO mv=new MenuVO(); //MenuVO를 사용하여, 선택한 항목의 이미지,메뉴코드,메뉴명,설명,가격을 가져와서 [상세보기dialog창]에 띄워줄것이다.
-		//			mv.setImg( ((ImageIcon)temp.getValueAt(selectedRow, 1)).toString()); 
-		//			mv.setItem_code((String) temp.getValueAt(selectedRow, 2)); 
-		//			mv.setMenu((String) temp.getValueAt(selectedRow, 3)); 
-		//			mv.setInfo((String) temp.getValueAt(selectedRow, 4)); 
-		//			mv.setPrice((Integer)temp.getValueAt(selectedRow, 5)); 
+		try{
+			indexNum=((JTabbedPane)me.getSource()).getSelectedIndex();
+		}catch(ClassCastException cce){
+			if(me.getClickCount()==2){ //더블클릭을 했다면 실행
+					if(indexNum==0){
+						System.out.println("판매완료창 입니다.");
+						JTable temp=slv.getJtComplet(); //테이블을 가져오고
+						int selectedRow=temp.getSelectedRow();
+						//String selectPhone(String itemCode,  String buyerId)
+						//번호,구매자,상품코드,상품명,판매완료일시
+						String buyerId=((String)temp.getValueAt(selectedRow, 1));
+						String itemCode=((String)temp.getValueAt(selectedRow, 2));
+						String itemName=((String)temp.getValueAt(selectedRow, 3));
+						//String selectPhone(String itemCode,  String buyerId)
+							try {
+								phone=c_dao.selectPhone(itemCode, buyerId);
+							} catch (SQLException e) {
+								e.printStackTrace();
+							}
+						
+						JOptionPane.showMessageDialog(slv, "구매자의 연락처는 ["+phone+"] 입니다.");
+					}//end if
 					
-					int flag=JOptionPane.showConfirmDialog(slv, "[ "+slv.getName()+" ]를 주문하시겠습니까?");
-					
-					switch (flag) {
-						case JOptionPane.OK_OPTION:
-		//					new OrderForm(mf,mv); //mf와 mv를 실어서 보냄
-							System.out.println("판매승인창으로 이동합니다!");
-						break;
-					}//end switch
-				}//end if
+					if(indexNum==1){
+						System.out.println("판매대기창 입니다.");
+						JTable temp=slv.getJtWait(); //테이블을 가져오고
+						int selectedRow=temp.getSelectedRow();
+						//번호,구매신청자,상품코드,상품명,신청일
+						String buyerId=((String)temp.getValueAt(selectedRow, 1));
+						String itemCode=((String)temp.getValueAt(selectedRow, 2));
+						String itemName=((String)temp.getValueAt(selectedRow, 3));
+						//updateBuyComp(String itemCode, String buyerId);
+						int flag=JOptionPane.showConfirmDialog(slv, "구매신청자 : "+buyerId+"\n상품명 : "+itemName+"\n상품코드 : "+itemCode+" \n\n위의 정보로 판매하시겠습니까?");
+						
+						switch (flag) {
+							case JOptionPane.OK_OPTION:
+								modifyBuyComp(itemCode,buyerId);
+							break;
+						}//end switch
+					}//end if
+			}//end if
+		}//end catch
 	}//mouseClicked
-
+	
+	private void modifyBuyComp(String itemCode, String buyerId) {
+		try {
+			m_dao.updateBuyComp(itemCode, buyerId);
+			m_dao.deleteSellWait(itemCode);
+			JOptionPane.showMessageDialog(slv, "판매가 완료되었습니다!");
+			setSellListWait();
+			setSellListComp();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}//end catch
+	}//modifyBuyComp
 }//class
