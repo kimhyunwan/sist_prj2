@@ -31,7 +31,14 @@ public class SignUpItemViewEvt extends WindowAdapter implements ActionListener {
 		
 		DefaultComboBoxModel<String> dcbm=suiv.getDcbmTp();
 		
-//		List<String> listQu=md.se
+		try {
+			List<String> listTp=md.selectItemType();
+			for(String tp : listTp){
+				dcbm.addElement(tp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}// SignUpItemViewEvt
 
 	private void addImg() {
