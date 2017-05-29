@@ -910,7 +910,6 @@ public class CustomerDAO {
 				con=getConnection();
 			//3.쿼리문 생성객체 얻기
 				String selectSendMsgInfo="select message, send_id from send_msg where msg_num=?";
-				
 				pstmt=con.prepareStatement(selectSendMsgInfo);
 			//4.쿼리 실행 후, 결과 얻기 :  : 바인드변수가 1개 존재 (id)
 				pstmt.setInt(1, msg_num); 
