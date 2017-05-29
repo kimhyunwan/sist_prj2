@@ -52,7 +52,7 @@ public class LoginViewEvt extends WindowAdapter implements ActionListener {
 			JOptionPane.showMessageDialog(lv, "즐거운 시간 되세요");
 			logid.id=id;
 			flag=true;
-			new MainView();
+			new MainView(cd);
 			}else{
 				JOptionPane.showMessageDialog(lv, "가입내용이 없습니다.");
 				new LoginView();

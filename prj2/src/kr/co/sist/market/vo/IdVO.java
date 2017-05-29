@@ -23,5 +23,5 @@ public class IdVO {
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
 	}
-	
+
 }

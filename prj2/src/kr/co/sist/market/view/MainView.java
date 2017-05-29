@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,6 +17,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import kr.co.sist.market.dao.CustomerDAO;
 import kr.co.sist.market.evt.MainViewEvt;
 
 /**
@@ -30,9 +32,11 @@ public class MainView extends JFrame {
 	private JTabbedPane jtpTab;
 	private JComboBox<String> jcbType;
 	private JButton jbType, jbMyInfoCh, jbSellList, jbBuyList, jbSignUp, jbMsgList;
+	private static CustomerDAO cd;
 	
-	public MainView(){
+	public MainView(CustomerDAO cd) throws SQLException{
 		super("중고장터에 어서오세요!!");
+		this.cd=cd;
 		String[] columnNames={"번호","상품명","상품코드","판매 상품 설명","가격","등록일"};
 		String[][] data = {};
 		
@@ -83,6 +87,9 @@ public class MainView extends JFrame {
 		jpItem.add("North", jpTop);
 		jpItem.add("Center", jspMenu);
 		
+		int cntBuyWait=cd.selectCntBuyWait("dongha");
+		int cntSellWait=cd.selectCntSellWait("dongha");
+		int cntMsg=cd.selectCntMsg("dongha");
 		
 		ImageIcon iiInfo = new ImageIcon("C:/dev/workspace/prj22/src/kr/co/sist/market/img/profile.jpg");
 		JLabel lblInfo = new JLabel(iiInfo);
@@ -93,9 +100,9 @@ public class MainView extends JFrame {
 		JLabel jlNotReadMsg = new JLabel("안읽은 메세지 : ");
 
 		JLabel jlIdRst = new JLabel("XXXX");
-		JLabel jlSellRst = new JLabel("X건 판매 중");
-		JLabel jlPurchaseRst = new JLabel("X건 구매희망 중");
-		JLabel jlNotReadMsgRst = new JLabel("○○건");
+		JLabel jlSellRst = new JLabel(cntSellWait+"건 판매 중");
+		JLabel jlPurchaseRst = new JLabel(cntBuyWait+"건 구매희망 중");
+		JLabel jlNotReadMsgRst = new JLabel(cntMsg+"건");
 		
 		jbMyInfoCh = new JButton("내 정보 변경");
 		jbSellList = new JButton("판매목록");
@@ -212,7 +219,12 @@ public class MainView extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new MainView();
+		cd=CustomerDAO.getInstance();
+		try {
+			new MainView(cd);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}//main
 	
 }//class

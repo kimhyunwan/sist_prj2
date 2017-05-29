@@ -32,7 +32,6 @@ public class BuyListViewEvt extends WindowAdapter implements ActionListener {
 		try {
 			String id=lve.id; //진데이터 ID
 //			String id="hyunwan"; //가데이터 ID
-			System.out.println("탄다1");
 			List<SellBuyVO> lstItem=m_dao.selectBuyCompList(id);
 			//"판매자", "번호", "상품명" , "구매완료일시"
 			
