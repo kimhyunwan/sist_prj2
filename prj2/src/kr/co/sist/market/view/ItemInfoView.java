@@ -98,6 +98,8 @@ public class ItemInfoView extends JFrame {
 			}//windowClosing
 		});
 	}//LoginView
+	
+
 	public JTextField getJtfItemName() {
 		return jtfItemName;
 	}

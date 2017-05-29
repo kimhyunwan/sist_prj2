@@ -14,17 +14,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-<<<<<<< HEAD
 import kr.co.sist.market.evt.LoginViewEvt;
-=======
 import kr.co.sist.market.dao.CustomerDAO;
->>>>>>> refs/heads/master
 import kr.co.sist.market.evt.MyInfoChViewEvt;
-<<<<<<< HEAD
 
-=======
 import kr.co.sist.market.vo.MemberInfoVO;
->>>>>>> refs/heads/master
 
 @SuppressWarnings("serial")
 public class MyInfoChView extends JFrame {
@@ -33,28 +27,18 @@ public class MyInfoChView extends JFrame {
 	private JComboBox<String> jcbQuest;
 	private JTextArea jtaIntro;
 	private JPasswordField jtfPass,jtfPassChk;
-<<<<<<< HEAD
 	private LoginViewEvt lve;
 
-	public MyInfoChView(){
-
-=======
 	private JLabel jlItemImage;
 	private static CustomerDAO cd;
 	
 	public MyInfoChView(CustomerDAO cd) throws SQLException{
->>>>>>> refs/heads/master
 		super("정보변경");
-<<<<<<< HEAD
 		
-		ImageIcon itemImg = new ImageIcon("C:/dev/workspace/prj22/src/kr/co/sist/market/img/profile.jpg");
-		JLabel itemImage = new JLabel(itemImg);
-		JLabel jlName = new JLabel("이름");
-=======
 		this.cd=cd;
 		ImageIcon itemImg = new ImageIcon("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/default.jpg");
 		jlItemImage = new JLabel(itemImg);
->>>>>>> refs/heads/master
+		JLabel jlName = new JLabel("이름");
 		JLabel jlPass = new JLabel("비밀번호");
 		JLabel jlPassChk = new JLabel("비밀번호 확인");
 		JLabel jlQuest = new JLabel("비밀번호 질문");
@@ -92,10 +76,9 @@ public class MyInfoChView extends JFrame {
 		//자동배치 해제
 		setLayout(null);
 		//컴포넌트의 배치 위치설정
-<<<<<<< HEAD
 		jlName.setBounds(220, 30, 65, 15);
 		jtfName.setBounds(330, 30, 140, 25);
-		itemImage.setBounds(20, 20, 180, 200);
+		jlItemImage.setBounds(20, 20, 180, 200);
 		jlPass.setBounds(220, 60, 65, 15);
 		jtfPass.setBounds(330, 60, 140,25);
 		jlPassChk.setBounds(220, 90, 85, 15);
@@ -106,7 +89,6 @@ public class MyInfoChView extends JFrame {
 		jtfAnswer.setBounds(330, 150, 256,25);
 		jlIntro.setBounds(220, 180, 65, 15);
 		jspIntro.setBounds(220, 210, 368, 150);  
-=======
 		jlItemImage.setBounds(20, 20, 180, 200);
 		jlPass.setBounds(220, 30, 65, 15);
 		jtfPass.setBounds(330, 30, 140,25);
@@ -118,19 +100,15 @@ public class MyInfoChView extends JFrame {
 		jtfAnswer.setBounds(330, 120, 256,25);
 		jlIntro.setBounds(220, 150, 65, 15);
 		jspIntro.setBounds(220, 180, 368, 150);  
->>>>>>> refs/heads/master
 		jbImage.setBounds(55, 230, 120, 25);
 		jbChange.setBounds(450, 380, 60,25);
 		jbCancel.setBounds(520, 380, 60,25);		
 		
 		//컴포넌트 배치
-<<<<<<< HEAD
-		add(itemImage);
+		add(jlItemImage);
 		add(jlName);
 		add(jtfName);
-=======
 		add(jlItemImage);
->>>>>>> refs/heads/master
 		add(jlPass);
 		add(jtfPass);
 		add(jlPassChk);

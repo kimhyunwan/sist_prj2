@@ -17,11 +17,8 @@ import kr.co.sist.market.evt.LoginViewEvt;
 public class BuyReqView extends JFrame {
 	private JTextField jtfId, jtfTotalPrice,jtfPhone2,jtfPhone3;
 	private JButton jbBuyReq,jbCancel;
-<<<<<<< HEAD
 	private JComboBox<String> phone;
-=======
 	private LoginViewEvt lve;
->>>>>>> refs/heads/master
 	
 	public BuyReqView(){
 		super("구매신청");
@@ -32,7 +29,6 @@ public class BuyReqView extends JFrame {
 		JLabel jlId = new JLabel("구매자");
 		JLabel jlPayment = new JLabel("결제수단");
 		JLabel jlTotalPrice = new JLabel("총 결제 금액");
-<<<<<<< HEAD
 		jtfId=new JTextField();
 		
 		JLabel jlPhone = new JLabel("연락처");
@@ -43,9 +39,7 @@ public class BuyReqView extends JFrame {
 		JLabel hyphen1 = new JLabel("-");
 		jtfPhone3 = new JTextField(4);
 		
-=======
 		jtfId=new JTextField("dongha");
->>>>>>> refs/heads/master
 		String[] payments = {"----- 선택 -----","카드","현금","계좌이체"};
 		JComboBox<String> jcbPayment = new JComboBox<String>(payments);
 		jtfTotalPrice = new JTextField();
