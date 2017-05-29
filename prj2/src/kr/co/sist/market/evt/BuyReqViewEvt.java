@@ -12,11 +12,20 @@ public class BuyReqViewEvt extends WindowAdapter implements ActionListener {
 	public BuyReqViewEvt(BuyReqView brv){
 		this.brv=brv;
 	}//BuyReqViewEvt
+	
+	private void requestBuy(){
+		
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource()==brv.getJbCancel()){
 			brv.dispose();
 		}//end if
+		
+		if(ae.getSource()==brv.getJbBuyReq()){
+			requestBuy();
+		}
 	}
 	
 }

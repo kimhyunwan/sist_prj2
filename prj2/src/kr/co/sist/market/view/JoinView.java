@@ -1,8 +1,5 @@
 package kr.co.sist.market.view;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -12,14 +9,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import kr.co.sist.market.evt.BuyListViewEvt;
 import kr.co.sist.market.evt.JoinViewEvt;
 
 /**
@@ -41,14 +36,8 @@ public class JoinView extends JFrame {
 	public JoinView() {
 		super("회원가입");
 
-		JPanel jplbBox = new JPanel(); // 라벨을 담을 패널
-		JPanel jptfBox = new JPanel(); // 입력칸들을 담을 패널
-		JPanel jpimg = new JPanel(); // 프로필 담을 패널
-		JPanel jpbutton = new JPanel(); // 버튼 담을 패널
-		JPanel jpspace = new JPanel();// 버튼 사이 공간 패널
-		JPanel jpSignUpButton = new JPanel(); // 가입 버튼 담을 패널
-		JPanel jpCancelButton = new JPanel(); // 취소 버튼 담을 패널
-		JPanel jpSsn = new JPanel(); // 주민번호 담을 패널
+		ImageIcon icon = new ImageIcon("C:/dev/workspace/test/src/test/background.jpg");
+		JLabel backgroundImg = new JLabel(icon);
 		
 		dcbmQu=new DefaultComboBoxModel<String>();
 		
@@ -67,8 +56,9 @@ public class JoinView extends JFrame {
 
 		jtaIntro.setBorder(new TitledBorder("자기소개"));
 		JScrollPane jsIntro = new JScrollPane(jtaIntro);
-
-		ImageIcon profile = new ImageIcon("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/default.jpg");
+		
+		ImageIcon profile = new ImageIcon("C:/Users/user/git/sist_prj2/prj2/src/kr/co/sist/market/img/default.jpg");
+		
 		JLabel jlName = new JLabel("이름");
 		JLabel jlSsn = new JLabel("주민번호");
 		JLabel jlId = new JLabel("아이디");
@@ -80,63 +70,58 @@ public class JoinView extends JFrame {
 		jlimg = new JLabel(profile);
 
 		setLayout(null); // 수동배치
-
-		// 패널 레이아웃 설정
-		jplbBox.setLayout(new GridLayout(7, 1));
-		jptfBox.setLayout(new GridLayout(7, 1));
-		jpimg.setLayout(new BorderLayout());
-		jpbutton.setLayout(new FlowLayout());
-
-		// jpSsn삽입
-		jpSsn.add(jtfSsn);
-		jpSsn.add(jlhyphen);
-		jpSsn.add(jpwSsn);
-
-		// jplbBox 에 라벨들 삽입
-		jplbBox.add(jlName);
-		jplbBox.add(jlSsn);
-		jplbBox.add(jlId);
-		jplbBox.add(jlPass);
-		jplbBox.add(jlPassChk);
-		jplbBox.add(jlQuest);
-		jplbBox.add(jlAnswer);
-
-		// jptfBox 에 입력란들 삽입
-		jptfBox.add(jtfName); // 이름
-		jptfBox.add(jpSsn); // 주민번호 패널
-		jptfBox.add(jtfId); // 아이디
-		jptfBox.add(jpwPass); // 비밀번호
-		jptfBox.add(jpwPassChk); // 비밀번호 확인
-		jptfBox.add(jcbQuest); // 비밀번호 질문
-		jptfBox.add(jtfAnswer); // 비밀번호 답변
-
-		// 이미지 패널
-		jpimg.add(jlimg);
-		jpimg.add("South", jbImage);
-
-		// 각 버튼 패널에 버튼 넣기
-		jpSignUpButton.add(jbSignUp);
-		jpCancelButton.add(jbCancel);
-
-		// 버튼 패널
-		jpbutton.add(jpSignUpButton);
-		jpbutton.add(jpspace);
-		jpbutton.add(jpCancelButton);
-
-		// 패널 넣기
-		add(jptfBox);
-		add(jplbBox);
-		add(jpimg);
+		
+		// 각 컴포넌트 배치
+		setBounds(50, 50, 610, 498);
+		jlimg.setBounds(20, 20, 180,195);
+		jlName.setBounds(230, 30, 100, 25);
+		jlSsn.setBounds(230, 63, 100, 25);
+		jlId.setBounds(230, 96, 100, 25);
+		jlPass.setBounds(230, 129, 100, 25);
+		jlPassChk.setBounds(230, 162, 100, 25);
+		jlQuest.setBounds(230, 195, 100, 25);
+		jlAnswer.setBounds(230, 228, 100, 25);
+		
+		jtfName.setBounds(325, 30, 160, 25);
+		jtfSsn.setBounds(325, 63, 72, 25);
+		jlhyphen.setBounds(405, 63, 5, 25);
+		jpwSsn.setBounds(412, 63, 72, 25);
+		jtfId.setBounds(325, 96, 160, 25);
+		jpwPass.setBounds(325, 129, 160, 25);
+		jpwPassChk.setBounds(325, 162, 160, 25);
+		jcbQuest.setBounds(325, 195, 257, 25);
+		jtfAnswer.setBounds(325, 228, 257, 25);
+		
+		jbImage.setBounds(58, 223, 100, 25);
+		jsIntro.setBounds(20, 270, 560, 160);
+		jbSignUp.setBounds(420, 440, 70, 25);
+		jbCancel.setBounds(505, 440, 70, 25);
+		backgroundImg.setBounds(0,-63, 650, 600);
+		
+		add(jlimg);
+		add(jlName);
+		add(jlSsn);
+		add(jlId);
+		add(jlPass);
+		add(jlPassChk);
+		add(jlQuest);
+		add(jlAnswer);
+		add(jtfName);
+		add(jtfSsn);
+		add(jlhyphen);
+		add(jpwSsn);
+		add(jpwSsn);
+		add(jtfId);
+		add(jpwPass);
+		add(jpwPassChk);
+		add(jcbQuest);
+		add(jtfAnswer);
+		add(jbImage);
 		add(jsIntro);
-		add(jpbutton);
+		add(jbSignUp);
+		add(jbCancel);
+		add(backgroundImg);
 
-		// 각 패널 배치
-		setBounds(50, 50, 585, 500);
-		jpimg.setBounds(10, 10, 180, 230);
-		jplbBox.setBounds(250, 10, 100, 230);
-		jptfBox.setBounds(360, 10, 200, 230);
-		jsIntro.setBounds(10, 250, 550, 150);
-		jpbutton.setBounds(380, 400, 190, 70);
 
 		// 이벤트 처리
 		// jbImage.addActionListener();
@@ -148,7 +133,8 @@ public class JoinView extends JFrame {
 
 		// 가시화
 		setVisible(true);
-
+		//창 크기 고정
+		setResizable(false);
 		// 종료이벤트처리
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -157,6 +143,8 @@ public class JoinView extends JFrame {
 			}// windowClosing
 		});
 	}// joinView
+	
+	
 
 	public JTextField getJtfName() {
 		return jtfName;

@@ -2,6 +2,8 @@ package kr.co.sist.market.view;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -11,22 +13,37 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import kr.co.sist.market.dao.MarketDAO;
 import kr.co.sist.market.evt.SellerInfoViewEvt;
+import kr.co.sist.market.vo.SellerInfoVO;
 
 @SuppressWarnings("serial")
 public class SellerInfoView extends JFrame {
 	private JButton jbMsg,jbBuyReq;
+	private JTextArea jtaIntro;
+	private JTextField jtfId;
+	private static MarketDAO md;
 	
-	public SellerInfoView(){
+	public SellerInfoView(MarketDAO md) throws SQLException{
 		super("판매자 정보");
-		ImageIcon itemImg = new ImageIcon("C:/dev/workspace/prj22/src/kr/co/sist/market/img/profile.jpg");
+		this.md=md;
+		//File file=new File(seller.getImg());
+		ImageIcon itemImg = new ImageIcon("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/default.jpg");
 		JLabel itemImage = new JLabel(itemImg);
+		//customer/"+file.getName());
 		JLabel jlId = new JLabel("아이디");
 		JLabel jlIntro = new JLabel("자기소개");
-		JTextArea jtaIntro = new JTextArea();  //JTextArea 생성  
+		SellerInfoVO seller=md.selectSellerInfo("HY_1705240025");
+	
+		String info=seller.getInfo();
+		String id=seller.getId();
+		String img=seller.getImg();
+		System.out.println(info+" "+id+" "+img);
+		
+		jtaIntro = new JTextArea(info);  //JTextArea 생성  
 		JScrollPane jspIntro = new JScrollPane(jtaIntro);
 
-		JTextField jtfId=new JTextField();
+		jtfId=new JTextField(id);
 		jbMsg=new JButton("메세지 보내기");
 		jbBuyReq=new JButton("구매신청");
 		
@@ -50,7 +67,8 @@ public class SellerInfoView extends JFrame {
 		add(jbBuyReq);
 		
 		//이벤트 추가
-		SellerInfoViewEvt sive = new SellerInfoViewEvt(this);
+		SellerInfoViewEvt sive;
+		sive = new SellerInfoViewEvt(this);
 		jbMsg.addActionListener(sive);
 		jbBuyReq.addActionListener(sive);
 		
@@ -58,6 +76,8 @@ public class SellerInfoView extends JFrame {
 		setBounds(300,80,520,320);
 		//가시화
 		setVisible(true);
+		//창 크기 고정
+		setResizable(false);
 		//종료이벤트처리
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -67,6 +87,14 @@ public class SellerInfoView extends JFrame {
 		});
 	}//SellerInfoView
 	
+	public JTextArea getJtaIntro() {
+		return jtaIntro;
+	}
+
+	public JTextField getJtfId() {
+		return jtfId;
+	}
+
 	public JButton getJbMsg() {
 		return jbMsg;
 	}
@@ -76,7 +104,12 @@ public class SellerInfoView extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new SellerInfoView();
+		try {
+			md=MarketDAO.getInstance();
+			new SellerInfoView(md);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}//main
 
 }//class

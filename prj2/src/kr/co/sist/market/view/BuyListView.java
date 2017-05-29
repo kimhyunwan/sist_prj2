@@ -4,8 +4,10 @@ import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -28,6 +30,8 @@ public class BuyListView extends JFrame {
 	
 	public BuyListView(){
 		super("구매목록");
+
+		
 		String[] columnNames={"번호","판매자","상품코드","상품명","구매완료일시"};
 		String[][] data = {};
 		
@@ -113,6 +117,7 @@ public class BuyListView extends JFrame {
 		jspWait.setBounds(0, 0, 800, 500);
 		jbWClose.setBounds(700, 505, 60, 25);
 		
+		
 		JPanel jpWait = new JPanel();
 		jpWait.add(jspWait);
 		jpWait.add(jbWClose);
@@ -144,7 +149,10 @@ public class BuyListView extends JFrame {
 		});
 		
 		setBounds(10,10,800,600);
+		//가시화
 		setVisible(true);
+		//창 크기 고정
+		setResizable(false);
 	}//MenuForm
 
 
