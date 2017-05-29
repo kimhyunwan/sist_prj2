@@ -20,10 +20,9 @@ public class LoginView extends JFrame {
 	private JButton jbLogin,jbJoin,jbFind;
 	private boolean flag;
 	private int cnt;
-	
 	public LoginView(){
 		super("sist중고장터");
-		ImageIcon logo = new ImageIcon("C:/dev/workspace/prj22/src/kr/co/sist/market/img/logo.jpg");
+		ImageIcon logo = new ImageIcon("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/logo.jpg");
 		JLabel logoImg = new JLabel(logo);
 		JLabel jlId = new JLabel("아이디");
 		JLabel jlPass = new JLabel("비밀번호");
@@ -65,6 +64,8 @@ public class LoginView extends JFrame {
 		setBounds(300,80,425,180);
 		//가시화
 		setVisible(true);
+		//창 크기 고정
+		setResizable(false);
 		//종료이벤트처리
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -90,7 +91,7 @@ public class LoginView extends JFrame {
 		return flag;
 	}//getFlag
 	
-	public JTextField getJtfId() {
+	public   JTextField getJtfId() {
 		return jtfId;
 	}
 	public JPasswordField getJpwPass() {

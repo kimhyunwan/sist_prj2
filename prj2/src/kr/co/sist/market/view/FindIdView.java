@@ -1,12 +1,12 @@
 package kr.co.sist.market.view;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,136 +21,66 @@ import kr.co.sist.market.evt.FindIdViewEvt;
  * @author user
  *
  */
-public class FindIdView extends JFrame {
+@SuppressWarnings("serial")
+public class FindIdView  extends JFrame {
+	private JTabbedPane jtpTab;
 
 	private JTextField jtfIdName, jtfIdSsn, jtfPwName, jtfPwSsn, jtfId, jtfAnswer;
 	private JComboBox<String> jcbQuest;
 	private JPasswordField jpwIdSsn, jpwPwSsn;
 	private JButton jbFindId, jbFindPass, jbIdCancel, jbPwCancel;
 	
-	private JPanel idTab,pwTab;
-	
-	
-	public FindIdView() {
-
-		//메인 패널 설정
-		JPanel mainPanel = new JPanel();
-		
-		//각 탭들을 만들어 놓은 메소드 호출
-		idTabPane();
-		pwTabPane();
-
-		//틀 설정
-		setBounds(300, 300, 330, 350);
-		setTitle("아이디찾기 / 비밀번호찾기");
-		setLayout(null);
-		
-		//각 탭들을 담을 메인패널 설정
-		mainPanel.setBounds(2, 0, 310, 310);
-		mainPanel.setLayout(new BorderLayout());
-		getContentPane().add(mainPanel);
-		
-		//메인패널에 각 탭들을 삽입
-		JTabbedPane tabPane = new JTabbedPane();
-		tabPane.addTab( "아이디 찾기", idTab);
-		tabPane.addTab( "비밀번호 찾기", pwTab);
-		mainPanel.add(tabPane);
-		add(mainPanel);
-		
-		//이벤트처리
-		FindIdViewEvt five=new FindIdViewEvt(this);
-		jbFindId.addActionListener(five);
-		jbFindPass.addActionListener(five);
-		jbIdCancel.addActionListener(five);
-		jbPwCancel.addActionListener(five);
-		
-		//가시화
-		setVisible(true);
-		//종료설정
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}//FindIdView
-	
-	//////////////////////////////////////////////////////////////////////////////
-	/////////// ID 찾기 창                                          ///////////
-	//////////////////////////////////////////////////////////////////////////////
-	
-	/**
-	 * id찾기 창
-	 */
-	public void idTabPane(){
-		
-		//패널생성
-		idTab=new JPanel();
-		
-		JPanel jplb=new JPanel();
-		JPanel jptf=new JPanel();
-		JPanel jpbtn=new JPanel();
-		
-		JPanel jpSsn=new JPanel();
+	public FindIdView(){
+		super("아이디찾기 / 비밀번호찾기");
+		//////////////////////////////////////////////////////////////////////////////
+		/////////// 아이디 찾기 창                                     ///////////
+		//////////////////////////////////////////////////////////////////////////////
 		
 		//라벨생성
-		JLabel jlName = new JLabel("이름");
-		JLabel jlSsn = new JLabel("주민번호");
-		JLabel hyphen = new JLabel("-");
-		
+		ImageIcon icon = new ImageIcon("C:/Users/user/git/sist_prj2/prj2/src/kr/co/sist/market/img/bg_beige.GIF");
+		JLabel backgroundImg = new JLabel(icon);
+		JLabel jlidName = new JLabel("이름");
+		JLabel jlidSsn = new JLabel("주민번호");
+		JLabel idhyphen = new JLabel("-");
 		//필요항복 설정
+		JPanel idTab = new JPanel();
 		jtfIdName = new JTextField();
 		jtfIdSsn = new JTextField(6);
 		jpwIdSsn = new JPasswordField(7);
 		jbFindId = new JButton("찾기");
 		jbIdCancel = new JButton("취소");
-		
-		//화면설정
-		idTab.setLayout(null);
-		jpSsn.setLayout(new FlowLayout());
-		jpbtn.setLayout(new FlowLayout());
-		jplb.setLayout(new GridLayout(2, 1));
-		jptf.setLayout(new GridLayout(2, 1));
-		
 		//배치
-		//idTab.setBounds(2, 0, 300, 300);
-		jplb.setBounds(25, 15, 100, 60);
-		jptf.setBounds(125, 15, 170, 60);
-		jpbtn.setBounds(150, 210, 150, 150);
+		jlidName.setBounds(20, 20, 30, 25);
+		jlidSsn.setBounds(20, 55, 60, 25);
+		idhyphen.setBounds(193, 55, 5, 25);
+		jtfIdName.setBounds(115, 20, 160, 25);
+		jtfIdSsn.setBounds(115, 55, 72, 25);
+		jpwIdSsn.setBounds(205, 55, 72, 25);
 		
-		//삽입
-		jplb.add(jlName);
-		jplb.add(jlSsn);
-
-		jptf.add(jtfIdName);
-		jptf.add(jpSsn);
-		
-		jpSsn.add(jtfIdSsn);
-		jpSsn.add(hyphen);
-		jpSsn.add(jpwIdSsn);
-		
-		jpbtn.add(jbFindId);
-		jpbtn.add(jbIdCancel);
-		
-		idTab.add(jplb);
-		idTab.add(jptf);
-		idTab.add(jpbtn);
-		
-	}//idTabPane
+		jbFindId.setBounds(218, 210, 70, 25);
+		jbIdCancel.setBounds(300, 210, 70, 25);
+		backgroundImg.setBounds(-60,-65, 450, 450);
+		//수동배치
+		idTab.add(jlidName);
+		idTab.add(jlidSsn);
+		idTab.add(idhyphen);
+		idTab.add(jtfIdName);
+		idTab.add(jtfIdSsn);
+		idTab.add(jpwIdSsn);
+		idTab.add(jbFindId);
+		idTab.add(jbIdCancel);
+		idTab.add(backgroundImg);
+		//수동배치
+		idTab.setLayout(null);
+		idTab.setBounds(10,10,800,600);
 	
-	//////////////////////////////////////////////////////////////////////////////
-	/////////// 비밀번호 찾기 창                                   ///////////
-	//////////////////////////////////////////////////////////////////////////////
-	/**
-	 * 비밀번호 찾기 창
-	 */
-	public void pwTabPane(){
-		
-		//패널생성
-		pwTab=new JPanel();
-		
-		JPanel jplb=new JPanel();
-		JPanel jptf=new JPanel();
-		JPanel jpbtn=new JPanel();
-		
-		JPanel jpSsn=new JPanel();
+		//////////////////////////////////////////////////////////////////////////////
+		/////////// 비밀번호 찾기 창                                   ///////////
+		//////////////////////////////////////////////////////////////////////////////
 		
 		//라벨생성
+		ImageIcon icon1 = new ImageIcon("C:/Users/user/git/sist_prj2/prj2/src/kr/co/sist/market/img/bg_beige.GIF");
+		JLabel backgroundImg1 = new JLabel(icon);
 		JLabel jlName = new JLabel("이름");
 		JLabel jlSsn = new JLabel("주민번호");
 		JLabel hyphen = new JLabel("-");
@@ -163,142 +93,175 @@ public class FindIdView extends JFrame {
 		jtfPwSsn = new JTextField(6);
 		jpwPwSsn = new JPasswordField(7);
 		jtfId = new JTextField();
-		jcbQuest = new JComboBox<String>();
+		String[] questions = {"------------------------ 선택 ------------------------","기억에 남는 추억의 장소는?","자신의 보물 제1호는?","자신의 인생 좌우명은?","가장 기억에 남는 선생님 성함은?",
+				"타인이 모르는 자신만의 신체비밀이 있다면?","추억하고 싶은 날짜가 있다면?","다시 태어나면 되고 싶은 것은?"};
+		jcbQuest = new JComboBox<String>(questions);
 		jtfAnswer = new JTextField();
 		jbFindPass = new JButton("찾기");
 		jbPwCancel = new JButton("취소");
 		
-		//화면설정
-		pwTab.setLayout(null);
-		jpSsn.setLayout(new FlowLayout());
-		jpbtn.setLayout(new FlowLayout());
-		jplb.setLayout(new GridLayout(5, 1));
-		jptf.setLayout(new GridLayout(5, 1));
+		JPanel pwTab=new JPanel();
 		
 		//배치
-		idTab.setBounds(100, 100, 200, 360);
-		jplb.setBounds(25, 15, 100, 150);
-		jptf.setBounds(125, 15, 170, 150);
-		jpbtn.setBounds(150, 210, 150, 150);
+		jlName.setBounds(20, 20, 30, 25);
+		jlSsn.setBounds(20, 55, 60, 25);
+		hyphen.setBounds(193, 55, 5, 25);
+		jlId.setBounds(20, 90, 40, 25);
+		jlQuest.setBounds(20, 125, 80, 25);
+		jlAnswar.setBounds(20, 160, 80, 25);
 		
-		//삽입
-			//라벨모음
-		jplb.add(jlName);
-		jplb.add(jlSsn);
-		jplb.add(jlId);
-		jplb.add(jlQuest);
-		jplb.add(jlAnswar);
-			//기재부분 모음
-		jptf.add(jtfPwName);
-		jptf.add(jpSsn);
-		jptf.add(jtfId);
-		jptf.add(jcbQuest);
-		jptf.add(jtfAnswer);
-			//주민번호창 패널
-		jpSsn.add(jtfPwSsn);
-		jpSsn.add(hyphen);
-		jpSsn.add(jpwPwSsn);
-			//버튼 패널
-		jpbtn.add(jbFindPass);
-		jpbtn.add(jbPwCancel);
-		//최종 삽입
-		pwTab.add(jplb);
-		pwTab.add(jptf);
-		pwTab.add(jpbtn);
+		jtfPwName.setBounds(115, 20, 160, 25);
+		jtfPwSsn.setBounds(115, 55, 72, 25);
+		jpwPwSsn.setBounds(205, 55, 72, 25);
+		jtfId.setBounds(115, 90, 160, 25);
+		jcbQuest.setBounds(115, 125, 257, 25);
+		jtfAnswer.setBounds(115, 160, 257, 25);
+		jbFindPass.setBounds(218, 210, 70, 25);
+		jbPwCancel.setBounds(300, 210, 70, 25);
+		backgroundImg1.setBounds(-60,-65, 450, 450);
 		
-	}//pwTabPane
+		pwTab.add(jlName);
+		pwTab.add(jlSsn);
+		pwTab.add(hyphen);
+		pwTab.add(jlId);
+		pwTab.add(jlQuest);
+		pwTab.add(jlAnswar);
+		pwTab.add(jtfPwName);
+		pwTab.add(jtfPwSsn);
+		pwTab.add(jpwPwSsn);
+		pwTab.add(jtfId);
+		pwTab.add(jcbQuest);
+		pwTab.add(jtfAnswer);
+		pwTab.add(jbFindPass);
+		pwTab.add(jbPwCancel);
+		pwTab.add(backgroundImg1);
+
 	
-	public static void main(String[] args) {
-		new FindIdView();
-	}//main
+		//수동배치
+		pwTab.setLayout(null);
+		pwTab.setBounds(10,10,800,600);
+		
+		//아이디 탭과 비밀번호 탭 삽입
+		jtpTab=new JTabbedPane();
+		jtpTab.add("아이디찾기", idTab);
+		jtpTab.addTab("비밀번호찾기", pwTab);
+		
+		add("Center",jtpTab);
+
+		idTab.setBackground(Color.WHITE);
+		
+		addWindowListener(new WindowAdapter(){
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				dispose();
+				System.exit(0);
+			}//windowClosing
+			
+		});
+		
+		//이벤트처리
+		FindIdViewEvt five=new FindIdViewEvt(this);
+		jbFindId.addActionListener(five);
+		jbFindPass.addActionListener(five);
+		jbIdCancel.addActionListener(five);
+		jbPwCancel.addActionListener(five);
+		
+		setBounds(200, 200, 400, 315);
+		//가시화
+		setVisible(true);
+		//창 크기 고정
+		setResizable(false);
+	}//MenuForm
+
+	
+
+	public JTabbedPane getJtpTab() {
+		return jtpTab;
+	}
+
+
 
 	public JTextField getJtfIdName() {
 		return jtfIdName;
 	}
 
-	public void setJtfIdName(JTextField jtfIdName) {
-		this.jtfIdName = jtfIdName;
-	}
+
 
 	public JTextField getJtfIdSsn() {
 		return jtfIdSsn;
 	}
 
-	public void setJtfIdSsn(JTextField jtfIdSsn) {
-		this.jtfIdSsn = jtfIdSsn;
-	}
+
 
 	public JTextField getJtfPwName() {
 		return jtfPwName;
 	}
 
-	public void setJtfPwName(JTextField jtfPwName) {
-		this.jtfPwName = jtfPwName;
-	}
+
 
 	public JTextField getJtfPwSsn() {
 		return jtfPwSsn;
 	}
 
-	public void setJtfPwSsn(JTextField jtfPwSsn) {
-		this.jtfPwSsn = jtfPwSsn;
-	}
+
 
 	public JTextField getJtfId() {
 		return jtfId;
 	}
 
-	public void setJtfId(JTextField jtfId) {
-		this.jtfId = jtfId;
-	}
+
 
 	public JTextField getJtfAnswer() {
 		return jtfAnswer;
 	}
 
-	public void setJtfAnswer(JTextField jtfAnswer) {
-		this.jtfAnswer = jtfAnswer;
-	}
+
 
 	public JComboBox<String> getJcbQuest() {
 		return jcbQuest;
 	}
 
-	public void setJcbQuest(JComboBox<String> jcbQuest) {
-		this.jcbQuest = jcbQuest;
-	}
+
 
 	public JPasswordField getJpwIdSsn() {
 		return jpwIdSsn;
 	}
 
-	public void setJpwIdSsn(JPasswordField jpwIdSsn) {
-		this.jpwIdSsn = jpwIdSsn;
-	}
+
 
 	public JPasswordField getJpwPwSsn() {
 		return jpwPwSsn;
 	}
 
-	public void setJpwPwSsn(JPasswordField jpwPwSsn) {
-		this.jpwPwSsn = jpwPwSsn;
-	}
+
 
 	public JButton getJbFindId() {
 		return jbFindId;
 	}
 
+
+
 	public JButton getJbFindPass() {
 		return jbFindPass;
 	}
+
+
 
 	public JButton getJbIdCancel() {
 		return jbIdCancel;
 	}
 
+
+
 	public JButton getJbPwCancel() {
 		return jbPwCancel;
 	}
-	
+
+
+
+	public static void main(String[] args) {
+		new FindIdView();
+	}//main
 	
 }//class

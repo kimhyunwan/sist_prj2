@@ -7,29 +7,29 @@ public class MemberJoinVO {
 	public MemberJoinVO() {
 
 	}
-	
-	public MemberJoinVO(String id, String ssn, String name, String pass, String passAnswer, String image, String info, int quNum) {
+
+	public MemberJoinVO(String id, String name, String pass, String passAnswer, String image, String info, int quNum, String ssn) {
 		this.id = id;
-		this.ssn = ssn;
 		this.name = name;
 		this.pass = pass;
 		this.passAnswer = passAnswer;
 		this.image = image;
 		this.info = info;
 		this.quNum = quNum;
+		this.ssn = ssn;
 	}
-	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+
 	public String getSsn() {
 		return ssn;
 	}
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getName() {
 		return name;
