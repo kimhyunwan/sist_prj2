@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Properties;
 import javax.swing.JOptionPane;
 
+import kr.co.sist.market.vo.ChangeVO;
 import kr.co.sist.market.vo.IdVO;
 import kr.co.sist.market.vo.ItemInfoVO;
 import kr.co.sist.market.vo.LoginVO;
@@ -23,6 +24,7 @@ import kr.co.sist.market.vo.MemberInfoVO;
 import kr.co.sist.market.vo.MemberJoinVO;
 import kr.co.sist.market.vo.MsgListVO;
 import kr.co.sist.market.vo.MsgVO;
+import kr.co.sist.market.vo.MsgViewVO;
 import kr.co.sist.market.vo.PassVO;
 import kr.co.sist.market.vo.PhoneVO;
 import kr.co.sist.market.vo.SellerInfoVO;
@@ -366,7 +368,7 @@ public class CustomerDAO {
 	 * 회원의 정보를 수정하는 일
 	 * @param MemberInfoVO
 	 */
-	public void updateMember(MemberInfoVO miv) throws SQLException{
+	public void updateMember(ChangeVO cv) throws SQLException{
 		/////////////MemberInfoVO////////////////
 		//String id, pass, passAnswer, image, info
 		//int quNum
@@ -378,16 +380,17 @@ public class CustomerDAO {
 		//2.Connection얻기
 			con=getConnection();
 		//3.쿼리문 생성객체 얻기(Statement와의 차이 : 어떤 쿼리문이 들어가는지 모른다)
-			String updateMember="update member set  pass=?,pass_answer=?,image=?,info=?,qu_num=? where id=?";
+			String updateMember="update member set name=?, pass=?,pass_answer=?,image=?,info=?,qu_num=? where id=?";
 			pstmt=con.prepareStatement(updateMember);
 		//4.쿼리 실행 후, 결과 얻기
 			//바인드변수에 값을 설정해야한다.
-			pstmt.setString(1,miv.getPass());   //VO에 딸린 값을 사용하기위해 매개변수로 EmpVO받아온것
-			pstmt.setString(2,miv.getPassAnswer());  //VO에 딸린 값을 사용하기위해 매개변수로 EmpVO받아온것
-			pstmt.setString(3,miv.getImage());  //VO에 딸린 값을 사용하기위해 매개변수로 EmpVO받아온것
-			pstmt.setString(4,miv.getInfo());  //VO에 딸린 값을 사용하기위해 매개변수로 EmpVO받아온것
-			pstmt.setInt(5,miv.getQuNum());  //VO에 딸린 값을 사용하기위해 매개변수로 EmpVO받아온것
-			pstmt.setString(6,miv.getId());  //VO에 딸린 값을 사용하기위해 매개변수로 EmpVO받아온것
+			pstmt.setString(1, cv.getName());
+			pstmt.setString(2,cv.getPass());   //VO에 딸린 값을 사용하기위해 매개변수로 EmpVO받아온것
+			pstmt.setString(3,cv.getAnswer());  //VO에 딸린 값을 사용하기위해 매개변수로 EmpVO받아온것
+			pstmt.setString(4,cv.getImage());  //VO에 딸린 값을 사용하기위해 매개변수로 EmpVO받아온것
+			pstmt.setString(5,cv.getInfo());  //VO에 딸린 값을 사용하기위해 매개변수로 EmpVO받아온것
+			pstmt.setInt(6,cv.getQuNum());  //VO에 딸린 값을 사용하기위해 매개변수로 EmpVO받아온것
+			pstmt.setString(7,cv.getId());  //VO에 딸린 값을 사용하기위해 매개변수로 EmpVO받아온것
 			pstmt.executeUpdate();
 		}finally{
 		//5.연결 끊기
@@ -518,7 +521,7 @@ public class CustomerDAO {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		
+			
 		try{
 		//1.드라이버 로딩
 		//2.Connection 얻기
@@ -716,7 +719,7 @@ public class CustomerDAO {
 	 * @param id
 	 * @return MyInfoVO
 	 */
-	public int selectCntBuyWait(String id) throws SQLException{
+	public int selectCntSellWait(String id) throws SQLException{
 		int cntBuyWait=0;
 		
 		Connection con=null;
@@ -759,7 +762,7 @@ public class CustomerDAO {
 	 * @param id
 	 * @return MyInfoVO
 	 */
-	public int selectCntSellWait(String id) throws SQLException{
+	public int selectCntBuyWait(String id) throws SQLException{
 		int cntSellWait=0;
 		
 		Connection con=null;
@@ -812,7 +815,7 @@ public class CustomerDAO {
 		try{
 			con=getConnection();
 			
-			String selectCnt="select count(*) count from receive_msg where sold_flag='n' group by id having id=?";
+			String selectCnt="select count(*) count from receive_msg where msg_check_flag='n' group by id having id=?";
 			pstmt=con.prepareStatement(selectCnt);
 			
 			pstmt.setString(1, id);
@@ -845,8 +848,8 @@ public class CustomerDAO {
 	 * @param id
 	 * @return String
 	 */
-	public String selectReceiveMsgInfo(int msg_num) throws SQLException{
-		String result="";
+	public MsgViewVO selectReceiveMsgInfo(int msg_num) throws SQLException{
+		MsgViewVO mvv=null;
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -856,14 +859,16 @@ public class CustomerDAO {
 			//2.Connection 얻기
 				con=getConnection();
 			//3.쿼리문 생성객체 얻기
-				String selectReceiveMsgInfo="select message from receive_msg where msg_num=?";
+				String selectReceiveMsgInfo="select message, send_id from receive_msg where msg_num=?";
 				
 				pstmt=con.prepareStatement(selectReceiveMsgInfo);
 			//4.쿼리 실행 후, 결과 얻기 :  : 바인드변수가 1개 존재 (msg_num)
 				pstmt.setInt(1, msg_num); 
 				rs=pstmt.executeQuery(); //select이기 때문에 executeQuery()
 				if(rs.next()){
-					result=rs.getString("message");
+					mvv=new MsgViewVO();
+					mvv.setMsg(rs.getString("message"));
+					mvv.setSendId(rs.getString("send_id"));
 				}//end if
 		}finally{
 			//5.연결끊기
@@ -871,7 +876,7 @@ public class CustomerDAO {
 			if( pstmt != null) { pstmt.close(); }
 			if( con != null) { con.close(); }
 		}//end try
-		return result;
+		return mvv;
 	}//selectMsgInfo
 //	///////////////////(테스트완료)selectMsgInfo()단위테스트////////////////////////
 //	public static void main(String[] args){
@@ -893,8 +898,8 @@ public class CustomerDAO {
 	 * @param id
 	 * @return String
 	 */
-	public String selectSendMsgInfo(int msg_num) throws SQLException{
-		String result="";
+	public MsgViewVO selectSendMsgInfo(int msg_num) throws SQLException{
+		MsgViewVO mvv=null;
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -904,14 +909,16 @@ public class CustomerDAO {
 			//2.Connection 얻기
 				con=getConnection();
 			//3.쿼리문 생성객체 얻기
-				String selectSendMsgInfo="select message from send_msg where msg_num=?";
+				String selectSendMsgInfo="select message, send_id from send_msg where msg_num=?";
 				
 				pstmt=con.prepareStatement(selectSendMsgInfo);
 			//4.쿼리 실행 후, 결과 얻기 :  : 바인드변수가 1개 존재 (id)
 				pstmt.setInt(1, msg_num); 
 				rs=pstmt.executeQuery(); //select이기 때문에 executeQuery()
 				if(rs.next()){
-					result=rs.getString("message");
+					mvv=new MsgViewVO();
+					mvv.setMsg(rs.getString("message"));
+					mvv.setSendId(rs.getString("send_id"));
 				}//end if
 		}finally{
 			//5.연결끊기
@@ -919,7 +926,7 @@ public class CustomerDAO {
 			if( pstmt != null) { pstmt.close(); }
 			if( con != null) { con.close(); }
 		}//end try
-		return result;
+		return mvv;
 	}//selectMsgInfo
 //	///////////////////(테스트완료)selectMsgInfo()단위테스트////////////////////////
 //	public static void main(String[] args){

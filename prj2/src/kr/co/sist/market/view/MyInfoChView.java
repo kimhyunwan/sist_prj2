@@ -2,6 +2,7 @@ package kr.co.sist.market.view;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,7 +14,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import kr.co.sist.market.dao.CustomerDAO;
 import kr.co.sist.market.evt.MyInfoChViewEvt;
+import kr.co.sist.market.vo.MemberInfoVO;
 
 @SuppressWarnings("serial")
 public class MyInfoChView extends JFrame {
@@ -22,11 +25,14 @@ public class MyInfoChView extends JFrame {
 	private JComboBox<String> jcbQuest;
 	private JTextArea jtaIntro;
 	private JPasswordField jtfPass,jtfPassChk;
+	private JLabel jlItemImage;
+	private static CustomerDAO cd;
 	
-	public MyInfoChView(){
+	public MyInfoChView(CustomerDAO cd) throws SQLException{
 		super("정보변경");
-		ImageIcon itemImg = new ImageIcon("C:/dev/workspace/prj22/src/kr/co/sist/market/img/profile.jpg");
-		JLabel itemImage = new JLabel(itemImg);
+		this.cd=cd;
+		ImageIcon itemImg = new ImageIcon("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/default.jpg");
+		jlItemImage = new JLabel(itemImg);
 		JLabel jlPass = new JLabel("비밀번호");
 		JLabel jlPassChk = new JLabel("비밀번호 확인");
 		JLabel jlQuest = new JLabel("비밀번호 질문");
@@ -34,15 +40,27 @@ public class MyInfoChView extends JFrame {
 		
 		JLabel jlIntro = new JLabel("자기소개");
 		jtaIntro = new JTextArea();
-		JScrollPane jspIntro = new JScrollPane(jtaIntro);
-
-		jtfPass=new JPasswordField();
-		jtfPassChk = new JPasswordField();
+		
+		MemberInfoVO miv=cd.selectPreMember("dongha");
+		
+		String pass=miv.getPass();
+		String answer=miv.getPassAnswer();
+		String info=miv.getInfo();
+		int quNum=miv.getQuNum();
+		
+		jtfPass=new JPasswordField(pass);
+		jtfPassChk = new JPasswordField(pass);
 		String[] questions = {"------------------------ 선택 ------------------------","기억에 남는 추억의 장소는?","자신의 보물 제1호는?","자신의 인생 좌우명은?","가장 기억에 남는 선생님 성함은?",
 				"타인이 모르는 자신만의 신체비밀이 있다면?","추억하고 싶은 날짜가 있다면?","다시 태어나면 되고 싶은 것은?"};
 		jcbQuest = new JComboBox<String>(questions);
-		jtfAnswer = new JTextField();		
-		jtaIntro = new JTextArea();  //JTextArea 생성  
+		jcbQuest.setSelectedIndex(quNum);
+		jtfAnswer = new JTextField(answer);		
+		jtaIntro = new JTextArea(); //JTextArea 생성
+		jtaIntro.setLineWrap(true);
+		jtaIntro.setWrapStyleWord(true);
+		jtaIntro.setText(info);
+		
+		JScrollPane jspIntro = new JScrollPane(jtaIntro);
 		
 		jbImage = new JButton("이미지 등록");
 		jbChange=new JButton("수정");
@@ -51,7 +69,7 @@ public class MyInfoChView extends JFrame {
 		//자동배치 해제
 		setLayout(null);
 		//컴포넌트의 배치 위치설정
-		itemImage.setBounds(20, 20, 180, 200);
+		jlItemImage.setBounds(20, 20, 180, 200);
 		jlPass.setBounds(220, 30, 65, 15);
 		jtfPass.setBounds(330, 30, 140,25);
 		jlPassChk.setBounds(220, 60, 85, 15);
@@ -67,7 +85,7 @@ public class MyInfoChView extends JFrame {
 		jbCancel.setBounds(520, 350, 60,25);		
 		
 		//컴포넌트 배치
-		add(itemImage);
+		add(jlItemImage);
 		add(jlPass);
 		add(jtfPass);
 		add(jlPassChk);
@@ -85,6 +103,8 @@ public class MyInfoChView extends JFrame {
 		//이벤트 추가
 		MyInfoChViewEvt iive = new MyInfoChViewEvt(this);
 		jbCancel.addActionListener(iive);
+		jbChange.addActionListener(iive);
+		jbImage.addActionListener(iive);
 		
 		//윈도우의 크기
 		setBounds(300,80,630,470);
@@ -98,6 +118,9 @@ public class MyInfoChView extends JFrame {
 			}//windowClosing
 		});
 	}//MyInfoChView
+	public JLabel getJlItemImage() {
+		return jlItemImage;
+	}
 	public JTextField getJtfAnswer() {
 		return jtfAnswer;
 	}
@@ -123,6 +146,11 @@ public class MyInfoChView extends JFrame {
 		return jtfPassChk;
 	}
 	public static void main(String[] args) {
-		new MyInfoChView();
+		cd=CustomerDAO.getInstance();
+		try {
+			new MyInfoChView(cd);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+		}
 	}//main
 }//class

@@ -5,6 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -55,20 +59,58 @@ public class JoinViewEvt extends WindowAdapter implements ActionListener {
 		}//end if
 	}//addImg
 	
+	
 	private void signUpMember(){
 		ImageIcon icon=(ImageIcon)jv.getJlimg().getIcon();
 		
 		File file=new File(icon.toString());
 		String ssnBack=new String(jv.getJpwSsn().getPassword()).trim();
+		String ssnFront=jv.getJtfSsn().getText().trim();
 		String tempFile=file.getName();
 		String name=jv.getJtfName().getText().trim();
-		String ssn=jv.getJtfSsn().getText().trim()+ssnBack;
+		String ssn=ssnFront+ssnBack;
 		String id=jv.getJtfId().getText().trim();
 		String pass=new String(jv.getJpwPass().getPassword()).trim();
 		String passChk=new String(jv.getJpwPassChk().getPassword()).trim();
 		int quNum=jv.getJcbQuest().getSelectedIndex()+1;
 		String answer=jv.getJtfAnswer().getText().trim();
 		String info=jv.getJtaIntro().getText().trim();
+		
+		if(ssnFront.length()!=6||ssnBack.length()!=7){
+			JOptionPane.showMessageDialog(jv, "주민번호를 올바르게 입력해주세요");
+			return;
+		}
+		
+		if(!file.getParent().equals("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/customer")){
+	         try {
+	            //원본 파일 복붙
+	            FileInputStream fis=new FileInputStream(file);
+	            FileOutputStream fos=new FileOutputStream("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/customer/"+file.getName());
+	            
+	            byte[] temp=new byte[512];
+	            
+	            int readData=0;
+	            while((readData=fis.read(temp))!=-1){
+	               fos.write(temp, 0, readData);
+	            }//end while
+	            
+	            fos.flush();
+	            
+	            if(fis!=null){
+	               fis.close();
+	            }//end if
+	            
+	            if(fos!=null){
+	               fos.close();
+	            }//end if
+	            
+	         } catch (FileNotFoundException e) {
+	            e.printStackTrace();
+	         } catch (IOException e) {
+	            e.printStackTrace();
+	         }
+	         
+	      }//end if
 		
 		MemberJoinVO mjv=new MemberJoinVO();
 		cd=CustomerDAO.getInstance();

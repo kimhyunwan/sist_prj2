@@ -85,8 +85,6 @@ public class MarketDAO {
 			String selectItem="select item_name, item_code, item_info, hiredate, item_image, price from product";
 			if(typeCode!=0){
 				selectItem+=" where category_num=?";
-			} else {
-				
 			}
 			pstmt=con.prepareStatement(selectItem);
 

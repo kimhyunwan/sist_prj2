@@ -1,36 +1,25 @@
 package kr.co.sist.market.vo;
 
 public class MsgVO {
-	String sendId, msg, id, itemCode;
+	private String sendId, id, msg, itemCode;
 	
-	//기본생성자
 	public MsgVO() {
+	
 	}
 
-	//인자있는생성자
-	public MsgVO(String sendId, String msg, String id, String itemCode) {
-		super();
+	public MsgVO(String sendId, String id, String msg, String itemCode) {
 		this.sendId = sendId;
-		this.msg = msg;
 		this.id = id;
+		this.msg = msg;
 		this.itemCode = itemCode;
 	}
 
-	//getter,setter
 	public String getSendId() {
 		return sendId;
 	}
 
 	public void setSendId(String sendId) {
 		this.sendId = sendId;
-	}
-
-	public String getMsg() {
-		return msg;
-	}
-
-	public void setMsg(String msg) {
-		this.msg = msg;
 	}
 
 	public String getId() {
@@ -41,6 +30,14 @@ public class MsgVO {
 		this.id = id;
 	}
 
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
 	public String getItemCode() {
 		return itemCode;
 	}
@@ -48,10 +45,7 @@ public class MsgVO {
 	public void setItemCode(String itemCode) {
 		this.itemCode = itemCode;
 	}
-
-	@Override
-	public String toString() {
-		return "MsgVO [sendId=" + sendId + ", msg=" + msg + ", id=" + id + ", itemCode=" + itemCode + "]";
-	}
 	
-}//class
+	
+	
+}

@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import kr.co.sist.market.dao.CustomerDAO;
 import kr.co.sist.market.dao.MarketDAO;
 
 import kr.co.sist.market.view.BuyListView;
@@ -25,6 +26,7 @@ import kr.co.sist.market.vo.ItemListVO;
 public class MainViewEvt extends MouseAdapter implements ActionListener {
 	private MainView mv;
 	private MarketDAO m_dao;
+	private CustomerDAO c_dao;
 	
 	
 	LoginViewEvt lve;
@@ -81,7 +83,12 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource()==mv.getJbMyInfoCh()){
-			new MyInfoChView();
+			c_dao=CustomerDAO.getInstance();
+			try {
+				new MyInfoChView(c_dao);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}//end if
 		if(ae.getSource()==mv.getJbSellList()){
 			new SellListView();

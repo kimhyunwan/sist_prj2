@@ -13,6 +13,7 @@ public class SellerInfoViewEvt extends WindowAdapter implements ActionListener {
 	
 	public SellerInfoViewEvt(SellerInfoView siv){
 		this.siv=siv;
+		
 	}//SellerInfoViewEvt
 	@Override
 	public void actionPerformed(ActionEvent ae) {

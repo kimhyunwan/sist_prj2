@@ -11,11 +11,13 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import kr.co.sist.market.evt.BuyReqViewEvt;
+import kr.co.sist.market.evt.LoginViewEvt;
 
 @SuppressWarnings("serial")
 public class BuyReqView extends JFrame {
 	private JTextField jtfId, jtfTotalPrice;
 	private JButton jbBuyReq,jbCancel;
+	private LoginViewEvt lve;
 	
 	public BuyReqView(){
 		super("구매신청");
@@ -24,7 +26,7 @@ public class BuyReqView extends JFrame {
 		JLabel jlId = new JLabel("구매자");
 		JLabel jlPayment = new JLabel("결제수단");
 		JLabel jlTotalPrice = new JLabel("총 결제 금액");
-		jtfId=new JTextField();
+		jtfId=new JTextField("dongha");
 		String[] payments = {"----- 선택 -----","카드","현금","계좌이체"};
 		JComboBox<String> jcbPayment = new JComboBox<String>(payments);
 		jtfTotalPrice = new JTextField();
@@ -57,6 +59,7 @@ public class BuyReqView extends JFrame {
 		//이벤트 추가
 		BuyReqViewEvt brve = new BuyReqViewEvt(this);
 		jbCancel.addActionListener(brve);
+		jbBuyReq.addActionListener(brve);
 		
 		//윈도우의 크기
 		setBounds(300,80,520,320);
