@@ -281,7 +281,7 @@ public class MarketDAO {
 
 			if (con != null) {
 				con.close();
-			} // end if
+			} // end if//
 		}
 	}
 	
