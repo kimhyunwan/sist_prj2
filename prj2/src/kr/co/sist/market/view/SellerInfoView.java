@@ -31,10 +31,10 @@ public class SellerInfoView extends JFrame {
 		JLabel itemImage = new JLabel(itemImg);
 		JLabel jlId = new JLabel("아이디");
 		JLabel jlIntro = new JLabel("자기소개");
-		
+	
 		jtaIntro = new JTextArea(seller.getInfo());  //JTextArea 생성  
 		JScrollPane jspIntro = new JScrollPane(jtaIntro);
-		
+
 		jtfId=new JTextField(seller.getId());
 		jbMsg=new JButton("메세지 보내기");
 		jbBuyReq=new JButton("구매신청");

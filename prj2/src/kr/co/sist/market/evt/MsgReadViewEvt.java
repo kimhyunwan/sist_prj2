@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 import kr.co.sist.market.dao.CustomerDAO;
 import kr.co.sist.market.view.MsgReadView;
 import kr.co.sist.market.view.MsgWriteView;
-import kr.co.sist.market.vo.MsgVO;
 
 public class MsgReadViewEvt extends WindowAdapter implements ActionListener {
 
@@ -28,11 +27,11 @@ public class MsgReadViewEvt extends WindowAdapter implements ActionListener {
 	}//MsgReadViewEvt
 	
 	private void SendMsg(){
-		MsgVO mv=new MsgVO();
+		
+
 		
 		
 		
-		new MsgWriteView(mv);
 	}//SendMsg
 	
 	@Override
@@ -42,7 +41,7 @@ public class MsgReadViewEvt extends WindowAdapter implements ActionListener {
 		}//end if
 		
 		if(ae.getSource()==mrv.getJbSend()){
-			SendMsg();
+			//new MsgWriteView();
 		}//end if
 
 	}//actionPerformed
@@ -54,6 +53,7 @@ public class MsgReadViewEvt extends WindowAdapter implements ActionListener {
 
 	@Override
 	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
 		super.windowClosed(e);
 	}
 

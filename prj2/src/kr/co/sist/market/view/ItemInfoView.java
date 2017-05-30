@@ -19,9 +19,10 @@ public class ItemInfoView extends JFrame {
    private JTextField jtfItemName, jtfItemcode,jtfItemType, jtfPrice, jtfHiredate;
    private JButton jbSellerInfo,jbBuyReq,jbCancel;
    private JTextArea jtProExplain;
+   private ImageIcon pro;
    public ItemInfoView(JFrame jf, ItemListVO iv){
       super("魄概 臂 力格");
-      ImageIcon pro = new ImageIcon("C:/dev/workspace/prj22/src/kr/co/sist/market/img/profile.jpg");
+      pro = new ImageIcon("C:/dev/workspace/prj22/src/kr/co/sist/market/img/profile.jpg");
       JLabel itemImg = new JLabel(pro);
       JLabel jlItemName = new JLabel("惑前疙");
       JLabel jlItemCode = new JLabel("力前内靛");
@@ -173,6 +174,11 @@ public class ItemInfoView extends JFrame {
    public void setJtProExplain(JTextArea jtProExplain) {
       this.jtProExplain = jtProExplain;
    }
+
+
+public ImageIcon getPro() {
+	return pro;
+}
    
 
 }//class

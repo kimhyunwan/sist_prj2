@@ -13,7 +13,6 @@ import kr.co.sist.market.vo.SellerInfoVO;
 
 public class ItemInfoViewEvt extends WindowAdapter implements ActionListener {
 	private ItemInfoView iiv;
-	private SellerInfoVO seller;
 	private MarketDAO md;
 	
 	public ItemInfoViewEvt(ItemInfoView iiv){
@@ -33,7 +32,7 @@ public class ItemInfoViewEvt extends WindowAdapter implements ActionListener {
 			}
 		}//end if
 		if(ae.getSource()==iiv.getJbBuyReq()){
-			new BuyReqView();
+			new BuyReqView(iiv);
 		}//end if
 		if(ae.getSource()==iiv.getJbCancel()){
 			iiv.dispose();

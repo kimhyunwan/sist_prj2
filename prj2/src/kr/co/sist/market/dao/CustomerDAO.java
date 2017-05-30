@@ -58,7 +58,6 @@ public class CustomerDAO {
 		try {
 				File file=new File(System.getProperty("user.dir")+"/src/kr/co/sist/market/dao/market.properties");
 				if(file.exists()){ 
-						
 						prop.load(new FileInputStream(file)); 
 						String driver=prop.getProperty("driver"); 
 						String url=prop.getProperty("url");  
