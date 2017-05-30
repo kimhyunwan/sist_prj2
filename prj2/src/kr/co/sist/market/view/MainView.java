@@ -51,7 +51,7 @@ public class MainView extends JFrame {
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}//isCellEditable
-			
+			 
 		};
 		
 		jtItemList=new JTable(dtmItem){
