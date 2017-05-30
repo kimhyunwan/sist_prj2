@@ -41,7 +41,7 @@ public class MsgReadViewEvt extends WindowAdapter implements ActionListener {
 		}//end if
 		
 		if(ae.getSource()==mrv.getJbSend()){
-			new MsgWriteView();
+			//new MsgWriteView();
 		}//end if
 
 	}//actionPerformed

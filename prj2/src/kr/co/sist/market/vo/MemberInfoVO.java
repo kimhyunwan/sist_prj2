@@ -1,19 +1,29 @@
 package kr.co.sist.market.vo;
 
 public class MemberInfoVO {
-	private String id, pass, passAnswer, image, info;
+	private String name, id, pass, passAnswer, image, info;
 	private int quNum;
 	
 	public MemberInfoVO() {
 	
 	}
-	public MemberInfoVO(String id, String pass, String passAnswer, String image, String info, int quNum) {
+	public MemberInfoVO(String name, String id, String pass, String passAnswer, String image, String info, int quNum) {
+		this.quNum = quNum;
+		this.name = name;
 		this.id = id;
 		this.pass = pass;
 		this.passAnswer = passAnswer;
 		this.image = image;
 		this.info = info;
 		this.quNum = quNum;
+	}
+	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getId() {
 		return id;

@@ -18,7 +18,7 @@ public class SellerInfoViewEvt extends WindowAdapter implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource()==siv.getJbMsg()){
-			new MsgWriteView();
+			//new MsgWriteView();
 		}//end if
 		
 		if(ae.getSource()==siv.getJbBuyReq()){

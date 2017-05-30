@@ -15,18 +15,21 @@ import kr.co.sist.market.dao.CustomerDAO;
 import kr.co.sist.market.dao.MarketDAO;
 
 import kr.co.sist.market.view.BuyListView;
+import kr.co.sist.market.view.ImageView;
 import kr.co.sist.market.view.ItemInfoView;
 import kr.co.sist.market.view.MainView;
 import kr.co.sist.market.view.MsgListView;
 import kr.co.sist.market.view.MyInfoChView;
 import kr.co.sist.market.view.SellListView;
 import kr.co.sist.market.vo.ItemListVO;
+import kr.co.sist.market.vo.MemberInfoVO;
 
 
 public class MainViewEvt extends MouseAdapter implements ActionListener {
 	private MainView mv;
 	private MarketDAO m_dao;
 	private CustomerDAO c_dao;
+	private ImageView iv;
 	
 	LoginViewEvt lve;
 	public MainViewEvt(MainView mv){
@@ -82,8 +85,11 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource()==mv.getJbMyInfoCh()){
 			c_dao=CustomerDAO.getInstance();
+			MemberInfoVO miv=new MemberInfoVO();
+			
 			try {
-				new MyInfoChView(c_dao);
+				miv=c_dao.selectPreMember(lve.id);
+				new MyInfoChView(c_dao, miv);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -103,6 +109,14 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 		}//end if
 		
 
+	}
+	
+	public void mouseEntered(MouseEvent me){
+		iv=new ImageView(mv);
+	}
+	
+	public void mouseExited(MouseEvent me){
+		iv.dispose();
 	}
 
 }
