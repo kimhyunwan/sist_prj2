@@ -30,7 +30,7 @@ public class MsgListViewEvt extends MouseAdapter implements ActionListener {
 		c_dao=CustomerDAO.getInstance();
 		m_dao=MarketDAO.getInstance();
 		
-		//메세지를 조회한다.
+		//메세지를 조회한다
 		String id=lve.id;
 		setSendMsg(id);
 		setRecieveMsg(id);

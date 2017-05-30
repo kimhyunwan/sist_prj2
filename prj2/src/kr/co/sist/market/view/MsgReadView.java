@@ -31,7 +31,6 @@ public class MsgReadView extends JFrame {
 		//수동배치
 		setLayout(null);
 
-		
 		//배치
 		setBounds(100, 100, 450, 285);
 		jsMsg.setBounds(5, 5, 425, 195);

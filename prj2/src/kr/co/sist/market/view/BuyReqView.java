@@ -15,22 +15,20 @@ import kr.co.sist.market.evt.LoginViewEvt;
 
 @SuppressWarnings("serial")
 public class BuyReqView extends JFrame {
-	private JTextField jtfId, jtfTotalPrice,jtfPhone2,jtfPhone3,jtfItemcode;
+	private JTextField jtfId, jtfTotalPrice,jtfPhone2,jtfPhone3;
 	private JButton jbBuyReq,jbCancel;
 	private JComboBox<String> phone;
 	private LoginViewEvt lve;
 	
-	public BuyReqView(ItemInfoView iiv){
+	public BuyReqView(){
 		super("구매신청");
 		ImageIcon icon = new ImageIcon("C:/Users/user/git/sist_prj2/prj2/src/kr/co/sist/market/img/bg_pink.jpg");
 		JLabel backgroundImg = new JLabel(icon);
 		ImageIcon itemImg = new ImageIcon("C:/dev/workspace/prj22/src/kr/co/sist/market/img/profile.jpg");
 		JLabel itemImage = new JLabel(itemImg);
 		JLabel jlId = new JLabel("구매자");
-		JLabel jlItemcode = new JLabel("아이템 코드");
-		jtfItemcode = new JTextField(iiv.getJtfItemcode().getText());
 		JLabel jlPayment = new JLabel("결제수단");
-		JLabel jlTotalPrice = new JLabel("결제 금액");
+		JLabel jlTotalPrice = new JLabel("총 결제 금액");
 		jtfId=new JTextField();
 		
 		JLabel jlPhone = new JLabel("연락처");
@@ -44,21 +42,16 @@ public class BuyReqView extends JFrame {
 		jtfId=new JTextField("dongha");
 		String[] payments = {"----- 선택 -----","카드","현금","계좌이체"};
 		JComboBox<String> jcbPayment = new JComboBox<String>(payments);
-		jtfTotalPrice = new JTextField(iiv.getJtfPrice().getText());
+		jtfTotalPrice = new JTextField();
 		jbBuyReq=new JButton("구매신청 완료");
 		jbCancel=new JButton("취소");
 		
-		//제품코드는 읽기 전용
-		jtfItemcode.setEditable(false);
-		jtfTotalPrice.setEditable(false);
 		//자동배치 해제
 		setLayout(null);
 		//컴포넌트의 배치 위치설정
 		itemImage.setBounds(20, 20, 180, 200);
 		jlId.setBounds(220, 20, 50, 15);
 		jtfId.setBounds(220, 45, 110,25);
-		jlItemcode.setBounds(350, 20, 100, 15);
-		jtfItemcode.setBounds(350, 45, 110, 25);
 		jlPhone.setBounds(220, 85, 50	, 15);
 		phone.setBounds(220, 110, 50, 25);
 		hyphen.setBounds(275, 110, 20, 25);
@@ -77,8 +70,6 @@ public class BuyReqView extends JFrame {
 		add(jlId);
 		add(jlTotalPrice);
 		add(jtfId);
-		add(jlItemcode);
-		add(jtfItemcode);
 		add(jlPhone);
 		add(phone);
 		add(hyphen);
@@ -132,12 +123,8 @@ public class BuyReqView extends JFrame {
 	public JComboBox<String> getPhone() {
 		return phone;
 	}
-	public JTextField getJtfItemcode() {
-		return jtfItemcode;
-	}
-	public LoginViewEvt getLve() {
-		return lve;
-	}
-
+	public static void main(String[] args) {
+		new BuyReqView();
+	}//main
 
 }//class

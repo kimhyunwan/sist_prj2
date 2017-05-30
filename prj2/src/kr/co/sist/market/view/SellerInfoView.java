@@ -24,17 +24,17 @@ public class SellerInfoView extends JFrame {
 	private JTextField jtfId;
 	private String itemCode;
 	
-	public SellerInfoView(SellerInfoVO seller) throws SQLException{
+	public SellerInfoView(SellerInfoVO seller, String itemCode) throws SQLException{
 		super("판매자 정보");
-//		itemCode=
+		this.itemCode=itemCode;
 		ImageIcon itemImg = new ImageIcon("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/default.jpg");
 		JLabel itemImage = new JLabel(itemImg);
 		JLabel jlId = new JLabel("아이디");
 		JLabel jlIntro = new JLabel("자기소개");
-	
+		
 		jtaIntro = new JTextArea(seller.getInfo());  //JTextArea 생성  
 		JScrollPane jspIntro = new JScrollPane(jtaIntro);
-
+		
 		jtfId=new JTextField(seller.getId());
 		jbMsg=new JButton("메세지 보내기");
 		jbBuyReq=new JButton("구매신청");

@@ -24,16 +24,16 @@ public class ItemInfoViewEvt extends WindowAdapter implements ActionListener {
 		if(ae.getSource()==iiv.getJbSellerInfo()){
 			md=MarketDAO.getInstance();
 			SellerInfoVO seller=new SellerInfoVO();
-			
+			String itemCode=iiv.getJtfItemcode().getText().trim();
 			try {
 				seller=md.selectSellerInfo(iiv.getJtfItemcode().getText().trim());
-				new SellerInfoView(seller);
+				new SellerInfoView(seller, itemCode);
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
 		}//end if
 		if(ae.getSource()==iiv.getJbBuyReq()){
-			new BuyReqView(iiv);
+			new BuyReqView();
 		}//end if
 		if(ae.getSource()==iiv.getJbCancel()){
 			iiv.dispose();

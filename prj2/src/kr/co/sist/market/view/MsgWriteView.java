@@ -25,7 +25,6 @@ public class MsgWriteView extends JFrame {
 		super(mv.getSendId()+"메세지 보내기");
 
 		jtaMsg = new JTextArea();
-		jtaMsg.setText(mv.getMsg());
 		
 		itemCode = mv.getItemCode();
 		sendId = mv.getSendId();

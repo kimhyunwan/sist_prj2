@@ -259,18 +259,17 @@ public class MarketDAO {
 	 * @param itemCode
 	 * @throws SQLException
 	 */
-	public void deleteSellWait(String itemCode, String buyerId) throws SQLException{
+	public void deleteSellWait(String itemCode) throws SQLException{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try{
 			con = getConnection();
 			
-			String deleteWait="delete from buyer_contact where item_code=? and id!=?";
+			String deleteWait="delete from buyer_contact where item_code=?";
 			pstmt=con.prepareStatement(deleteWait);
 			
 			pstmt.setString(1, itemCode);
-			pstmt.setString(2, buyerId);
 			
 			pstmt.executeUpdate();
 			
@@ -281,7 +280,7 @@ public class MarketDAO {
 
 			if (con != null) {
 				con.close();
-			} // end if//
+			} // end if
 		}
 	}
 	
@@ -620,7 +619,6 @@ public class MarketDAO {
 		}
 	}//updateChkGetMsg
 	
-
 	public String selectImg(String itemCode) throws SQLException{
 		String img=null;
 		
@@ -649,8 +647,8 @@ public class MarketDAO {
 		return img;
 	}
 	
-//	public static void main(String[] args) throws SQLException{
-//		MarketDAO md=new MarketDAO();
+	public static void main(String[] args) throws SQLException{
+		MarketDAO md=new MarketDAO();
 //		
 //		System.out.println(MarketDAO.getInstance().getConnection());
 //
@@ -663,9 +661,9 @@ public class MarketDAO {
 //		List<SellBuyVO> list2=md.selectSellCompList("dongha");
 //		System.out.println(list2);
 //		
-//		//selectSellWaitList 단위 테스트
-//		List<SellingVO> list3=md.selectSellWaitList("hyunwan");
-//		System.out.println(list3);
+		//selectSellWaitList 단위 테스트
+		List<SellingVO> list3=md.selectSellWaitList("hyunwan");
+		System.out.println(list3);
 //		
 //		//deleteSellWait 단위 테스트
 //		md.deleteSellWait("HY_1705240021");
@@ -696,5 +694,5 @@ public class MarketDAO {
 //		
 //		//updateChkGetMsg 단위 테스트
 //		md.updateChkGetMsg("RC_0525000044");
-//	}
+	}
 }//class
