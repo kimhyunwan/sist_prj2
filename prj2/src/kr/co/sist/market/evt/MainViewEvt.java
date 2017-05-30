@@ -72,10 +72,11 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 			JTable temp = mv.getJtItemList();
 			int selectedRow = temp.getSelectedRow();
 			ItemListVO iv = new ItemListVO();
-			iv.setItemName((String) temp.getValueAt(selectedRow, 2));
-/*			iv.setMenu((String) temp.getValueAt(selectedRow, 3));
-			iv.setInfo((String) temp.getValueAt(selectedRow, 4));
-			iv.setPrice((Integer) temp.getValueAt(selectedRow, 5));*/
+			iv.setItemCode((String) temp.getValueAt(selectedRow, 2));
+			iv.setItemName((String) temp.getValueAt(selectedRow, 1));
+			iv.setPrice((Integer) temp.getValueAt(selectedRow,4));
+			iv.setItemInfo((String) temp.getValueAt(selectedRow, 3));
+			iv.setHiredate((String) temp.getValueAt(selectedRow, 5));
 			
 			new ItemInfoView(mv,iv);//띄어주어야할 항목들이 mv가 가지고있으므로 안에 넣어주는 것이다.
 		}//end if
