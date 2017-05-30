@@ -22,28 +22,20 @@ public class SellerInfoView extends JFrame {
 	private JButton jbMsg,jbBuyReq;
 	private JTextArea jtaIntro;
 	private JTextField jtfId;
-	private static MarketDAO md;
+	private String itemCode;
 	
-	public SellerInfoView(MarketDAO md) throws SQLException{
+	public SellerInfoView(SellerInfoVO seller) throws SQLException{
 		super("판매자 정보");
-		this.md=md;
-		//File file=new File(seller.getImg());
+//		itemCode=
 		ImageIcon itemImg = new ImageIcon("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/default.jpg");
 		JLabel itemImage = new JLabel(itemImg);
-		//customer/"+file.getName());
 		JLabel jlId = new JLabel("아이디");
 		JLabel jlIntro = new JLabel("자기소개");
-		SellerInfoVO seller=md.selectSellerInfo("HY_1705240025");
 	
-		String info=seller.getInfo();
-		String id=seller.getId();
-		String img=seller.getImg();
-		System.out.println(info+" "+id+" "+img);
-		
-		jtaIntro = new JTextArea(info);  //JTextArea 생성  
+		jtaIntro = new JTextArea(seller.getInfo());  //JTextArea 생성  
 		JScrollPane jspIntro = new JScrollPane(jtaIntro);
 
-		jtfId=new JTextField(id);
+		jtfId=new JTextField(seller.getId());
 		jbMsg=new JButton("메세지 보내기");
 		jbBuyReq=new JButton("구매신청");
 		
@@ -103,13 +95,8 @@ public class SellerInfoView extends JFrame {
 		return jbBuyReq;
 	}
 
-	public static void main(String[] args) {
-		try {
-			md=MarketDAO.getInstance();
-			new SellerInfoView(md);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}//main
-
+	public String getItemCode() {
+		return itemCode;
+	}
+	
 }//class

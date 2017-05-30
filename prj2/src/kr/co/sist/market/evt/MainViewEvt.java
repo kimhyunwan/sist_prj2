@@ -15,19 +15,21 @@ import kr.co.sist.market.dao.CustomerDAO;
 import kr.co.sist.market.dao.MarketDAO;
 
 import kr.co.sist.market.view.BuyListView;
+import kr.co.sist.market.view.ImageView;
 import kr.co.sist.market.view.ItemInfoView;
 import kr.co.sist.market.view.MainView;
 import kr.co.sist.market.view.MsgListView;
 import kr.co.sist.market.view.MyInfoChView;
 import kr.co.sist.market.view.SellListView;
 import kr.co.sist.market.vo.ItemListVO;
+import kr.co.sist.market.vo.MemberInfoVO;
 
 
 public class MainViewEvt extends MouseAdapter implements ActionListener {
 	private MainView mv;
 	private MarketDAO m_dao;
 	private CustomerDAO c_dao;
-	
+	private ImageView iv;
 	
 	LoginViewEvt lve;
 	public MainViewEvt(MainView mv){
@@ -70,10 +72,11 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 			JTable temp = mv.getJtItemList();
 			int selectedRow = temp.getSelectedRow();
 			ItemListVO iv = new ItemListVO();
-			iv.setItemName((String) temp.getValueAt(selectedRow, 2));
-/*			iv.setMenu((String) temp.getValueAt(selectedRow, 3));
-			iv.setInfo((String) temp.getValueAt(selectedRow, 4));
-			iv.setPrice((Integer) temp.getValueAt(selectedRow, 5));*/
+			iv.setItemCode((String) temp.getValueAt(selectedRow, 2));
+			iv.setItemName((String) temp.getValueAt(selectedRow, 1));
+			iv.setPrice((Integer) temp.getValueAt(selectedRow,4));
+			iv.setItemInfo((String) temp.getValueAt(selectedRow, 3));
+			iv.setHiredate((String) temp.getValueAt(selectedRow, 5));
 			
 			new ItemInfoView(mv,iv);//띄어주어야할 항목들이 mv가 가지고있으므로 안에 넣어주는 것이다.
 		}//end if
@@ -83,8 +86,11 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource()==mv.getJbMyInfoCh()){
 			c_dao=CustomerDAO.getInstance();
+			MemberInfoVO miv=new MemberInfoVO();
+			
 			try {
-				new MyInfoChView(c_dao);
+				miv=c_dao.selectPreMember(lve.id);
+				new MyInfoChView(c_dao, miv);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -104,6 +110,14 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 		}//end if
 		
 
+	}
+	
+	public void mouseEntered(MouseEvent me){
+		iv=new ImageView(mv);
+	}
+	
+	public void mouseExited(MouseEvent me){
+		iv.dispose();
 	}
 
 }

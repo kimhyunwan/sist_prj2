@@ -37,7 +37,7 @@ public class SellListViewEvt extends MouseAdapter implements ActionListener {
 		setSellListWait(); 
 	}//SellListViewEvt
 
-	///////////////////////////////////////////판매완료 목록을 띄우는 method////////////////////////////////////
+	///////////////////////////////////////////판매완료 목록을 띄우는 method/////////////////////////////////////
 	public void setSellListComp(){
 		try {
 			String id=lve.id; //진데이터 ID

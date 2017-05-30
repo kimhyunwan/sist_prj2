@@ -41,7 +41,7 @@ public class MarketDAO {
 		Properties prop=new Properties();
 		try {
 		
-			File file=new File("C:/Users/user/git/sist_prj2/prj2/src/kr/co/sist/market/dao/market.properties");
+			File file=new File(System.getProperty("user.dir")+"/src/kr/co/sist/market/dao/market.properties");
 		
 			if(file.exists()){
 				prop.load(new FileInputStream(file));
@@ -619,6 +619,35 @@ public class MarketDAO {
 			} // end if	
 		}
 	}//updateChkGetMsg
+	
+
+	public String selectImg(String itemCode) throws SQLException{
+		String img=null;
+		
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try{
+			con=getConnection();
+			
+			
+		}finally{
+			if(rs != null){
+				rs.close();
+			}
+			
+			if (pstmt != null) {
+				pstmt.close();
+			} // end if
+			
+			if (con != null) {
+				con.close();
+			} // end if	
+		}
+		
+		return img;
+	}
 	
 //	public static void main(String[] args) throws SQLException{
 //		MarketDAO md=new MarketDAO();

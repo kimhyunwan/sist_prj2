@@ -56,7 +56,7 @@ public class CustomerDAO {
 		Properties prop=new Properties();
 		
 		try {
-				File file=new File("C:/Users/user/git/sist_prj2/prj2/src/kr/co/sist/market/dao/market.properties");
+				File file=new File(System.getProperty("user.dir")+"/src/kr/co/sist/market/dao/market.properties");
 				if(file.exists()){ 
 						prop.load(new FileInputStream(file)); 
 						String driver=prop.getProperty("driver"); 
@@ -272,7 +272,7 @@ public class CustomerDAO {
 			//2.Connection 얻기
 				con=getConnection();
 			//3.쿼리문 생성객체 얻기
-				String selectPreMember="select image,pass,qu_num,pass_answer,info from member where id=?";
+				String selectPreMember="select name,image,pass,qu_num,pass_answer,info from member where id=?";
 				pstmt=con.prepareStatement(selectPreMember);
 			//4.쿼리 실행 후, 결과 얻기 : 이 경우에 바인드변수가 1개 존재(id)
 				pstmt.setString(1, id); 
@@ -281,6 +281,7 @@ public class CustomerDAO {
 				if(rs.next()){
 					miv=new MemberInfoVO();
 					//이미지,비밀번호,비밀번호질문,비밀번호답변,자기소개
+					miv.setName(rs.getString("name"));
 					miv.setImage(rs.getString("image"));
 					miv.setPass(rs.getString("pass"));
 					miv.setQuNum(rs.getInt("qu_num"));
@@ -848,7 +849,7 @@ public class CustomerDAO {
 	 * @param id
 	 * @return String
 	 */
-	public MsgViewVO selectReceiveMsgInfo(int msg_num) throws SQLException{
+	public MsgViewVO selectReceiveMsgInfo(String msg_num) throws SQLException{
 		MsgViewVO mvv=null;
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -863,7 +864,7 @@ public class CustomerDAO {
 				
 				pstmt=con.prepareStatement(selectReceiveMsgInfo);
 			//4.쿼리 실행 후, 결과 얻기 :  : 바인드변수가 1개 존재 (msg_num)
-				pstmt.setInt(1, msg_num); 
+				pstmt.setString(1, msg_num); 
 				rs=pstmt.executeQuery(); //select이기 때문에 executeQuery()
 				if(rs.next()){
 					mvv=new MsgViewVO();
@@ -898,7 +899,7 @@ public class CustomerDAO {
 	 * @param id
 	 * @return String
 	 */
-	public MsgViewVO selectSendMsgInfo(int msg_num) throws SQLException{
+	public MsgViewVO selectSendMsgInfo(String msg_num) throws SQLException{
 		MsgViewVO mvv=null;
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -912,7 +913,7 @@ public class CustomerDAO {
 				String selectSendMsgInfo="select message, send_id from send_msg where msg_num=?";
 				pstmt=con.prepareStatement(selectSendMsgInfo);
 			//4.쿼리 실행 후, 결과 얻기 :  : 바인드변수가 1개 존재 (id)
-				pstmt.setInt(1, msg_num); 
+				pstmt.setString(1, msg_num); 
 				rs=pstmt.executeQuery(); //select이기 때문에 executeQuery()
 				if(rs.next()){
 					mvv=new MsgViewVO();

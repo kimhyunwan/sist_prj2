@@ -7,20 +7,29 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JOptionPane;
 
+import kr.co.sist.market.dao.CustomerDAO;
 import kr.co.sist.market.view.MsgReadView;
+import kr.co.sist.market.view.MsgWriteView;
 
 public class MsgReadViewEvt extends WindowAdapter implements ActionListener {
 
 	MsgReadView mrv;
+	CustomerDAO cd;
 	
 	public MsgReadViewEvt(MsgReadView mrv) {
 		this.mrv=mrv;
+		
+//		if(mrv.flag==1){
+//			mrv.setJtaMsg(cd.selectReceiveMsgInfo()));
+//		}else if(mrv.flag==2){
+//			mrv.setJtaMsg();
+//	}//end if
 	}//MsgReadViewEvt
 	
 	private void SendMsg(){
 		
 
-		JOptionPane.showMessageDialog(mrv, "메세지가 전송되었습니다");
+		
 		
 		
 	}//SendMsg
@@ -32,7 +41,7 @@ public class MsgReadViewEvt extends WindowAdapter implements ActionListener {
 		}//end if
 		
 		if(ae.getSource()==mrv.getJbSend()){
-			SendMsg();
+			//new MsgWriteView();
 		}//end if
 
 	}//actionPerformed

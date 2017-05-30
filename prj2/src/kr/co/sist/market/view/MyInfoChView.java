@@ -32,8 +32,8 @@ public class MyInfoChView extends JFrame {
 	private JLabel jlItemImage;
 	private static CustomerDAO cd;
 	
-	public MyInfoChView(CustomerDAO cd) throws SQLException{
-		super("정보변경");
+	public MyInfoChView(CustomerDAO cd, MemberInfoVO miv) throws SQLException{
+		super(miv.getClass()+"의 정보변경");
 		
 		this.cd=cd;
 		ImageIcon itemImg = new ImageIcon("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/default.jpg");
@@ -45,27 +45,18 @@ public class MyInfoChView extends JFrame {
 		JLabel jlAnswer = new JLabel("비밀번호 답변");
 		
 		JLabel jlIntro = new JLabel("자기소개");
-		jtfName = new JTextField();
-		jtaIntro = new JTextArea();
-		
-		MemberInfoVO miv=cd.selectPreMember("dongha");
-		
-		String pass=miv.getPass();
-		String answer=miv.getPassAnswer();
-		String info=miv.getInfo();
-		int quNum=miv.getQuNum();
-		
-		jtfPass=new JPasswordField(pass);
-		jtfPassChk = new JPasswordField(pass);
+		jtfName = new JTextField(miv.getName());
+		jtfPass=new JPasswordField(miv.getPass());
+		jtfPassChk = new JPasswordField(miv.getPass());
 		String[] questions = {"------------------------ 선택 ------------------------","기억에 남는 추억의 장소는?","자신의 보물 제1호는?","자신의 인생 좌우명은?","가장 기억에 남는 선생님 성함은?",
 				"타인이 모르는 자신만의 신체비밀이 있다면?","추억하고 싶은 날짜가 있다면?","다시 태어나면 되고 싶은 것은?"};
 		jcbQuest = new JComboBox<String>(questions);
-		jcbQuest.setSelectedIndex(quNum);
-		jtfAnswer = new JTextField(answer);		
+		jtfAnswer = new JTextField(miv.getPassAnswer());		
+		jcbQuest.setSelectedIndex(miv.getQuNum());
 		jtaIntro = new JTextArea(); //JTextArea 생성
 		jtaIntro.setLineWrap(true);
 		jtaIntro.setWrapStyleWord(true);
-		jtaIntro.setText(info);
+		jtaIntro.setText(miv.getInfo());
 		
 		JScrollPane jspIntro = new JScrollPane(jtaIntro);
 		
@@ -203,12 +194,4 @@ public class MyInfoChView extends JFrame {
 	public void setJtfPassChk(JPasswordField jtfPassChk) {
 		this.jtfPassChk = jtfPassChk;
 	}
-	public static void main(String[] args) {
-		cd=CustomerDAO.getInstance();
-		try {
-			new MyInfoChView(cd);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-		}
-	}//main
 }//class
