@@ -35,7 +35,7 @@ public class MainView extends JFrame {
 	private static CustomerDAO cd;
 	
 	public MainView(CustomerDAO cd) throws SQLException{
-		super("중고장터에 어서오세요!!");
+		super("중고장터에 어서오세요!!"); 
 		this.cd=cd;
 		String[] columnNames={"번호","상품명","상품코드","판매 상품 설명","가격","등록일"};
 		String[][] data = {};
