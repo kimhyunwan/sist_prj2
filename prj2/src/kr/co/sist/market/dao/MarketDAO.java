@@ -259,17 +259,18 @@ public class MarketDAO {
 	 * @param itemCode
 	 * @throws SQLException
 	 */
-	public void deleteSellWait(String itemCode) throws SQLException{
+	public void deleteSellWait(String itemCode, String buyerId) throws SQLException{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try{
 			con = getConnection();
 			
-			String deleteWait="delete from buyer_contact where item_code=?";
+			String deleteWait="delete from buyer_contact where item_code=? and id!=?";
 			pstmt=con.prepareStatement(deleteWait);
 			
 			pstmt.setString(1, itemCode);
+			pstmt.setString(2, buyerId);
 			
 			pstmt.executeUpdate();
 			

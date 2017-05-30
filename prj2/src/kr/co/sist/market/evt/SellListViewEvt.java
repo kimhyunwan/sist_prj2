@@ -134,14 +134,16 @@ public class SellListViewEvt extends MouseAdapter implements ActionListener {
 						String buyerId=((String)temp.getValueAt(selectedRow, 1));
 						String itemCode=((String)temp.getValueAt(selectedRow, 2));
 						String itemName=((String)temp.getValueAt(selectedRow, 3));
+						String soldDate=((String)temp.getValueAt(selectedRow, 4));
 						//String selectPhone(String itemCode,  String buyerId)
 							try {
 								phone=c_dao.selectPhone(itemCode, buyerId);
 							} catch (SQLException e) {
 								e.printStackTrace();
 							}
-						
-						JOptionPane.showMessageDialog(slv, "구매자의 연락처는 ["+phone+"] 입니다.");
+						//번호, 구매자, 상품코드, 상품명, 판매완료일시
+						JOptionPane.showMessageDialog(slv, "<상품 거래정보>\n구매자: "+buyerId+"\n상품명 : "+itemName
+								+"\n상품코드: "+itemCode+"\n연락처: "+phone);
 					}//end if
 					
 					if(indexNum==1){
@@ -152,8 +154,9 @@ public class SellListViewEvt extends MouseAdapter implements ActionListener {
 						String buyerId=((String)temp.getValueAt(selectedRow, 1));
 						String itemCode=((String)temp.getValueAt(selectedRow, 2));
 						String itemName=((String)temp.getValueAt(selectedRow, 3));
+						String reqDate=((String)temp.getValueAt(selectedRow, 4));
 						//updateBuyComp(String itemCode, String buyerId);
-						int flag=JOptionPane.showConfirmDialog(slv, "구매신청자 : "+buyerId+"\n상품명 : "+itemName+"\n상품코드 : "+itemCode+" \n\n위의 정보로 판매하시겠습니까?");
+						int flag=JOptionPane.showConfirmDialog(slv, "<판매완료 승인>\n구매신청자 : "+buyerId+"\n상품명 : "+itemName+"\n상품코드 : "+itemCode+"\n신청일 : "+reqDate+"\n\n위의 정보로 판매하시겠습니까?");
 						
 						switch (flag) {
 							case JOptionPane.OK_OPTION:
@@ -168,10 +171,10 @@ public class SellListViewEvt extends MouseAdapter implements ActionListener {
 	private void modifyBuyComp(String itemCode, String buyerId) {
 		try {
 			m_dao.updateBuyComp(itemCode, buyerId);
-			m_dao.deleteSellWait(itemCode);
+			m_dao.deleteSellWait(itemCode,buyerId);
+			setSellListWait(); //판매대기목록 최신화
+			setSellListComp(); //판매완료목록 최신화
 			JOptionPane.showMessageDialog(slv, "판매가 완료되었습니다!");
-			setSellListWait();
-			setSellListComp();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}//end catch
