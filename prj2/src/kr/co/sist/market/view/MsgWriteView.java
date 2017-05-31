@@ -34,7 +34,7 @@ public class MsgWriteView extends JFrame {
 		jbSend = new JButton("메세지 보내기");
 		jbCancel = new JButton("취소");
 
-		jtaMsg.setBorder(new TitledBorder(sendId+"에게 보낼 메세지"));
+		jtaMsg.setBorder(new TitledBorder("판매자에게 보낼 메세지"));
 
 		JScrollPane jsMsg = new JScrollPane(jtaMsg);
 

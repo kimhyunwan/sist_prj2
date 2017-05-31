@@ -27,7 +27,6 @@ public class MsgListViewEvt extends MouseAdapter implements ActionListener {
    private LoginViewEvt lve;
    private int chkNum;
    public static String msg, msg_id, msg_code, msg_title, item_code;
-   //private MsgVO mvo;
    
    /**
     * 메세지 리스트 창을 통해 

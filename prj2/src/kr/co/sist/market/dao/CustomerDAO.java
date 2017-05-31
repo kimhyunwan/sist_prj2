@@ -718,9 +718,9 @@ public class CustomerDAO {
 			//2.Connection 얻기
 				con=getConnection();
 			//3.쿼리문 생성객체 얻기
-				String selectPhone="select phone from buyer_contact where item_code=? and buyer_id=?";
+				String selectPhone="select phone from buyer_contact where item_code=? and id=?";
 				pstmt=con.prepareStatement(selectPhone);
-			//4.쿼리 실행 후, 결과 얻기 :  : 바인드변수가 2개 존재 (item_code,buyer_id)
+			//4.쿼리 실행 후, 결과 얻기 :  : 바인드변수가 2개 존재 (item_code,id)
 				pstmt.setString(1, itemCode); 
 				pstmt.setString(2, buyerId);
 				rs=pstmt.executeQuery(); //select이기 때문에 executeQuery()

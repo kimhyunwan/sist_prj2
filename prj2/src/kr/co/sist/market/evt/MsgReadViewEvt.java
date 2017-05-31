@@ -41,7 +41,6 @@ public class MsgReadViewEvt extends WindowAdapter implements ActionListener {
 		
 		
 		new MsgWriteView(mv);
-		
 	}//SendMsg
 	
 	@Override

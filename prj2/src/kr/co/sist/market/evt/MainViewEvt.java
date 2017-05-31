@@ -7,7 +7,6 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.List;
 
-
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -22,7 +21,6 @@ import kr.co.sist.market.view.MainView;
 import kr.co.sist.market.view.MsgListView;
 import kr.co.sist.market.view.MyInfoChView;
 import kr.co.sist.market.view.SellListView;
-import kr.co.sist.market.view.SignUpItemView;
 import kr.co.sist.market.vo.ItemListVO;
 import kr.co.sist.market.vo.MemberInfoVO;
 
@@ -38,7 +36,7 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 		this.mv=mv;
 		m_dao=MarketDAO.getInstance();
 		
-		setItem(0);
+		
 	}//MainViewEvtEvt
 	
 	private void setItem(int item){
@@ -111,11 +109,15 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 			setItem(item);
 		}//end if
 		
-		if(ae.getSource()==mv.getJbSignUp()){
-			new SignUpItemView();
-		}
+
 	}
 	
-
+	public void mouseEntered(MouseEvent me){
+		iv=new ImageView(mv);
+	}
+	
+	public void mouseExited(MouseEvent me){
+		iv.dispose();
+	}
 
 }

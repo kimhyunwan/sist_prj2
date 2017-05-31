@@ -23,11 +23,12 @@ public class SellerInfoView extends JFrame {
 	private JTextArea jtaIntro;
 	private JTextField jtfId;
 	private String itemCode;
+	private String id="";
 	
-	public SellerInfoView(SellerInfoVO seller, String itemCode) throws SQLException{
+	public SellerInfoView(SellerInfoVO seller) throws SQLException{
 		super("판매자 정보");
-		this.itemCode=itemCode;
-		ImageIcon itemImg = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/default.jpg");
+//		itemCode=
+		ImageIcon itemImg = new ImageIcon("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/default.jpg");
 		JLabel itemImage = new JLabel(itemImg);
 		JLabel jlId = new JLabel("아이디");
 		JLabel jlIntro = new JLabel("자기소개");
@@ -58,9 +59,11 @@ public class SellerInfoView extends JFrame {
 		add(jbMsg);
 		add(jbBuyReq);
 		
+		id=getJtfId().getText();
+		
 		//이벤트 추가
 		SellerInfoViewEvt sive;
-		sive = new SellerInfoViewEvt(this);
+		sive = new SellerInfoViewEvt(this,id);
 		jbMsg.addActionListener(sive);
 		jbBuyReq.addActionListener(sive);
 		
