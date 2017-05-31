@@ -30,9 +30,9 @@ public class FindIdViewEvt extends WindowAdapter implements ActionListener {
 			String ssn = ssnFront + ssnBack;
 			System.out.println(ssn);
 
-			// if(ssnFront.length()!=6||ssnBack.length()!=7){
-			// JOptionPane.showMessageDialog(fiv, "올바른 주민번호를 입력해주세요");
-			// }
+			 if(ssnFront.length()!=6||ssnBack.length()!=7){
+				 JOptionPane.showMessageDialog(fiv, "올바른 주민번호를 입력해주세요");
+			 }
 
 			IdVO iv = new IdVO(name, ssn);
 
@@ -45,10 +45,6 @@ public class FindIdViewEvt extends WindowAdapter implements ActionListener {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		// catch (NumberFormatException nfe) {
-		// JOptionPane.showMessageDialog(fiv, "올바른 주민번호를 입력해 주세요");
-		// System.out.println("지금 안됨");
-		// }
 
 		fiv.getJtfIdName().setText("");
 		fiv.getJtfIdSsn().setText("");
@@ -64,10 +60,10 @@ public class FindIdViewEvt extends WindowAdapter implements ActionListener {
 		int quNum = fiv.getJcbQuest().getSelectedIndex();
 		String answer = fiv.getJtfAnswer().getText().trim();
 
-//		if (ssnFront.length() != 6 || ssnBack.length() != 7) {
-//			JOptionPane.showMessageDialog(fiv, "올바른 주민번호를 입력해주세요");
-//			return;
-//		}
+		if (ssnFront.length() != 6 || ssnBack.length() != 7) {
+			JOptionPane.showMessageDialog(fiv, "올바른 주민번호를 입력해주세요");
+			return;
+		}
 		
 		System.out.println(name+" "+ssn+" "+id+" "+answer+" "+quNum);
 		

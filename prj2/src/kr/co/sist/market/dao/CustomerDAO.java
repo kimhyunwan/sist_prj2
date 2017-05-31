@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import kr.co.sist.market.vo.ChangeVO;
 import kr.co.sist.market.vo.IdVO;
 import kr.co.sist.market.vo.ItemInfoVO;
+import kr.co.sist.market.vo.ItemListVO;
 import kr.co.sist.market.vo.LoginVO;
 import kr.co.sist.market.vo.MemberInfoVO;
 import kr.co.sist.market.vo.MemberJoinVO;
@@ -158,6 +159,42 @@ public class CustomerDAO {
 //	}//main
 //	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * 로그인 성공여부를 결정하는 일
+	 * 아이디가 존재하고, 그 아이디에 해당하는 비밀번호와 일치하면 로그인 성공
+	 * @return boolean
+	 * @param LoginVO
+	 */
+	public boolean selectDoubleId(String id) throws SQLException{
+		//////////////////////////LoginVO////////////////////////
+		//String id, pass;
+		Boolean flag=false;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try{
+			//1.드라이버 로딩
+			//2.Connection 얻기
+			con=getConnection();
+			//3.쿼리문 생성객체 얻기
+			String selectLogin="select name from member where id=?";
+			pstmt=con.prepareStatement(selectLogin);
+			//4.쿼리 실행 후, 결과 얻기 : 바인드변수 id,pass
+			pstmt.setString(1, id); 
+			rs=pstmt.executeQuery(); //select이기 때문에 executeQuery()
+			if(rs.next()){
+				flag=true;
+			}//end if
+			
+		}finally{
+			//5.연결끊기
+			if( rs != null) { rs.close(); }
+			if( pstmt != null) { pstmt.close(); }
+			if( con != null) { con.close(); }
+		}//end try
+		return flag;
+	}//selectLogin
 	
 	/** => day0419 tableSchemaModel.java 파일보고 따라서 수정하기, 즉 매개변수 없애고 반환형을 List(String)으로
 	 * 비밀번호 질문을 선택하여 불러오는 일 
@@ -754,7 +791,6 @@ public class CustomerDAO {
 				con.close(); 
 			}
 		}
-		
 		return cntBuyWait;
 	}//selectMyInfo
 	
@@ -845,7 +881,7 @@ public class CustomerDAO {
 	}//selectMyInfo
 	
 	/** 
-	 * 메세지의 내용을 조회하는 일
+	 * 받은 메세지의 내용을 조회하는 일
 	 * @param id
 	 * @return String
 	 */
@@ -895,7 +931,7 @@ public class CustomerDAO {
 
 	
 	/** 
-	 * 메세지의 내용을 조회하는 일
+	 * 보낸 메세지의 내용을 조회하는 일
 	 * @param id
 	 * @return String
 	 */
@@ -941,5 +977,56 @@ public class CustomerDAO {
 //		}//end catch
 //	}//main
 //	/////////////////////////////////////////////////////////
+	
+	/**
+	 * 내가 판매중인 물품을 보여주는 일
+	 * @param id
+	 * @return ItemListVO
+	 * @throws SQLException
+	 */
+	public List<ItemListVO> selectMyItemList(String id) throws SQLException{
+		List<ItemListVO> list=new ArrayList<ItemListVO>();
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con=getConnection();
+			String selectItem="select item_name, item_code, item_info, hiredate, item_image, price from product where id=?";
+			pstmt=con.prepareStatement(selectItem);
+			
+			pstmt.setString(1, id);
+
+			rs=pstmt.executeQuery();
+			
+			ItemListVO ilv=null;
+			
+			while(rs.next()){
+				ilv=new ItemListVO();
+				ilv.setItemName(rs.getString("item_name"));
+				ilv.setItemCode(rs.getString("item_code"));
+				ilv.setItemInfo(rs.getString("item_info"));
+				ilv.setHiredate(rs.getString("hiredate"));
+				ilv.setImage(rs.getString("item_image"));
+				ilv.setPrice(rs.getInt("price"));
+				
+				list.add(ilv);
+			}//end while
+		} finally{
+			if (rs != null) {
+				rs.close();
+			} // end if
+
+			if (pstmt != null) {
+				pstmt.close();
+			} // end if
+
+			if (con != null) {
+				con.close();
+			} // end if
+		}//end finally
+		return list;
+	}//selectMyItemList
 	
 }//class

@@ -21,20 +21,24 @@ public class MsgReadViewEvt extends WindowAdapter implements ActionListener {
 	
 	public MsgReadViewEvt(MsgReadView mrv) {
 		this.mrv=mrv;
-		
-//		if(mrv.flag==1){
-//			mrv.setJtaMsg(cd.selectReceiveMsgInfo()));
-//		}else if(mrv.flag==2){
-//			mrv.setJtaMsg();
-//	}//end if
 	}//MsgReadViewEvt
 	
 	private void SendMsg(){
 		MsgVO mv=new MsgVO();
-		mv.setId(lve.id);
+		
+		String id=lve.id;
+		String sendId=mlve.msg_id;
+		
+		if(id.equals(sendId)){
+			JOptionPane.showMessageDialog(mrv, "자기 자신에게 메시지를 보낼 수 없습니다.");
+			return;
+		}	
+		
+		mv.setId(id);
 		mv.setItemCode(mlve.item_code);
-		mv.setSendId(mlve.msg_id);
+		mv.setSendId(sendId);
 		mv.setMsg("");
+		
 		
 		new MsgWriteView(mv);
 		
@@ -59,9 +63,7 @@ public class MsgReadViewEvt extends WindowAdapter implements ActionListener {
 
 	@Override
 	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
 		super.windowClosed(e);
 	}
-
 	
 }

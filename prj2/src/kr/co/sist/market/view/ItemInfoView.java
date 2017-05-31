@@ -20,8 +20,8 @@ public class ItemInfoView extends JFrame {
    private JButton jbSellerInfo,jbBuyReq,jbCancel;
    private JTextArea jtProExplain;
    private ImageIcon pro;
-   public ItemInfoView(JFrame jf, ItemListVO iv){
-      super("판매 글 제목");
+   public ItemInfoView(ItemListVO iv){
+      super(iv.getItemName());
       pro = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/profile.jpg");
       JLabel itemImg = new JLabel(pro);
       JLabel jlItemName = new JLabel("상품명");
@@ -113,46 +113,58 @@ public class ItemInfoView extends JFrame {
       });
    }//LoginView
    
-
    public JTextField getJtfItemName() {
       return jtfItemName;
    }
+ 
    public JTextField getJtfItemType() {
       return jtfItemType;
    }
+ 
    public JTextField getJtfPrice() {
       return jtfPrice;
    }
+  
    public JTextField getJtfHiredate() {
       return jtfHiredate;
    }
+ 
    public JButton getJbSellerInfo() {
       return jbSellerInfo;
    }
+  
    public JButton getJbBuyReq() {
       return jbBuyReq;
    }
+ 
    public JButton getJbCancel() {
       return jbCancel;
    }
+ 
    public void setJtfItemName(JTextField jtfItemName) {
       this.jtfItemName = jtfItemName;
    }
+  
    public void setJtfItemType(JTextField jtfItemType) {
       this.jtfItemType = jtfItemType;
    }
+ 
    public void setJtfPrice(JTextField jtfPrice) {
       this.jtfPrice = jtfPrice;
    }
+  
    public void setJtfHiredate(JTextField jtfHiredate) {
       this.jtfHiredate = jtfHiredate;
    }
+ 
    public void setJbSellerInfo(JButton jbSellerInfo) {
       this.jbSellerInfo = jbSellerInfo;
    }
+  
    public void setJbBuyReq(JButton jbBuyReq) {
       this.jbBuyReq = jbBuyReq;
    }
+   
    public void setJbCancel(JButton jbCancel) {
       this.jbCancel = jbCancel;
    }
@@ -165,20 +177,17 @@ public class ItemInfoView extends JFrame {
       this.jtfItemcode = jtfItemcode;
    }
 
-
    public JTextArea getJtProExplain() {
       return jtProExplain;
    }
-
 
    public void setJtProExplain(JTextArea jtProExplain) {
       this.jtProExplain = jtProExplain;
    }
 
-
-public ImageIcon getPro() {
-	return pro;
-}
+   public ImageIcon getPro() {
+	   return pro;
+   }
    
 
 }//class

@@ -77,6 +77,22 @@ public class JoinViewEvt extends WindowAdapter implements ActionListener {
 		String answer=jv.getJtfAnswer().getText().trim();
 		String info=jv.getJtaIntro().getText().trim();
 		
+		MemberJoinVO mjv=new MemberJoinVO();
+		cd=CustomerDAO.getInstance();
+		
+		try {
+			if(cd.selectDoubleId(id)){
+				JOptionPane.showMessageDialog(jv, "중복된 아이디입니다. 다른 아이디로 만들어주세요");
+				return;
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		if(pass.equals(passChk)){
+			JOptionPane.showMessageDialog(jv, "비밀번호확인이 제대로 되지 않습니다.\n비밀번호와 비밀번호 확인창의 입력값이 같은지 확인해주세요");
+			return;
+		}
+		
 		if(ssnFront.length()!=6||ssnBack.length()!=7){
 			JOptionPane.showMessageDialog(jv, "주민번호를 올바르게 입력해주세요");
 			return;
@@ -84,10 +100,13 @@ public class JoinViewEvt extends WindowAdapter implements ActionListener {
 		
 		if(!file.getParent().equals("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/customer")){
 	         try {
+	        	//사진 확장자 잘라내기
+	        	int pointposition=file.getName().lastIndexOf('.');
+	        	String tailName=file.getName().substring(pointposition);
+	        	tempFile=id+tailName;
 	            //원본 파일 복붙
 	            FileInputStream fis=new FileInputStream(file);
-	            FileOutputStream fos=new FileOutputStream("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/customer/"+file.getName());
-	            
+	            FileOutputStream fos=new FileOutputStream("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/customer/"+tempFile);
 	            byte[] temp=new byte[512];
 	            
 	            int readData=0;
@@ -113,27 +132,21 @@ public class JoinViewEvt extends WindowAdapter implements ActionListener {
 	         
 	      }//end if
 		
-		MemberJoinVO mjv=new MemberJoinVO();
-		cd=CustomerDAO.getInstance();
 		
 		try {
-			if(pass.equals(passChk)){
-				mjv.setImage(tempFile);
-				mjv.setName(name);
-				mjv.setSsn(ssn);
-				mjv.setId(id);
-				mjv.setPass(pass);
-				mjv.setQuNum(quNum);
-				mjv.setPassAnswer(answer);
-				mjv.setInfo(info);
-				
-				cd.insertMember(mjv);
-				JOptionPane.showMessageDialog(jv, "가입을 축하합니다.");
-			}else{
-				JOptionPane.showMessageDialog(jv, "입력된 비밀번호가 다릅니다.");
-			}
+			mjv.setImage(tempFile);
+			mjv.setName(name);
+			mjv.setSsn(ssn);
+			mjv.setId(id);
+			mjv.setPass(pass);
+			mjv.setQuNum(quNum);
+			mjv.setPassAnswer(answer);
+			mjv.setInfo(info);
+			
+			cd.insertMember(mjv);
+			JOptionPane.showMessageDialog(jv, "가입을 축하합니다.");
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(jv, "아이디가 중복되었거나 형식이 올바르지 않습니다.");
+			JOptionPane.showMessageDialog(jv, "입력 형식이 올바르지 않습니다.");
 			e.printStackTrace();
 		}
 	}
@@ -149,7 +162,13 @@ public class JoinViewEvt extends WindowAdapter implements ActionListener {
 		}//end if
 		
 		if(ae.getSource()==jv.getJbSignUp()){
-			signUpMember();
+			int conf=JOptionPane.showConfirmDialog(jv, "가입하시겠습니까?");
+			
+			switch(conf){
+			case JOptionPane.OK_OPTION:
+				signUpMember();
+			}
+			
 		}//end if
 	}
 }

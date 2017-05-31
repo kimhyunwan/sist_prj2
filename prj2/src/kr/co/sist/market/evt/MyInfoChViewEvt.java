@@ -46,11 +46,14 @@ public class MyInfoChViewEvt extends WindowAdapter implements ActionListener {
 			return;
 		}
 		
-		if(!file.getParent().equals("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/customer")){
+		if(!file.getParent().equals(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/customer")){
 	         try {
-	            //원본 파일 복붙
-	            FileInputStream fis=new FileInputStream(file);
-	            FileOutputStream fos=new FileOutputStream("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/customer/"+file.getName());
+	        	 //사진 확장자 잘라내기
+	        	int pointposition=file.getName().lastIndexOf('.');
+	         	String tailName=file.getName().substring(pointposition);
+	         	tempFile=lve.id+tailName;
+	         	FileInputStream fis=new FileInputStream(file);
+	         	FileOutputStream fos=new FileOutputStream(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/customer/"+tempFile);
 	            
 	            byte[] temp=new byte[512];
 	            

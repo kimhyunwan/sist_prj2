@@ -88,11 +88,6 @@ public class MarketDAO {
 			}
 			pstmt=con.prepareStatement(selectItem);
 
-			
-			if(typeCode!=0){
-				pstmt.setInt(1, typeCode);
-			}
-			
 			if(typeCode!=0){
 				pstmt.setInt(1, typeCode);
 			}
@@ -476,7 +471,7 @@ public class MarketDAO {
 		try{
 			con=getConnection();
 			
-			String selectMsg="select msg_num, send_id, item_code, send_date, msg_check_flag from send_msg where id=?";
+			String selectMsg="select msg_num, send_id, item_code, send_date, msg_check_flag from send_msg where id=? order by msg_check_flag";
 			pstmt=con.prepareStatement(selectMsg);
 			
 			pstmt.setString(1, id);
@@ -527,7 +522,7 @@ public class MarketDAO {
 		try{
 			con=getConnection();
 			
-			String selectMsg="select msg_num, send_id, item_code, send_date, msg_check_flag from receive_msg where id=?";
+			String selectMsg="select msg_num, send_id, item_code, send_date, msg_check_flag from receive_msg where id=? order by msg_check_flag";
 			pstmt=con.prepareStatement(selectMsg);
 			
 			pstmt.setString(1, id);
@@ -661,9 +656,9 @@ public class MarketDAO {
 //		List<SellBuyVO> list2=md.selectSellCompList("dongha");
 //		System.out.println(list2);
 //		
-		//selectSellWaitList 단위 테스트
-		List<SellingVO> list3=md.selectSellWaitList("hyunwan");
-		System.out.println(list3);
+//		//selectSellWaitList 단위 테스트
+//		List<SellingVO> list3=md.selectSellWaitList("hyunwan");
+//		System.out.println(list3);
 //		
 //		//deleteSellWait 단위 테스트
 //		md.deleteSellWait("HY_1705240021");
