@@ -40,7 +40,7 @@ public class ItemInfoViewEvt extends WindowAdapter implements ActionListener {
 		if(ae.getSource()==iiv.getJbBuyReq()){
 			md=MarketDAO.getInstance();
 			SellerInfoVO seller=new SellerInfoVO();
-			/////SellerInfoVO/////
+			/////SellerInfoVO///////
 			//String id, info, img
 			try {
 				seller=md.selectSellerInfo(iiv.getJtfItemcode().getText().trim());
