@@ -44,7 +44,7 @@ public class ItemInfoViewEvt extends WindowAdapter implements ActionListener {
 			//String id, info, img
 			try {
 				seller=md.selectSellerInfo(iiv.getJtfItemcode().getText().trim());
-				System.out.println("0로그인 아이디:"+lve.id);
+				System.out.println("0로그인 아이디:"+lve.id); //
 				System.out.println("0물품판매자 아이디:"+seller.getId());
 				if(!(lve.id.equals(seller.getId()))){ //로그인 아이디와 판매자 아이디가 같은 경우, 구매신청 불가
 					new BuyReqView(iiv);
