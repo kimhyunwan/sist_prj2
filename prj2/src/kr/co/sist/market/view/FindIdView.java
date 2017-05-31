@@ -37,7 +37,7 @@ public class FindIdView  extends JFrame {
 		//////////////////////////////////////////////////////////////////////////////
 		
 		//라벨생성
-		ImageIcon icon = new ImageIcon("C:/Users/user/git/sist_prj2/prj2/src/kr/co/sist/market/img/bg_beige.GIF");
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/bg_beige.GIF");
 		JLabel backgroundImg = new JLabel(icon);
 		JLabel jlidName = new JLabel("이름");
 		JLabel jlidSsn = new JLabel("주민번호");
@@ -79,7 +79,7 @@ public class FindIdView  extends JFrame {
 		//////////////////////////////////////////////////////////////////////////////
 		
 		//라벨생성
-		ImageIcon icon1 = new ImageIcon("C:/Users/user/git/sist_prj2/prj2/src/kr/co/sist/market/img/bg_beige.GIF");
+		ImageIcon icon1 = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/bg_beige.GIF");
 		JLabel backgroundImg1 = new JLabel(icon);
 		JLabel jlName = new JLabel("이름");
 		JLabel jlSsn = new JLabel("주민번호");

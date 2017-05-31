@@ -22,7 +22,7 @@ public class ItemInfoView extends JFrame {
    private ImageIcon pro;
    public ItemInfoView(JFrame jf, ItemListVO iv){
       super("魄概 臂 力格");
-      pro = new ImageIcon("C:/dev/workspace/prj22/src/kr/co/sist/market/img/profile.jpg");
+      pro = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/profile.jpg");
       JLabel itemImg = new JLabel(pro);
       JLabel jlItemName = new JLabel("惑前疙");
       JLabel jlItemCode = new JLabel("力前内靛");

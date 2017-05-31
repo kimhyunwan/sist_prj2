@@ -36,7 +36,7 @@ public class MyInfoChView extends JFrame {
 		super(miv.getClass()+"의 정보변경");
 		
 		this.cd=cd;
-		ImageIcon itemImg = new ImageIcon("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/default.jpg");
+		ImageIcon itemImg = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/default.jpg");
 		jlItemImage = new JLabel(itemImg);
 		JLabel jlName = new JLabel("이름");
 		JLabel jlPass = new JLabel("비밀번호");

@@ -22,7 +22,7 @@ public class LoginView extends JFrame {
 	private int cnt;
 	public LoginView(){
 		super("sist중고장터");
-		ImageIcon logo = new ImageIcon("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/logo.jpg");
+		ImageIcon logo = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/logo.jpg");
 		JLabel logoImg = new JLabel(logo);
 		JLabel jlId = new JLabel("아이디");
 		JLabel jlPass = new JLabel("비밀번호");

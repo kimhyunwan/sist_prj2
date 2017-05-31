@@ -36,7 +36,7 @@ public class JoinView extends JFrame {
 	public JoinView() {
 		super("회원가입");
 
-		ImageIcon icon = new ImageIcon("C:/dev/workspace/test/src/test/background.jpg");
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/src/test/background.jpg");
 		JLabel backgroundImg = new JLabel(icon);
 		
 		dcbmQu=new DefaultComboBoxModel<String>();
@@ -57,7 +57,7 @@ public class JoinView extends JFrame {
 		jtaIntro.setBorder(new TitledBorder("자기소개"));
 		JScrollPane jsIntro = new JScrollPane(jtaIntro);
 		
-		ImageIcon profile = new ImageIcon("C:/Users/user/git/sist_prj2/prj2/src/kr/co/sist/market/img/default.jpg");
+		ImageIcon profile = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/default.jpg");
 		
 		JLabel jlName = new JLabel("이름");
 		JLabel jlSsn = new JLabel("주민번호");
@@ -201,9 +201,5 @@ public class JoinView extends JFrame {
 	public JLabel getJlimg() {
 		return jlimg;
 	}
-
-	public static void main(String[] args) {
-		new JoinView();
-	}// main
 
 }// class
