@@ -22,7 +22,9 @@ public class LoginView extends JFrame {
 	private int cnt;
 	public LoginView(){
 		super("sist중고장터");
-		ImageIcon logo = new ImageIcon("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/logo.jpg");
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/bg_green.jpg");
+		JLabel backgroundImg = new JLabel(icon);
+		ImageIcon logo = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/logo.jpg");
 		JLabel logoImg = new JLabel(logo);
 		JLabel jlId = new JLabel("아이디");
 		JLabel jlPass = new JLabel("비밀번호");
@@ -43,7 +45,8 @@ public class LoginView extends JFrame {
 		jpwPass.setBounds(180, 65, 110,25);
 		jbLogin.setBounds(300, 28 , 80,60);
 		jbJoin.setBounds(110, 100, 100,25);
-		jbFind.setBounds(220, 100, 160,25);		
+		jbFind.setBounds(220, 100, 160,25);	
+		backgroundImg.setBounds(0,0, 450, 300);
 		//컴포넌트 배치.
 		add(logoImg);
 		add(jlId);
@@ -53,12 +56,15 @@ public class LoginView extends JFrame {
 		add(jbLogin);
 		add(jbJoin);
 		add(jbFind);
+		add(backgroundImg);
 		
 		//이벤트 추가
 		LoginViewEvt lve = new LoginViewEvt(this);
 		jbLogin.addActionListener(lve);
 		jbJoin.addActionListener(lve);
 		jbFind.addActionListener(lve);
+		jtfId.addActionListener(lve);
+		jpwPass.addActionListener(lve);
 		
 		//윈도우의 크기
 		setBounds(300,80,425,180);

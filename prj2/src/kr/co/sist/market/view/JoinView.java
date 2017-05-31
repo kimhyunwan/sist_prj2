@@ -35,8 +35,9 @@ public class JoinView extends JFrame {
 
 	public JoinView() {
 		super("회원가입");
+		
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/bg_green.jpg");
 
-		ImageIcon icon = new ImageIcon("C:/dev/workspace/test/src/test/background.jpg");
 		JLabel backgroundImg = new JLabel(icon);
 		
 		dcbmQu=new DefaultComboBoxModel<String>();

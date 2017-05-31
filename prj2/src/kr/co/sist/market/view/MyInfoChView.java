@@ -36,7 +36,9 @@ public class MyInfoChView extends JFrame {
 		super(miv.getClass()+"의 정보변경");
 		
 		this.cd=cd;
-		ImageIcon itemImg = new ImageIcon("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/default.jpg");
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/bg_pink.jpg");
+		JLabel backgroundImg = new JLabel(icon);
+		ImageIcon itemImg = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/default.jpg");
 		jlItemImage = new JLabel(itemImg);
 		JLabel jlName = new JLabel("이름");
 		JLabel jlPass = new JLabel("비밀번호");
@@ -94,6 +96,7 @@ public class MyInfoChView extends JFrame {
 		jbImage.setBounds(55, 230, 120, 25);
 		jbChange.setBounds(450, 380, 60,25);
 		jbCancel.setBounds(520, 380, 60,25);		
+		backgroundImg.setBounds(0,-60, 630, 550);
 		
 		//컴포넌트 배치
 		add(jlItemImage);
@@ -113,6 +116,7 @@ public class MyInfoChView extends JFrame {
 		add(jbImage);
 		add(jbChange);
 		add(jbCancel);
+		add(backgroundImg);
 		
 		//이벤트 추가
 		MyInfoChViewEvt iive = new MyInfoChViewEvt(this);

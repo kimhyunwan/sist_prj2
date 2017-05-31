@@ -65,7 +65,7 @@ public class MainView extends JFrame {
 		//컬럼을 선택하여 움직이지 못하도록 설정
 		jtItemList.getTableHeader().setReorderingAllowed(false);
 		//컬럼의 높이 설정
-		jtItemList.setRowHeight(100);
+		jtItemList.setRowHeight(50);
 		//컬럼의 넓이 설정
 		jtItemList.getColumnModel().getColumn(0).setPreferredWidth(40);
 		jtItemList.getColumnModel().getColumn(1).setPreferredWidth(150);
@@ -73,6 +73,7 @@ public class MainView extends JFrame {
 		jtItemList.getColumnModel().getColumn(3).setPreferredWidth(400);
 		jtItemList.getColumnModel().getColumn(4).setPreferredWidth(70);
 		jtItemList.getColumnModel().getColumn(5).setPreferredWidth(100);
+		
 		
 		JScrollPane jspMenu = new JScrollPane(jtItemList);
 		
@@ -91,7 +92,7 @@ public class MainView extends JFrame {
 		int cntSellWait=cd.selectCntSellWait("dongha");
 		int cntMsg=cd.selectCntMsg("dongha");
 		
-		ImageIcon iiInfo = new ImageIcon("C:/dev/workspace/prj22/src/kr/co/sist/market/img/profile.jpg");
+		ImageIcon iiInfo = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/default.jpg");
 		JLabel lblInfo = new JLabel(iiInfo);
 		
 		JLabel jlId = new JLabel("아이디명 : ");
@@ -110,6 +111,9 @@ public class MainView extends JFrame {
 		jbSignUp = new JButton("판매물품 등록");
 		jbMsgList = new JButton("메세지 확인");
 		
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/background.jpg");
+		JLabel backgroundImg = new JLabel(icon);
+		
 		JPanel jpComInfo = new JPanel();
 		
 		lblInfo.setBounds(30, 30, 180, 195);
@@ -126,6 +130,7 @@ public class MainView extends JFrame {
 		jbBuyList.setBounds(200, 250,130 , 20);
 		jbSignUp.setBounds(30, 290,130 , 20);
 		jbMsgList.setBounds(200, 290,130 , 20);
+		backgroundImg.setBounds(0, 0, 790, 600);
 		
 		jpComInfo.add(lblInfo);
 		jpComInfo.add(jlId);
@@ -141,6 +146,7 @@ public class MainView extends JFrame {
 		jpComInfo.add(jbBuyList);
 		jpComInfo.add(jbSignUp);
 		jpComInfo.add(jbMsgList);
+		jpComInfo.add(backgroundImg);
 		
 		//이벤트 추가
 		MainViewEvt mve = new MainViewEvt(this);
@@ -150,6 +156,7 @@ public class MainView extends JFrame {
 		jbMsgList.addActionListener(mve);
 		jbType.addActionListener(mve);
 		jtItemList.addMouseListener(mve);
+		jbSignUp.addActionListener(mve);
 		//수동배치
 		jpComInfo.setLayout(null);
 		jpComInfo.setBounds(10,10,800,600);
@@ -218,14 +225,7 @@ public class MainView extends JFrame {
 		return jbMsgList;
 	}
 
-	public static void main(String[] args) {
-		cd=CustomerDAO.getInstance();
-		try {
-			new MainView(cd);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}//main
+
 	
 }//class
 

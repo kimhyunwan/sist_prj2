@@ -37,7 +37,7 @@ public class FindIdView  extends JFrame {
 		//////////////////////////////////////////////////////////////////////////////
 		
 		//라벨생성
-		ImageIcon icon = new ImageIcon("C:/Users/user/git/sist_prj2/prj2/src/kr/co/sist/market/img/bg_beige.GIF");
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/bg_green.jpg");
 		JLabel backgroundImg = new JLabel(icon);
 		JLabel jlidName = new JLabel("이름");
 		JLabel jlidSsn = new JLabel("주민번호");
@@ -59,7 +59,7 @@ public class FindIdView  extends JFrame {
 		
 		jbFindId.setBounds(218, 210, 70, 25);
 		jbIdCancel.setBounds(300, 210, 70, 25);
-		backgroundImg.setBounds(-60,-65, 450, 450);
+		backgroundImg.setBounds(0,0, 450, 300);
 		//수동배치
 		idTab.add(jlidName);
 		idTab.add(jlidSsn);
@@ -79,8 +79,8 @@ public class FindIdView  extends JFrame {
 		//////////////////////////////////////////////////////////////////////////////
 		
 		//라벨생성
-		ImageIcon icon1 = new ImageIcon("C:/Users/user/git/sist_prj2/prj2/src/kr/co/sist/market/img/bg_beige.GIF");
-		JLabel backgroundImg1 = new JLabel(icon);
+		ImageIcon icon1 = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/bg_green.jpg");
+		JLabel backgroundImg1 = new JLabel(icon1);
 		JLabel jlName = new JLabel("이름");
 		JLabel jlSsn = new JLabel("주민번호");
 		JLabel hyphen = new JLabel("-");
@@ -118,7 +118,7 @@ public class FindIdView  extends JFrame {
 		jtfAnswer.setBounds(115, 160, 257, 25);
 		jbFindPass.setBounds(218, 210, 70, 25);
 		jbPwCancel.setBounds(300, 210, 70, 25);
-		backgroundImg1.setBounds(-60,-65, 450, 450);
+		backgroundImg1.setBounds(0,0, 450, 300);
 		
 		pwTab.add(jlName);
 		pwTab.add(jlSsn);

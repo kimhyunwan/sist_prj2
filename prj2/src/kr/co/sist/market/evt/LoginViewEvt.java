@@ -32,11 +32,20 @@ public class LoginViewEvt extends WindowAdapter implements ActionListener {
 	private void chkNull(){
 		String id=lv.getJtfId().getText().trim();
 		String pass=new String(lv.getJpwPass().getPassword()).trim();
-		LoginViewEvt logid= new LoginViewEvt(lv);
-		if(id.equals("")||pass.equals("")){
-			JOptionPane.showMessageDialog(lv, "아이디와 비밀번호를 입력해 주세요");
-			return;
+		
+		if(id.isEmpty()){ //ID입력란이 비어있는 경우
+			JOptionPane.showMessageDialog(lv, "아이디를 입력하세요");
+			lv.getJtfId().requestFocus(); //ID입력란으로 커서 이동
+			return;//아랫줄을 실행하지 않고 호출한 곳으로 돌려보낸다
+		} else{
+				//비밀번호가 입력되지 않을경우 비밀번호를 입력하라는 메세지가 뜬다.
+				if(pass.isEmpty()){
+					JOptionPane.showMessageDialog(lv, "비밀번호를 입력하세요");
+					lv.getJpwPass().requestFocus(); //PASSWORD입력란으로 커서 이동
+			}//end if
 		}//end if
+		LoginViewEvt logid= new LoginViewEvt(lv);
+
 		
 		boolean flag=false;
 		//관리자 ID : dongha, password : diet
@@ -65,12 +74,55 @@ public class LoginViewEvt extends WindowAdapter implements ActionListener {
 		lv.dispose(); //로그인 창을 닫아 다음으로 진행하도록 만든다
 	}//chkNull
 	
+	/**
+	 * ID를 입력받는 일을 하는 메소드<br>
+	 * ID가 입력되지 않은 경우, 아이디를 입력하라는 메시지창을 띄우고<br>
+	 * ID가 입력된 경우, PASSWORD를 입력받기위해 포커스를 옮겨준다.
+	 */
+	public void writeId(){
+		String id=lv.getJtfId().getText().trim();
+		//ID가 입력되지 않을경우 아이디를 입력하라는 메세지창을 띄워준다.
+		if(id.isEmpty()){ //ID입력을 하지 않았을 경우
+			JOptionPane.showMessageDialog(lv, "아이디를 입력하세요");
+		//id가 입력되었을 경우 엔터를 치면 비밀번호칸으로 넘긴다.
+		} else{ //ID입력을 했을 경우 실행
+				lv.getJpwPass().requestFocus(); //PASSWORD를 입력받기위해 커서를 옮겨준다.
+		}//end if
+		
+	}//writeId
+	
+	/**
+	 *	LOGIN이 가능한지 확인하는 method<br>
+	 */
+	public void checkLogin(){
+		
+		String id=lv.getJtfId().getText().trim();
+		String pass=new String(lv.getJpwPass().getPassword());
+		
+		if(id.isEmpty()){ //ID입력란이 비어있는 경우
+			JOptionPane.showMessageDialog(lv, "아이디를 입력하세요");
+			lv.getJtfId().requestFocus(); //ID입력란으로 커서 이동
+			return;//아랫줄을 실행하지 않고 호출한 곳으로 돌려보낸다
+		} else{
+				//비밀번호가 입력되지 않을경우 비밀번호를 입력하라는 메세지가 뜬다.
+				if(pass.isEmpty()){
+					JOptionPane.showMessageDialog(lv, "비밀번호를 입력하세요");
+					lv.getJpwPass().requestFocus(); //PASSWORD입력란으로 커서 이동
+			}//end if
+		}//end if
+	}//
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent ae) {
+		if(ae.getSource()==lv.getJtfId()){
+			writeId();
+		}//end if
 		
-		if(ae.getSource()==lv.getJbLogin()){
+		if(ae.getSource()==lv.getJbLogin()||ae.getSource()==lv.getJpwPass()){
 			chkNull();
 		}//end if
+
 		
 		if(ae.getSource()==lv.getJbJoin()){
 			new JoinView();

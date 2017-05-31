@@ -22,9 +22,9 @@ public class BuyReqView extends JFrame {
 	
 	public BuyReqView(ItemInfoView iiv){
 		super("구매신청");
-		ImageIcon icon = new ImageIcon("C:/Users/user/git/sist_prj2/prj2/src/kr/co/sist/market/img/bg_pink.jpg");
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/bg_pink.jpg");
 		JLabel backgroundImg = new JLabel(icon);
-		ImageIcon itemImg = new ImageIcon("C:/dev/workspace/prj22/src/kr/co/sist/market/img/profile.jpg");
+		ImageIcon itemImg = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/default.jpg");
 		JLabel itemImage = new JLabel(itemImg);
 		JLabel jlId = new JLabel("구매자");
 		JLabel jlItemcode = new JLabel("아이템 코드");
@@ -49,6 +49,7 @@ public class BuyReqView extends JFrame {
 		jbCancel=new JButton("취소");
 		
 		//제품코드는 읽기 전용
+		jtfId.setEditable(false);
 		jtfItemcode.setEditable(false);
 		jtfTotalPrice.setEditable(false);
 		//자동배치 해제

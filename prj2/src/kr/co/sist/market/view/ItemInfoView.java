@@ -20,9 +20,11 @@ public class ItemInfoView extends JFrame {
    private JButton jbSellerInfo,jbBuyReq,jbCancel;
    private JTextArea jtProExplain;
    private ImageIcon pro;
-   public ItemInfoView(ItemListVO iv){
+   public ItemInfoView( ItemListVO iv){
       super(iv.getItemName());
-      pro = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/profile.jpg");
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/bg_pink.jpg");
+		JLabel backgroundImg = new JLabel(icon);
+      pro = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/default.jpg");
       JLabel itemImg = new JLabel(pro);
       JLabel jlItemName = new JLabel("상품명");
       JLabel jlItemCode = new JLabel("제품코드");
@@ -71,6 +73,7 @@ public class ItemInfoView extends JFrame {
       jbSellerInfo.setBounds(60, 230, 130 , 50);
       jbBuyReq.setBounds(235, 330, 90, 30);
       jbCancel.setBounds(330, 330, 90, 30);
+      backgroundImg.setBounds(0, 0, 600, 600);
       //컴포넌트 배치
       add(itemImg);
       
@@ -91,6 +94,7 @@ public class ItemInfoView extends JFrame {
       add(jbSellerInfo);
       add(jbBuyReq);
       add(jbCancel);
+      add(backgroundImg);
       
       //이벤트 추가
       ItemInfoViewEvt iive = new ItemInfoViewEvt(this);

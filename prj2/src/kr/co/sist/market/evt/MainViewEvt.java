@@ -21,6 +21,7 @@ import kr.co.sist.market.view.MainView;
 import kr.co.sist.market.view.MsgListView;
 import kr.co.sist.market.view.MyInfoChView;
 import kr.co.sist.market.view.SellListView;
+import kr.co.sist.market.view.SignUpItemView;
 import kr.co.sist.market.vo.ItemListVO;
 import kr.co.sist.market.vo.MemberInfoVO;
 
@@ -36,7 +37,7 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 		this.mv=mv;
 		m_dao=MarketDAO.getInstance();
 		
-		
+		setItem(0);
 	}//MainViewEvtEvt
 	
 	private void setItem(int item){
@@ -78,6 +79,7 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 			iv.setItemInfo((String) temp.getValueAt(selectedRow, 3));
 			iv.setHiredate((String) temp.getValueAt(selectedRow, 5));
 			
+			new ItemInfoView(iv);//띄어주어야할 항목들이 mv가 가지고있으므로 안에 넣어주는 것이다.←이 주석 지우기
 			new ItemInfoView(iv);//띄어주어야할 항목들이 mv가 가지고있으므로 안에 넣어주는 것이다.
 		}//end if
 	}//mouseClicked
@@ -109,15 +111,11 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 			setItem(item);
 		}//end if
 		
+		if(ae.getSource()==mv.getJbSignUp()){
+			new SignUpItemView();
+		}
+	}
+	
 
-	}
-	
-	public void mouseEntered(MouseEvent me){
-		iv=new ImageView(mv);
-	}
-	
-	public void mouseExited(MouseEvent me){
-		iv.dispose();
-	}
 
 }

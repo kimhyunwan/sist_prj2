@@ -38,6 +38,9 @@ public class SignUpItemView extends JFrame {
 	       
 	       jtaItemInfo.setBorder(new TitledBorder("제품설명"));
 	       JScrollPane jsIntro=new JScrollPane(jtaItemInfo);
+	       
+			ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/bg_pink.jpg");
+			JLabel backgroundImg = new JLabel(icon);
 	      
 	      ImageIcon profile=new ImageIcon("C:/dev/workspace/prj10/src/kr/co/sist/market/img/default.jpg");
 	      
@@ -49,7 +52,7 @@ public class SignUpItemView extends JFrame {
 	      
 	      setLayout(null); //수동배치
 	      //각 컴포넌트 배치
-	      setBounds(50, 50, 480, 500);
+	      setBounds(50, 50, 480, 480);
 	      jlimg.setBounds(20, 20, 180, 195);
 	      jbImage.setBounds(49, 223, 120, 25);
 	      jlName.setBounds(230, 30, 70, 25);
@@ -65,6 +68,7 @@ public class SignUpItemView extends JFrame {
 	      jsIntro.setBounds(20, 265, 420, 130);
 	      jbSignUp.setBounds(235, 410, 95, 25);
 	      jbCancel.setBounds(340, 410, 95, 25);
+	      backgroundImg.setBounds(0,0, 600, 460);
 	      
 	      //컴포넌트 붙이기
 	      add(jlimg);
@@ -80,6 +84,7 @@ public class SignUpItemView extends JFrame {
 	      add(jsIntro);
 	      add(jbSignUp);
 	      add(jbCancel);
+	      add(backgroundImg);
 	      
 			// 이벤트 추가
 			SignUpItemViewEvt blve = new SignUpItemViewEvt(this);
