@@ -60,6 +60,7 @@ public class MyInfoChView extends JFrame {
 		
 		JScrollPane jspIntro = new JScrollPane(jtaIntro);
 		
+		
 		jbImage = new JButton("이미지 등록");
 		jbChange=new JButton("수정");
 		jbCancel=new JButton("취소");
