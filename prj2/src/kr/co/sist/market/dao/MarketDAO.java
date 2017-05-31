@@ -171,7 +171,7 @@ public class MarketDAO {
 		try{ 
 			con=getConnection();
 			
-			String selectSell="select buyer_id, item_code, item_name, sold_date from product where sold_flag='y' and id=?";
+			String selectSell="select buyer_id, item_code, item_name, sold_date from product where sold_flag='y' and id=? order by sold_date desc";
 			pstmt=con.prepareStatement(selectSell);
 			pstmt.setString(1, id);
 			
@@ -219,7 +219,7 @@ public class MarketDAO {
 		
 		try{
 			con = getConnection();
-			String selectWait="select b.id id, b.item_code item_code, b.phone phone, p.item_name name, b.requesting_date req_date from product p, buyer_contact b where (p.item_code=b.item_code) and p.id=?";
+			String selectWait="select b.id id, b.item_code item_code, b.phone phone, p.item_name name, b.requesting_date req_date from product p, buyer_contact b where (p.item_code=b.item_code) and p.sold_flag='n' and p.id=?";
 			pstmt=con.prepareStatement(selectWait);
 			
 			pstmt.setString(1, id);
@@ -259,17 +259,18 @@ public class MarketDAO {
 	 * @param itemCode
 	 * @throws SQLException
 	 */
-	public void deleteSellWait(String itemCode) throws SQLException{
+	public void deleteSellWait(String itemCode, String buyerId) throws SQLException{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try{
 			con = getConnection();
 			
-			String deleteWait="delete from buyer_contact where item_code=?";
+			String deleteWait="delete from buyer_contact where item_code=? and id!=?";
 			pstmt=con.prepareStatement(deleteWait);
 			
 			pstmt.setString(1, itemCode);
+			pstmt.setString(2, buyerId);
 			
 			pstmt.executeUpdate();
 			
@@ -349,7 +350,7 @@ public class MarketDAO {
 		try{
 			con=getConnection();
 			
-			String selectSell="select id, item_code, item_name, sold_date from product where sold_flag='y' and buyer_id=?";
+			String selectSell="select id, item_code, item_name, sold_date from product where sold_flag='y' and buyer_id=? order by sold_date desc";
 			pstmt=con.prepareStatement(selectSell);
 			pstmt.setString(1, id);
 			rs=pstmt.executeQuery();
@@ -396,7 +397,7 @@ public class MarketDAO {
 		
 		try{
 			con = getConnection();
-			String selectWait="select p.id id, b.item_code item_code, p.item_name name, b.requesting_date req_date from product p, buyer_contact b where (p.item_code=b.item_code) and b.id=?";
+			String selectWait="select p.id id, b.item_code item_code, p.item_name name, b.requesting_date req_date from product p, buyer_contact b where (p.item_code=b.item_code) and  p.sold_flag='n' and b.id=?";
 			pstmt=con.prepareStatement(selectWait);
 			
 			pstmt.setString(1, id);
@@ -619,6 +620,7 @@ public class MarketDAO {
 		}
 	}//updateChkGetMsg
 	
+
 	public String selectImg(String itemCode) throws SQLException{
 		String img=null;
 		
@@ -658,12 +660,12 @@ public class MarketDAO {
 //		System.out.println(list1);
 //
 //		//selectSellCompList 단위테스트
-//		List<SellBuyVO> list2=md.selectSellCompList("dongha");
+//		List<SellBuyVO> list2=md.selectSellCompList("hyunwan");
 //		System.out.println(list2);
 //		
-		//selectSellWaitList 단위 테스트
-		List<SellingVO> list3=md.selectSellWaitList("hyunwan");
-		System.out.println(list3);
+//		//selectSellWaitList 단위 테스트
+//		List<SellingVO> list3=md.selectSellWaitList("hyunwan");
+//		System.out.println(list3);
 //		
 //		//deleteSellWait 단위 테스트
 //		md.deleteSellWait("HY_1705240021");

@@ -70,11 +70,12 @@ public class SignUpItemViewEvt extends WindowAdapter implements ActionListener {
 			int price = Integer.parseInt(suiv.getJtfPrice().getText().trim());
 			String itemInfo = suiv.getJtaItemInfo().getText().trim();
 
-			if (!file.getParent().equals(System.getProperty("user.dir")+"src/kr/co/sist/market/img/market")) {
+			if (!file.getParent().equals("C:/dev/workspace/prj2/src/kr/co/sist/market/img/market")) {
 				try {
 					// 원본 파일 복붙
 					FileInputStream fis = new FileInputStream(file);
-					FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir")+"src/kr/co/sist/market/img/market/" + file.getName());
+					FileOutputStream fos = new FileOutputStream(
+							"C:/dev/workspace/prj2/src/kr/co/sist/market/img/market" + file.getName());
 
 					byte[] temp = new byte[512];
 

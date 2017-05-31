@@ -39,7 +39,7 @@ public class SignUpItemView extends JFrame {
 	       jtaItemInfo.setBorder(new TitledBorder("제품설명"));
 	       JScrollPane jsIntro=new JScrollPane(jtaItemInfo);
 	      
-	      ImageIcon profile=new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/default.jpg");
+	      ImageIcon profile=new ImageIcon("C:/dev/workspace/prj10/src/kr/co/sist/market/img/default.jpg");
 	      
 	      JLabel jlName=new JLabel("상품명");
 	      JLabel jlType=new JLabel("제품분류");
@@ -141,5 +141,9 @@ public class SignUpItemView extends JFrame {
 	public DefaultComboBoxModel<String> getDcbmTp() {
 		return dcbmTp;
 	}
+
+	public static void main(String[] args) {
+		new SignUpItemView();
+	}// main
 
 }// class

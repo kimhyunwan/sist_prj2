@@ -57,20 +57,17 @@ public class FindIdViewEvt extends WindowAdapter implements ActionListener {
 
 	private void findPass() {
 		String name = fiv.getJtfPwName().getText().trim();
-		String ssnBack = new String(fiv.getJpwPwSsn().getPassword()).trim();
-		String ssnFront = fiv.getJtfPwSsn().getText().trim();
-		String ssn = ssnFront+ssnBack;
+		String ssnBack = new String(fiv.getJpwIdSsn().getPassword()).trim();
+		String ssnFront = fiv.getJtfIdSsn().getText().trim();
+		String ssn = ssnFront + ssnBack;
 		String id = fiv.getJtfId().getText().trim();
-		int quNum = fiv.getJcbQuest().getSelectedIndex();
+		int quNum = fiv.getJcbQuest().getSelectedIndex() + 1;
 		String answer = fiv.getJtfAnswer().getText().trim();
 
-//		if (ssnFront.length() != 6 || ssnBack.length() != 7) {
-//			JOptionPane.showMessageDialog(fiv, "올바른 주민번호를 입력해주세요");
-//			return;
-//		}
-		
-		System.out.println(name+" "+ssn+" "+id+" "+answer+" "+quNum);
-		
+		if (ssnFront.length() != 6 || ssnBack.length() != 7) {
+			JOptionPane.showMessageDialog(fiv, "올바른 주민번호를 입력해주세요");
+		}
+
 		CustomerDAO cd = CustomerDAO.getInstance();
 
 		PassVO pv = new PassVO(name, ssn, id, answer, quNum);

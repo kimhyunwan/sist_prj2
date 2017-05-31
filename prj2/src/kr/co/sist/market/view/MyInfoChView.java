@@ -36,7 +36,7 @@ public class MyInfoChView extends JFrame {
 		super(miv.getClass()+"의 정보변경");
 		
 		this.cd=cd;
-		ImageIcon itemImg = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/default.jpg");
+		ImageIcon itemImg = new ImageIcon("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/default.jpg");
 		jlItemImage = new JLabel(itemImg);
 		JLabel jlName = new JLabel("이름");
 		JLabel jlPass = new JLabel("비밀번호");
@@ -60,7 +60,6 @@ public class MyInfoChView extends JFrame {
 		
 		JScrollPane jspIntro = new JScrollPane(jtaIntro);
 		
-		
 		jbImage = new JButton("이미지 등록");
 		jbChange=new JButton("수정");
 		jbCancel=new JButton("취소");
@@ -82,16 +81,16 @@ public class MyInfoChView extends JFrame {
 		jlIntro.setBounds(220, 180, 65, 15);
 		jspIntro.setBounds(220, 210, 368, 150);  
 		jlItemImage.setBounds(20, 20, 180, 200);
-		jlPass.setBounds(220, 60, 65, 15);
-		jtfPass.setBounds(330, 60, 140,25);
-		jlPassChk.setBounds(220, 90, 85, 15);
-		jtfPassChk.setBounds(330, 90, 140,25);
-		jlQuest.setBounds(220, 120, 85, 15);
-		jcbQuest.setBounds(330, 120, 256,25);
-		jlAnswer.setBounds(220, 150, 85, 15);
-		jtfAnswer.setBounds(330, 150, 256,25);
-		jlIntro.setBounds(220, 180, 65, 15);
-		jspIntro.setBounds(220, 210, 368, 150);  
+		jlPass.setBounds(220, 30, 65, 15);
+		jtfPass.setBounds(330, 30, 140,25);
+		jlPassChk.setBounds(220, 60, 85, 15);
+		jtfPassChk.setBounds(330, 60, 140,25);
+		jlQuest.setBounds(220, 90, 85, 15);
+		jcbQuest.setBounds(330, 90, 256,25);
+		jlAnswer.setBounds(220, 120, 85, 15);
+		jtfAnswer.setBounds(330, 120, 256,25);
+		jlIntro.setBounds(220, 150, 65, 15);
+		jspIntro.setBounds(220, 180, 368, 150);  
 		jbImage.setBounds(55, 230, 120, 25);
 		jbChange.setBounds(450, 380, 60,25);
 		jbCancel.setBounds(520, 380, 60,25);		

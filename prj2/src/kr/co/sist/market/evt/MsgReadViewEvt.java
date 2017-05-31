@@ -10,14 +10,11 @@ import javax.swing.JOptionPane;
 import kr.co.sist.market.dao.CustomerDAO;
 import kr.co.sist.market.view.MsgReadView;
 import kr.co.sist.market.view.MsgWriteView;
-import kr.co.sist.market.vo.MsgVO;
 
 public class MsgReadViewEvt extends WindowAdapter implements ActionListener {
 
-	private MsgReadView mrv;
-	private CustomerDAO cd;
-	private MsgListViewEvt mlve;
-	private LoginViewEvt lve;
+	MsgReadView mrv;
+	CustomerDAO cd;
 	
 	public MsgReadViewEvt(MsgReadView mrv) {
 		this.mrv=mrv;
@@ -30,13 +27,10 @@ public class MsgReadViewEvt extends WindowAdapter implements ActionListener {
 	}//MsgReadViewEvt
 	
 	private void SendMsg(){
-		MsgVO mv=new MsgVO();
-		mv.setId(lve.id);
-		mv.setItemCode(mlve.item_code);
-		mv.setSendId(mlve.msg_id);
-		mv.setMsg("");
 		
-		new MsgWriteView(mv);
+
+		
+		
 		
 	}//SendMsg
 	
@@ -47,7 +41,7 @@ public class MsgReadViewEvt extends WindowAdapter implements ActionListener {
 		}//end if
 		
 		if(ae.getSource()==mrv.getJbSend()){
-			SendMsg();
+			//new MsgWriteView();
 		}//end if
 
 	}//actionPerformed

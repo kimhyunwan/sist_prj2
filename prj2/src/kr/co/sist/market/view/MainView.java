@@ -91,7 +91,7 @@ public class MainView extends JFrame {
 		int cntSellWait=cd.selectCntSellWait("dongha");
 		int cntMsg=cd.selectCntMsg("dongha");
 		
-		ImageIcon iiInfo = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/profile.jpg");
+		ImageIcon iiInfo = new ImageIcon("C:/dev/workspace/prj22/src/kr/co/sist/market/img/profile.jpg");
 		JLabel lblInfo = new JLabel(iiInfo);
 		
 		JLabel jlId = new JLabel("아이디명 : ");
@@ -150,7 +150,6 @@ public class MainView extends JFrame {
 		jbMsgList.addActionListener(mve);
 		jbType.addActionListener(mve);
 		jtItemList.addMouseListener(mve);
-		jbSignUp.addActionListener(mve);
 		//수동배치
 		jpComInfo.setLayout(null);
 		jpComInfo.setBounds(10,10,800,600);
@@ -218,6 +217,15 @@ public class MainView extends JFrame {
 	public JButton getJbMsgList() {
 		return jbMsgList;
 	}
+
+	public static void main(String[] args) {
+		cd=CustomerDAO.getInstance();
+		try {
+			new MainView(cd);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}//main
 	
 }//class
 
