@@ -115,12 +115,6 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 		}
 	}
 	
-	public void mouseEntered(MouseEvent me){
-		iv=new ImageView(mv);
-	}
-	
-	public void mouseExited(MouseEvent me){
-		iv.dispose();
-	}
+
 
 }
