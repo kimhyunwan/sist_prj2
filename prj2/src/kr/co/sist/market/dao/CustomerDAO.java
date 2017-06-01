@@ -129,7 +129,6 @@ public class CustomerDAO {
 				if(rs.next()){
 					flag=true;
 				}//end if
-			
 			}finally{
 			//5.¿¬°á²÷±â
 				if( rs != null) { rs.close(); }
