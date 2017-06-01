@@ -132,7 +132,6 @@ public class CustomerDAO {
 			} // end if
 		}
 	}
-	
 /*	public static void main(String[] args){
 		CustomerDAO cd=new CustomerDAO();
 		

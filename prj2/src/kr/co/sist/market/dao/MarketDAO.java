@@ -66,7 +66,6 @@ public class MarketDAO {
 		}//end catch
 		return con;
 	}//getConnection
-	
 	/**
 	 * 내가 파려고 한 물품 삭제
 	 * @param itemCode
