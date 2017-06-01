@@ -38,12 +38,12 @@ public class LoginViewEvt extends WindowAdapter implements ActionListener {
 			lv.getJtfId().requestFocus(); //ID입력란으로 커서 이동
 			return;//아랫줄을 실행하지 않고 호출한 곳으로 돌려보낸다
 		} else{
-				//비밀번호가 입력되지 않을경우 비밀번호를 입력하라는 메세지가 뜬다.
-				if(pass.isEmpty()){
-					JOptionPane.showMessageDialog(lv, "비밀번호를 입력하세요");
-					lv.getJpwPass().requestFocus(); //PASSWORD입력란으로 커서 이동
-			}//end if
-		}//end if
+			//비밀번호가 입력되지 않을경우 비밀번호를 입력하라는 메세지가 뜬다.
+			if(pass.isEmpty()){
+				JOptionPane.showMessageDialog(lv, "비밀번호를 입력하세요");
+				lv.getJpwPass().requestFocus(); //PASSWORD입력란으로 커서 이동
+			}else{
+				
 		LoginViewEvt logid= new LoginViewEvt(lv);
 
 		
@@ -72,6 +72,8 @@ public class LoginViewEvt extends WindowAdapter implements ActionListener {
 		
 		lv.setFlag(flag,1); //로그인 결과를 설정
 		lv.dispose(); //로그인 창을 닫아 다음으로 진행하도록 만든다
+			}//end else
+		}//end if
 	}//chkNull
 	
 	/**
@@ -90,6 +92,7 @@ public class LoginViewEvt extends WindowAdapter implements ActionListener {
 		}//end if
 		
 	}//writeId
+	
 	
 	/**
 	 *	LOGIN이 가능한지 확인하는 method<br>
@@ -115,11 +118,8 @@ public class LoginViewEvt extends WindowAdapter implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		if(ae.getSource()==lv.getJtfId()){
-			writeId();
-		}//end if
 		
-		if(ae.getSource()==lv.getJbLogin()||ae.getSource()==lv.getJpwPass()){
+		if(ae.getSource()==lv.getJbLogin()||ae.getSource()==lv.getJpwPass()||ae.getSource()==lv.getJtfId()){
 			chkNull();
 		}//end if
 

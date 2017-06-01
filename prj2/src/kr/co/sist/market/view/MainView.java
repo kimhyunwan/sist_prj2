@@ -18,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import kr.co.sist.market.dao.CustomerDAO;
+import kr.co.sist.market.evt.LoginViewEvt;
 import kr.co.sist.market.evt.MainViewEvt;
 
 /**
@@ -33,11 +34,14 @@ public class MainView extends JFrame {
 	private JComboBox<String> jcbType;
 	private JButton jbType, jbMyInfoCh, jbSellList, jbBuyList, jbSignUp, jbMsgList;
 	private static CustomerDAO cd;
+	private LoginViewEvt lve;
 	
 	public MainView(CustomerDAO cd) throws SQLException{
 		super("중고장터에 어서오세요!!"); 
 		this.cd=cd;
-		String[] columnNames={"번호","상품명","상품코드","판매 상품 설명","가격","등록일"};
+		String id=lve.id;
+		
+		String[] columnNames={"번호","제품명","제품코드","판매 제품 설명","가격","등록일"};
 		String[][] data = {};
 		
 		String[] types = {"----- 전체보기 -----","뷰티/잡화","식품/마트/유아","가구/생활/건강","스포츠/자동차/공구","도서","기타"};
@@ -69,10 +73,10 @@ public class MainView extends JFrame {
 		//컬럼의 넓이 설정
 		jtItemList.getColumnModel().getColumn(0).setPreferredWidth(40);
 		jtItemList.getColumnModel().getColumn(1).setPreferredWidth(150);
-		jtItemList.getColumnModel().getColumn(2).setPreferredWidth(80);
-		jtItemList.getColumnModel().getColumn(3).setPreferredWidth(400);
+		jtItemList.getColumnModel().getColumn(2).setPreferredWidth(120);
+		jtItemList.getColumnModel().getColumn(3).setPreferredWidth(250);
 		jtItemList.getColumnModel().getColumn(4).setPreferredWidth(70);
-		jtItemList.getColumnModel().getColumn(5).setPreferredWidth(100);
+		jtItemList.getColumnModel().getColumn(5).setPreferredWidth(150);
 		
 		
 		JScrollPane jspMenu = new JScrollPane(jtItemList);
@@ -88,19 +92,21 @@ public class MainView extends JFrame {
 		jpItem.add("North", jpTop);
 		jpItem.add("Center", jspMenu);
 		
-		int cntBuyWait=cd.selectCntBuyWait("dongha");
-		int cntSellWait=cd.selectCntSellWait("dongha");
-		int cntMsg=cd.selectCntMsg("dongha");
+		
+		int cntBuyWait=cd.selectCntBuyWait(id);
+		int cntSellWait=cd.selectCntSellWait(id);
+		int cntMsg=cd.selectCntMsg(id);
 		
 		ImageIcon iiInfo = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/default.jpg");
 		JLabel lblInfo = new JLabel(iiInfo);
+		
 		
 		JLabel jlId = new JLabel("아이디명 : ");
 		JLabel jlSell = new JLabel("판매 대기 현황 : ");
 		JLabel jlPurchase = new JLabel("구매 대기 현황 : ");
 		JLabel jlNotReadMsg = new JLabel("안읽은 메세지 : ");
 
-		JLabel jlIdRst = new JLabel("XXXX");
+		JLabel jlIdRst = new JLabel(id);
 		JLabel jlSellRst = new JLabel(cntSellWait+"건 판매 중");
 		JLabel jlPurchaseRst = new JLabel(cntBuyWait+"건 구매희망 중");
 		JLabel jlNotReadMsgRst = new JLabel(cntMsg+"건");
@@ -167,7 +173,6 @@ public class MainView extends JFrame {
 		
 		add("Center",jtpTab);
 
-		jpItem.setBackground(Color.WHITE);
 		
 		addWindowListener(new WindowAdapter(){
 

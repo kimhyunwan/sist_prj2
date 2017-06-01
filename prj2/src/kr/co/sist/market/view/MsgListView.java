@@ -55,10 +55,10 @@ public class MsgListView extends JFrame {
 		//컬럼을 선택하여 움직이지 못하도록 설정
 		jtSendMsgList.getTableHeader().setReorderingAllowed(false);
 		//컬럼의 높이 설정
-		jtSendMsgList.setRowHeight(100);
+		jtSendMsgList.setRowHeight(30);
 		//컬럼의 넓이 설정
-		jtSendMsgList.getColumnModel().getColumn(0).setPreferredWidth(15);
-		jtSendMsgList.getColumnModel().getColumn(1).setPreferredWidth(100);
+		jtSendMsgList.getColumnModel().getColumn(0).setPreferredWidth(30);
+		jtSendMsgList.getColumnModel().getColumn(1).setPreferredWidth(70);
 		jtSendMsgList.getColumnModel().getColumn(2).setPreferredWidth(150);
 		jtSendMsgList.getColumnModel().getColumn(3).setPreferredWidth(80);
 		jtSendMsgList.getColumnModel().getColumn(4).setPreferredWidth(60);
@@ -102,10 +102,10 @@ public class MsgListView extends JFrame {
 		//컬럼을 선택하여 움직이지 못하도록 설정
 		jtReceiveMsgList.getTableHeader().setReorderingAllowed(false);
 		//컬럼의 높이 설정
-		jtReceiveMsgList.setRowHeight(100);
+		jtReceiveMsgList.setRowHeight(30);
 		//컬럼의 넓이 설정
-		jtReceiveMsgList.getColumnModel().getColumn(0).setPreferredWidth(15);
-		jtReceiveMsgList.getColumnModel().getColumn(1).setPreferredWidth(100);
+		jtReceiveMsgList.getColumnModel().getColumn(0).setPreferredWidth(30);
+		jtReceiveMsgList.getColumnModel().getColumn(1).setPreferredWidth(70);
 		jtReceiveMsgList.getColumnModel().getColumn(2).setPreferredWidth(150);
 		jtReceiveMsgList.getColumnModel().getColumn(3).setPreferredWidth(80);
 		jtReceiveMsgList.getColumnModel().getColumn(3).setPreferredWidth(60);

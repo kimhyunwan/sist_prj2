@@ -21,13 +21,14 @@ import kr.co.sist.market.evt.SellListViewEvt;
  */
 @SuppressWarnings("serial")
 public class SellListView extends JFrame {
-	private JTable jtComplet,jtWait ;
-	private DefaultTableModel dtmComplet,dtmWait;
+	private JTable jtComplet,jtWait,jtLst ;
+	private DefaultTableModel dtmComplet,dtmWait, dtmLst;
 	private JTabbedPane jtpTab;
-	private JButton jbClose,jbWClose;
+	private JButton jbClose,jbWClose,jbLClose;
 	
 	public SellListView(){
 		super("판매목록");
+		////////////////////////////////////// 판매 완료 목록 /////////////////////////////////////////
 		String[] columnNames={"번호","구매자","상품코드","상품명","판매완료일시"};
 		String[][] data = {};
 		
@@ -73,7 +74,7 @@ public class SellListView extends JFrame {
 		//수동배치
 		jpComplete.setLayout(null);
 
-	////////////////////////////////////// 받은 메세지 탭 /////////////////////////////////////////
+	////////////////////////////////////// 판매 대기 목록 /////////////////////////////////////////
 		String[] columnWNames={"번호","구매신청자","상품코드","상품명","신청일"};
 		String[][] wdata = {};
 		
@@ -119,9 +120,57 @@ public class SellListView extends JFrame {
 		//수동배치
 		jpWait.setLayout(null);
 		///////////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////// 판매 물품 목록 /////////////////////////////////////
+		String[] columnlstNames={"번호","상품명","상품코드","판매상품설명","가격","등록일"};
+		String[][] lstdata = {};
+		
+		jbLClose = new JButton("닫기");
+		
+		
+		dtmLst=new DefaultTableModel(lstdata, columnlstNames){
+			//편집불가
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}//isCellEditable
+			
+		};
+		
+		jtLst=new JTable(dtmLst){
+			//컬럼에 이미지를 넣기위한 method를 Override
+			@Override
+			public Class<?> getColumnClass(int column) {
+				return getValueAt(0, column).getClass();
+			}//getColumnClass
+			
+		};
+		//컬럼을 선택하여 움직이지 못하도록 설정
+		jtLst.getTableHeader().setReorderingAllowed(false);
+		//컬럼의 높이 설정
+		jtLst.setRowHeight(40);
+		//컬럼의 넓이 설정
+		jtLst.getColumnModel().getColumn(0).setPreferredWidth(40);
+		jtLst.getColumnModel().getColumn(1).setPreferredWidth(130);
+		jtLst.getColumnModel().getColumn(2).setPreferredWidth(130);
+		jtLst.getColumnModel().getColumn(3).setPreferredWidth(300);
+		jtLst.getColumnModel().getColumn(4).setPreferredWidth(70);
+		jtLst.getColumnModel().getColumn(5).setPreferredWidth(150);
+		
+		JScrollPane jspLst = new JScrollPane(jtLst);
+		
+		jspLst.setBounds(0, 0, 800, 500);
+		jbLClose.setBounds(700, 505, 60, 25);
+		
+		JPanel jpLst = new JPanel();
+		jpLst.add(jspLst);
+		jpLst.add(jbLClose);
+		//수동배치
+		jpLst.setLayout(null);
+		///////////////////////////////////////////////////////////////////////////////////////////////
 		jtpTab=new JTabbedPane();
 		jtpTab.add("판매완료 목록", jpComplete);
 		jtpTab.addTab("판매대기 목록", jpWait);
+		jtpTab.addTab("내 판매물품 목록", jpLst);
 		
 		
 		
@@ -129,20 +178,23 @@ public class SellListView extends JFrame {
 
 		jpComplete.setBackground(Color.WHITE);
 		jpWait.setBackground(Color.WHITE);
+		jpLst.setBackground(Color.WHITE);
 		
 		//이벤트 추가
 		SellListViewEvt slve = new SellListViewEvt(this);
 		jbClose.addActionListener(slve);
 		jbWClose.addActionListener(slve);
+		jbLClose.addActionListener(slve);
 		jtpTab.addMouseListener(slve);
 		jtComplet.addMouseListener(slve);
 		jtWait.addMouseListener(slve);
+		jtLst.addMouseListener(slve);
 		
 		addWindowListener(new WindowAdapter(){
 			@Override
 			public void windowClosing(WindowEvent e) {
 				dispose();
-				System.exit(0);
+				//System.exit(0);
 			}//windowClosing
 		});
 		
@@ -186,6 +238,22 @@ public class SellListView extends JFrame {
 
 	public JButton getJbWClose() {
 		return jbWClose;
+	}
+
+	
+
+	public JTable getJtLst() {
+		return jtLst;
+	}
+
+
+	public DefaultTableModel getDtmLst() {
+		return dtmLst;
+	}
+
+
+	public JButton getJbLClose() {
+		return jbLClose;
 	}
 
 

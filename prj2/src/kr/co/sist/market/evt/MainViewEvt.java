@@ -79,7 +79,6 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 			iv.setItemInfo((String) temp.getValueAt(selectedRow, 3));
 			iv.setHiredate((String) temp.getValueAt(selectedRow, 5));
 			
-			new ItemInfoView(iv);//띄어주어야할 항목들이 mv가 가지고있으므로 안에 넣어주는 것이다.←이 주석 지우기
 			new ItemInfoView(iv);//띄어주어야할 항목들이 mv가 가지고있으므로 안에 넣어주는 것이다.
 		}//end if
 	}//mouseClicked

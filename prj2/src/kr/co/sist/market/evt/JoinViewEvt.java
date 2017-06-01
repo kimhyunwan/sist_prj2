@@ -88,7 +88,7 @@ public class JoinViewEvt extends WindowAdapter implements ActionListener {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		if(pass.equals(passChk)){
+		if(!pass.equals(passChk)){
 			JOptionPane.showMessageDialog(jv, "비밀번호확인이 제대로 되지 않습니다.\n비밀번호와 비밀번호 확인창의 입력값이 같은지 확인해주세요");
 			return;
 		}
@@ -98,15 +98,14 @@ public class JoinViewEvt extends WindowAdapter implements ActionListener {
 			return;
 		}
 		
-		if(!file.getParent().equals("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/customer")){
+		if(!file.getParent().equals(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/customer")){
 	         try {
-	        	//사진 확장자 잘라내기
-	        	int pointposition=file.getName().lastIndexOf('.');
-	        	String tailName=file.getName().substring(pointposition);
-	        	tempFile=id+tailName;
-	            //원본 파일 복붙
+	        	 //사진 확장자 잘라내기
+	        	 int pointposition=file.getName().lastIndexOf('.');
+	        	 String tailName=file.getName().substring(pointposition);
 	            FileInputStream fis=new FileInputStream(file);
-	            FileOutputStream fos=new FileOutputStream("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/customer/"+tempFile);
+	            FileOutputStream fos=new FileOutputStream(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/customer/"+id+tailName);
+	            tempFile=id+tailName;
 	            byte[] temp=new byte[512];
 	            
 	            int readData=0;
