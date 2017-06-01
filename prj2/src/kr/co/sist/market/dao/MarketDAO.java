@@ -68,6 +68,38 @@ public class MarketDAO {
 	}//getConnection
 	
 	/**
+	 * 내가 파려고 한 물품 삭제
+	 * @param itemCode
+	 * @throws SQLException
+	 */
+	public void deleteProduct(String item_code) throws SQLException{
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try{
+			con = getConnection();
+			
+			String deleteProduct="delete from product where  item_code=?";
+			pstmt=con.prepareStatement(deleteProduct);
+			
+			pstmt.setString(1, item_code);
+			
+			pstmt.executeUpdate();
+			
+		}finally{
+			if (pstmt != null) {
+				pstmt.close();
+			} // end if
+
+			if (con != null) {
+				con.close();
+			} // end if
+		}
+	}
+	
+
+	
+	/**
 	 * 물품 목록을 보이기 위한 method
 	 * @param typeCode
 	 * @return list
@@ -279,6 +311,39 @@ public class MarketDAO {
 			} // end if
 		}
 	}
+	
+	/**
+	 * 구매신청취소
+	 * @param itemCode
+	 * @throws SQLException
+	 */
+	public void deletePurchase(String itemCode, String buyerId) throws SQLException{
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try{
+			con = getConnection();
+			
+			String deletePurchase="delete from buyer_contact where item_code=? and id=?";
+			pstmt=con.prepareStatement(deletePurchase);
+			
+			pstmt.setString(1, itemCode);
+			pstmt.setString(2, buyerId);
+			
+			pstmt.executeUpdate();
+			
+		}finally{
+			if (pstmt != null) {
+				pstmt.close();
+			} // end if
+
+			if (con != null) {
+				con.close();
+			} // end if
+		}
+	}
+	
+	
 	
 	/**
 	 * 판매자 정보를 조회하는 method
@@ -646,6 +711,9 @@ public class MarketDAO {
 	
 	public static void main(String[] args) throws SQLException{
 		MarketDAO md=new MarketDAO();
+		
+//		md.deleteProduct("HY_1705290104");
+		
 //		
 //		System.out.println(MarketDAO.getInstance().getConnection());
 //
