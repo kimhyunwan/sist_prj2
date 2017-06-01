@@ -30,9 +30,11 @@ import kr.co.sist.market.evt.MainViewEvt;
 public class MainView extends JFrame {
 	private JTable jtItemList;
 	private DefaultTableModel dtmItem;
+
+
 	private JTabbedPane jtpTab;
 	private JComboBox<String> jcbType;
-	private JButton jbType, jbMyInfoCh, jbSellList, jbBuyList, jbSignUp, jbMsgList;
+	private JButton jbType, jbMyInfoCh, jbSellList, jbBuyList, jbSignUp, jbMsgList, jbMemberLeave;
 	private static CustomerDAO cd;
 	private LoginViewEvt lve;
 	
@@ -116,6 +118,7 @@ public class MainView extends JFrame {
 		jbBuyList = new JButton("구매목록");
 		jbSignUp = new JButton("판매물품 등록");
 		jbMsgList = new JButton("메세지 확인");
+		jbMemberLeave = new JButton("회원탈퇴");
 		
 		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/background.jpg");
 		JLabel backgroundImg = new JLabel(icon);
@@ -136,6 +139,7 @@ public class MainView extends JFrame {
 		jbBuyList.setBounds(200, 250,130 , 20);
 		jbSignUp.setBounds(30, 290,130 , 20);
 		jbMsgList.setBounds(200, 290,130 , 20);
+		jbMemberLeave.setBounds(530, 100,130 , 20);
 		backgroundImg.setBounds(0, 0, 790, 600);
 		
 		jpComInfo.add(lblInfo);
@@ -153,6 +157,7 @@ public class MainView extends JFrame {
 		jpComInfo.add(jbSignUp);
 		jpComInfo.add(jbMsgList);
 		jpComInfo.add(backgroundImg);
+		jpComInfo.add(jbMemberLeave);
 		
 		//이벤트 추가
 		MainViewEvt mve = new MainViewEvt(this);
@@ -163,6 +168,7 @@ public class MainView extends JFrame {
 		jbType.addActionListener(mve);
 		jtItemList.addMouseListener(mve);
 		jbSignUp.addActionListener(mve);
+		jbMemberLeave.addActionListener(mve);
 		//수동배치
 		jpComInfo.setLayout(null);
 		jpComInfo.setBounds(10,10,800,600);
@@ -229,7 +235,13 @@ public class MainView extends JFrame {
 	public JButton getJbMsgList() {
 		return jbMsgList;
 	}
+	public JButton getJbMemberLeave() {
+		return jbMemberLeave;
+	}
 
+	public void setJbMemberLeave(JButton jbMemberLeave) {
+		this.jbMemberLeave = jbMemberLeave;
+	}
 
 	
 }//class

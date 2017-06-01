@@ -18,6 +18,7 @@ import kr.co.sist.market.view.BuyListView;
 import kr.co.sist.market.view.ImageView;
 import kr.co.sist.market.view.ItemInfoView;
 import kr.co.sist.market.view.MainView;
+import kr.co.sist.market.view.MemberLeaveView;
 import kr.co.sist.market.view.MsgListView;
 import kr.co.sist.market.view.MyInfoChView;
 import kr.co.sist.market.view.SellListView;
@@ -97,7 +98,7 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 			}
 		}//end if
 		if(ae.getSource()==mv.getJbSellList()){
-			new SellListView();
+			new SellListView(0);
 		}//end if
 		if(ae.getSource()==mv.getJbBuyList()){
 			new BuyListView();
@@ -113,6 +114,13 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 		if(ae.getSource()==mv.getJbSignUp()){
 			new SignUpItemView();
 		}
+		if(ae.getSource()==mv.getJbMemberLeave()){
+			int flag =JOptionPane.showConfirmDialog(mv, "회원탈퇴를 하시겠습니까?");
+			switch (flag) {
+			case JOptionPane.OK_OPTION:
+				new MemberLeaveView();
+			}//end switch
+		}//end if
 	}
 	
 
