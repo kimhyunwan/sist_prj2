@@ -101,6 +101,49 @@ public class CustomerDAO {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////메소드 시작////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * 회원탈퇴하기 
+	 * @param itemCode
+	 * @throws SQLException
+	 */
+	public void deleteCustomer(String id,String pass) throws SQLException{
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try{
+			con = getConnection();
+			
+			String deleteCustomer="delete from member where  id=? and pass=? ";
+			pstmt=con.prepareStatement(deleteCustomer);
+			
+			pstmt.setString(1, id);
+			pstmt.setString(2, pass);
+			
+			pstmt.executeUpdate();
+			
+		}finally{
+			if (pstmt != null) {
+				pstmt.close();
+			} // end if
+
+			if (con != null) {
+				con.close();
+			} // end if
+		}
+	}
+	
+/*	public static void main(String[] args){
+		CustomerDAO cd=new CustomerDAO();
+		
+//		//deleteSellWait 단위 테스트
+		try {
+			cd.deleteCustomer("dmadma");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+}//main
+*/	
 	/**
 	 * 로그인 성공여부를 결정하는 일
 	 * 아이디가 존재하고, 그 아이디에 해당하는 비밀번호와 일치하면 로그인 성공
