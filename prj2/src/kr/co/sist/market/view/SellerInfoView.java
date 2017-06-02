@@ -27,8 +27,9 @@ public class SellerInfoView extends JFrame {
 	
 	public SellerInfoView(SellerInfoVO seller) throws SQLException{
 		super("판매자 정보");
-//		itemCode=
-		ImageIcon itemImg = new ImageIcon("C:/dev/prj2/sist_prj2/prj2/src/kr/co/sist/market/img/default.jpg");
+		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/bg_pink.jpg");
+		JLabel backgroundImg = new JLabel(icon);
+		ImageIcon itemImg = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/default.jpg");
 		JLabel itemImage = new JLabel(itemImg);
 		JLabel jlId = new JLabel("아이디");
 		JLabel jlIntro = new JLabel("자기소개");
@@ -49,7 +50,8 @@ public class SellerInfoView extends JFrame {
 		jlIntro.setBounds(220, 90, 100, 15);
 		jspIntro.setBounds(220, 110, 200, 100);  
 		jbMsg.setBounds(220, 220, 160,25);
-		jbBuyReq.setBounds(390, 220, 100,25);		
+		jbBuyReq.setBounds(390, 220, 100,25);
+		backgroundImg.setBounds(0, 0, 530, 350);
 		//컴포넌트 배치
 		add(itemImage);
 		add(jlId);
@@ -58,6 +60,7 @@ public class SellerInfoView extends JFrame {
 		add(jspIntro);
 		add(jbMsg);
 		add(jbBuyReq);
+		add(backgroundImg);
 		
 		id=getJtfId().getText();
 		
@@ -68,7 +71,7 @@ public class SellerInfoView extends JFrame {
 		jbBuyReq.addActionListener(sive);
 		
 		//윈도우의 크기
-		setBounds(300,80,520,320);
+		setBounds(330,120,520,320);
 		//가시화
 		setVisible(true);
 		//창 크기 고정

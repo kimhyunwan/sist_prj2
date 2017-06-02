@@ -73,7 +73,7 @@ public class ItemInfoView extends JFrame {
       jbSellerInfo.setBounds(60, 230, 130 , 50);
       jbBuyReq.setBounds(235, 330, 90, 30);
       jbCancel.setBounds(330, 330, 90, 30);
-      backgroundImg.setBounds(0, 0, 600, 600);
+      backgroundImg.setBounds(0, 0, 470, 400);
       //컴포넌트 배치
       add(itemImg);
       

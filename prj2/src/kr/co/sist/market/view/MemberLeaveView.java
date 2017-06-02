@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import kr.co.sist.market.evt.LoginViewEvt;
 import kr.co.sist.market.evt.MainViewEvt;
 import kr.co.sist.market.evt.MemberLeaveViewEvt;
 
@@ -19,6 +20,8 @@ public class MemberLeaveView extends JFrame {
 	private JTextField jtfId;
 	private JPasswordField jpwPass;
 	private JButton jbMemberLeave;
+	private LoginViewEvt lve;
+	@SuppressWarnings("static-access")
 	public MemberLeaveView(){
 		super("회원탈퇴");
 		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/bg_green.jpg");
@@ -27,11 +30,10 @@ public class MemberLeaveView extends JFrame {
 		JLabel logoImg = new JLabel(logo);
 		JLabel jlId = new JLabel("아이디");
 		JLabel jlPass = new JLabel("비밀번호");
-		jtfId=new JTextField();
+		jtfId=new JTextField(lve.id);
 		jpwPass = new JPasswordField();
 		jbMemberLeave=new JButton("회원탈퇴");
-		JLabel jlInfo = new JLabel("회원탈퇴를위해 아이디와 비밀번호를 입력하세요.");
-
+		JLabel jlInfo = new JLabel("회원탈퇴를위해 비밀번호를 다시 입력하세요.");
 		
 		//자동배치 해제
 		setLayout(null);
@@ -44,7 +46,7 @@ public class MemberLeaveView extends JFrame {
 		jpwPass.setBounds(180, 95, 110,25);
 		jbMemberLeave.setBounds(300, 58 , 100,60);
 		backgroundImg.setBounds(0,0, 450, 300);
-		jlInfo.setBounds(10,10, 100, 15);
+		jlInfo.setBounds(25,20, 300, 15);
 		//컴포넌트 배치.
 		add(logoImg);
 		add(jlId);
@@ -52,8 +54,10 @@ public class MemberLeaveView extends JFrame {
 		add(jtfId);
 		add(jpwPass);
 		add(jbMemberLeave);
-		add(backgroundImg);
 		add(jlInfo);
+		add(backgroundImg);
+	     
+		jtfId.setEditable(false);
 		
 		//이벤트 추가
 		MemberLeaveViewEvt mve = new MemberLeaveViewEvt(this);
@@ -73,6 +77,16 @@ public class MemberLeaveView extends JFrame {
 		});
 		
 	}//MemberLeaveView
+	public JTextField getJtfId() {
+		return jtfId;
+	}
+	public JPasswordField getJpwPass() {
+		return jpwPass;
+	}
+	public JButton getJbMemberLeave() {
+		return jbMemberLeave;
+	}
+	
 	
 	public static void main(String[] args) {
 		new MemberLeaveView();
