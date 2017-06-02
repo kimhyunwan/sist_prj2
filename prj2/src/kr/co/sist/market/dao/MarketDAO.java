@@ -909,7 +909,7 @@ public class MarketDAO {
 
 			con = getConnection();
 
-			String selectMsg = "select msg_num, send_id, item_code, send_date, msg_check_flag from send_msg where id=? order by msg_check_flag";
+			String selectMsg = "select msg_num, send_id, item_code, send_date, msg_check_flag from send_msg where id=? order by desc send_date";
 
 			pstmt = con.prepareStatement(selectMsg);
 
@@ -989,7 +989,7 @@ public class MarketDAO {
 
 			con = getConnection();
 
-			String selectMsg = "select msg_num, send_id, item_code, send_date, msg_check_flag from receive_msg where id=? order by msg_check_flag";
+			String selectMsg = "select msg_num, send_id, item_code, send_date, msg_check_flag from receive_msg where id=? order by msg_check_flag, send_date";
 
 			pstmt = con.prepareStatement(selectMsg);
 

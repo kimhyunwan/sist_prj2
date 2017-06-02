@@ -116,7 +116,7 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 			new SellListView(0);
 		}//end if
 		if(ae.getSource()==mv.getJbBuyList()){
-			new BuyListView();
+			new BuyListView(0);
 		}//end if
 		if(ae.getSource()==mv.getJbMsgList()){
 			new MsgListView();

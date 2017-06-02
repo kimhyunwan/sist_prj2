@@ -189,9 +189,6 @@ public class MsgListView extends JFrame {
 	}
 
 
-	public static void main(String[] args) {
-		new MsgListView();
-	}//main
-	
+
 }//class
 

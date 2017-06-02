@@ -2,6 +2,7 @@ package kr.co.sist.market.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
@@ -15,7 +16,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 import kr.co.sist.market.dao.CustomerDAO;
 import kr.co.sist.market.evt.LoginViewEvt;
@@ -61,13 +66,32 @@ public class MainView extends JFrame {
 		};
 		
 		jtItemList=new JTable(dtmItem){
-			//컬럼에 이미지를 넣기위한 method를 Override
-			@Override
-			public Class<?> getColumnClass(int column) {
-				return getValueAt(0, column).getClass();
-			}//getColumnClass
+			//컬럼 행에 색 집어넣기
+	         public Component prepareRenderer(TableCellRenderer renderer,
+	                    int row, int column) {
+	                Component component = super.prepareRenderer(renderer, row,
+	                        column);
+
+	                    component.setBackground(new Color(0xFAFFFF));
+
+	                return component;
+	            }
 			
 		};
+		
+		// DefaultTableCellHeaderRenderer 생성 (가운데 정렬을 위한)
+		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+		 
+		// DefaultTableCellHeaderRenderer의 정렬을 가운데 정렬로 지정
+		dtcr.setHorizontalAlignment(SwingConstants.CENTER);
+		 
+		// 정렬할 테이블의 ColumnModel을 가져옴
+		TableColumnModel tcm = jtItemList.getColumnModel();
+		 
+		// 반복문을 이용하여 테이블을 가운데 정렬로 지정
+		for (int i = 0; i < tcm.getColumnCount(); i++) {
+		tcm.getColumn(i).setCellRenderer(dtcr);
+		}
 		//컬럼을 선택하여 움직이지 못하도록 설정
 		jtItemList.getTableHeader().setReorderingAllowed(false);
 		//컬럼의 높이 설정
