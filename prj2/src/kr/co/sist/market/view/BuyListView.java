@@ -143,12 +143,11 @@ public class BuyListView extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				dispose();
-				System.exit(0);
 			}//windowClosing
 			
 		});
 		
-		setBounds(10,10,800,600);
+		setBounds(100,100,800,600);
 		//가시화
 		setVisible(true);
 		//창 크기 고정

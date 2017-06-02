@@ -75,7 +75,6 @@ public class MsgListViewEvt extends MouseAdapter implements ActionListener {
          rowData[1]=mlv.getId();
          rowData[2]=mlv.getItem();
          rowData[3]=mlv.getMsgDate();
-         rowData[4]=mlv.getFlag();
          
          dtmMsg.addRow(rowData);
       }//end for

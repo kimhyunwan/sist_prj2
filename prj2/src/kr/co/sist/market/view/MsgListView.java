@@ -29,7 +29,7 @@ public class MsgListView extends JFrame {
 	public MsgListView(){
 		super("메세지 확인");
 	//////////////////////////////////////보낸 메세지 탭 /////////////////////////////////////////
-		String[] columnNames={"번호","받은사람","상품명","메세지 보낸날짜","메세지 확인 여부"};
+		String[] columnNames={"번호","받은사람","제품코드","메세지 보낸날짜"};
 		String[][] data = {};
 		
 		jbSClose = new JButton("닫기");
@@ -60,8 +60,7 @@ public class MsgListView extends JFrame {
 		jtSendMsgList.getColumnModel().getColumn(0).setPreferredWidth(30);
 		jtSendMsgList.getColumnModel().getColumn(1).setPreferredWidth(70);
 		jtSendMsgList.getColumnModel().getColumn(2).setPreferredWidth(150);
-		jtSendMsgList.getColumnModel().getColumn(3).setPreferredWidth(80);
-		jtSendMsgList.getColumnModel().getColumn(4).setPreferredWidth(60);
+		jtSendMsgList.getColumnModel().getColumn(3).setPreferredWidth(60);
 
 		
 		JScrollPane jspSendMsgList = new JScrollPane(jtSendMsgList);
@@ -144,12 +143,11 @@ public class MsgListView extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				dispose();
-				System.exit(0);
 			}//windowClosing
 			
 		});
 		
-		setBounds(10,10,800,600);
+		setBounds(100,100,800,600);
 		//가시화
 		setVisible(true);
 		//창 크기 고정

@@ -139,7 +139,7 @@ public class MainView extends JFrame {
 		jbBuyList.setBounds(200, 250,130 , 20);
 		jbSignUp.setBounds(30, 290,130 , 20);
 		jbMsgList.setBounds(200, 290,130 , 20);
-		jbMemberLeave.setBounds(530, 100,130 , 20);
+		jbMemberLeave.setBounds(640, 500,130 , 20);
 		backgroundImg.setBounds(0, 0, 790, 600);
 		
 		jpComInfo.add(lblInfo);
@@ -156,8 +156,8 @@ public class MainView extends JFrame {
 		jpComInfo.add(jbBuyList);
 		jpComInfo.add(jbSignUp);
 		jpComInfo.add(jbMsgList);
-		jpComInfo.add(backgroundImg);
 		jpComInfo.add(jbMemberLeave);
+		jpComInfo.add(backgroundImg);
 		
 		//이벤트 추가
 		MainViewEvt mve = new MainViewEvt(this);
