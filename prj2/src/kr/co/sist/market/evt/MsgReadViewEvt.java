@@ -42,7 +42,6 @@ public class MsgReadViewEvt extends WindowAdapter implements ActionListener {
 		mv.setSendId(sendId);
 		mv.setMsg("");
 		
-		
 		new MsgWriteView(mv);
 	}//SendMsg
 	
