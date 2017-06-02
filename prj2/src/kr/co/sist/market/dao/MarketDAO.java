@@ -1,8 +1,6 @@
 
 package kr.co.sist.market.dao;
 
- 
-
 import java.io.File;
 
 import java.io.FileInputStream;
@@ -27,11 +25,7 @@ import java.util.List;
 
 import java.util.Properties;
 
- 
-
 import javax.swing.JOptionPane;
-
- 
 
 import kr.co.sist.market.vo.ItemListVO;
 
@@ -43,1489 +37,1240 @@ import kr.co.sist.market.vo.SellerInfoVO;
 
 import kr.co.sist.market.vo.SellingVO;
 
- 
-
 public class MarketDAO {
 
-    private static MarketDAO m_dao;
+	private static MarketDAO m_dao;
 
-    
+	private MarketDAO() {
 
-    private MarketDAO(){
+	}// MarketDAO
 
-    }//MarketDAO
+	public static MarketDAO getInstance() {
 
-    
+		if (m_dao == null) {
 
- 
+			m_dao = new MarketDAO();
 
-    public static MarketDAO getInstance(){
+		} // end if
 
-        if(m_dao==null){
+		return m_dao;
 
-            m_dao=new MarketDAO(); 
+	}// getInstance
 
-        }//end if
+	private Connection getConnection() throws SQLException {
 
-        return m_dao;
+		Connection con = null;
 
-    }//getInstance
+		Properties prop = new Properties();
 
-    
+		try {
 
-    private Connection getConnection() throws SQLException{
+			File file = new File(System.getProperty("user.dir") + "/src/kr/co/sist/market/dao/market.properties");
 
-        Connection con=null;
+			if (file.exists()) {
 
-        
+				prop.load(new FileInputStream(file));
 
-        Properties prop=new Properties();
+				String driver = prop.getProperty("driver");
 
-        try {
+				String url = prop.getProperty("url");
 
-        
+				String id = prop.getProperty("dboid");
 
-            File file=new File(System.getProperty("user.dir")+"/src/kr/co/sist/market/dao/market.properties");
+				String pass = prop.getProperty("dbopwd");
 
-        
+				try {
 
-            if(file.exists()){
+					Class.forName(driver);
 
-                prop.load(new FileInputStream(file));
+					con = DriverManager.getConnection(url, id, pass);
 
-                String driver=prop.getProperty("driver");
+				} catch (ClassNotFoundException e) {
 
-                String url=prop.getProperty("url");
+					e.printStackTrace();
 
-                String id=prop.getProperty("dboid");
+				} // end catch
 
-                String pass=prop.getProperty("dbopwd");
+			} else {
 
-                
+				JOptionPane.showMessageDialog(null, "설정파일의 경로를 확인해주세요");
 
-                try {
+			} // end else
 
-                    Class.forName(driver);
+		} catch (FileNotFoundException e) {
 
-                    con=DriverManager.getConnection(url, id, pass);
+			e.printStackTrace();
 
-                } catch (ClassNotFoundException e) {
+		} catch (IOException e) {
 
-                    e.printStackTrace();
+			e.printStackTrace();
 
-                }//end catch
+		} // end catch
 
-            } else {
+		return con;
 
-                JOptionPane.showMessageDialog(null, "설정파일의 경로를 확인해주세요");
+	}// getConnection
 
-            }//end else
+	/**
+	 * 
+	 * 내가 팔려고 한 물품 삭제
+	 * 
+	 * @param itemCode
+	 * 
+	 * @throws SQLException
+	 * 
+	 */
+	
+	public int selectItemType(String itemCode) throws SQLException{
+		int itemType=0;
+		
+		Connection con = null;
 
-        } catch (FileNotFoundException e) {
+		PreparedStatement pstmt = null;
 
-            e.printStackTrace();
+		ResultSet rs = null;
 
-        } catch (IOException e) {
+		try {
 
-            e.printStackTrace();
+			con = getConnection();
+			String selectType="select category_num from product where item_code=?";
+			pstmt=con.prepareStatement(selectType);
+			pstmt.setString(1, itemCode);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()){
+				itemType=rs.getInt("category_num");
+			}
+		} finally {
 
-        }//end catch
+			if (rs != null) {
 
-        return con;
+				rs.close();
 
-    }//getConnection
+			} // end if
 
-    /**
+			if (pstmt != null) {
 
-     * 내가 팔려고 한 물품 삭제
+				pstmt.close();
 
-     * @param itemCode
+			} // end if
 
-     * @throws SQLException
+			if (con != null) {
 
-     */
+				con.close();
 
-    public void deleteProduct(String item_code) throws SQLException{
+			} // end if
 
-        Connection con = null;
+		} // end finally
+		return itemType;
+	}
+	
+	public void deleteProduct(String itemCode) throws SQLException {
 
-        PreparedStatement pstmt = null;
+		Connection con = null;
 
-        
+		PreparedStatement pstmt = null;
 
-        try{
+		try {
 
-            con = getConnection();
+			con = getConnection();
 
-            
+			String deleteProduct = "delete from product where item_code=?";
 
-            String deleteProduct="delete from product where item_code=?";
+			pstmt = con.prepareStatement(deleteProduct);
 
-            pstmt=con.prepareStatement(deleteProduct);
+			pstmt.setString(1, itemCode);
 
-            
+			pstmt.executeUpdate();
 
-            pstmt.setString(1, item_code);
+		} finally {
 
-            
+			if (pstmt != null) {
 
-            pstmt.executeUpdate();
+				pstmt.close();
 
-            
+			} // end if
 
-        }finally{
+			if (con != null) {
 
-            if (pstmt != null) {
+				con.close();
 
-                pstmt.close();
+			} // end if
 
-            } // end if
+		}
 
- 
+	}
 
-            if (con != null) {
+	/**
+	 * 
+	 * 물품 목록을 보이기 위한 method
+	 * 
+	 * @param typeCode
+	 * 
+	 * @return list
+	 * 
+	 * @throws SQLException
+	 * 
+	 */
 
-                con.close();
+	public List<ItemListVO> selectItemList(int typeCode) throws SQLException {
 
-            } // end if
+		List<ItemListVO> list = new ArrayList<ItemListVO>();
 
-        }
+		Connection con = null;
 
-    }
+		PreparedStatement pstmt = null;
 
-    
+		ResultSet rs = null;
 
- 
+		try {
 
-    
+			con = getConnection();
 
-    /**
+			String selectItem = "select item_name, item_code, item_info, hiredate, item_image, price from product where sold_flag='n'";
 
-     * 물품 목록을 보이기 위한 method
+			if (typeCode != 0) {
 
-     * @param typeCode
+				selectItem += " and category_num=?";
 
-     * @return list
+			}
 
-     * @throws SQLException 
+			pstmt = con.prepareStatement(selectItem);
 
-     */
+			if (typeCode != 0) {
 
-    public List<ItemListVO> selectItemList(int typeCode) throws SQLException{
+				pstmt.setInt(1, typeCode);
 
-        List<ItemListVO> list=new ArrayList<ItemListVO>();
+			}
 
-        
+			rs = pstmt.executeQuery();
 
-        Connection con = null;
+			ItemListVO ilv = null;
 
-        PreparedStatement pstmt = null;
+			while (rs.next()) {
 
-        ResultSet rs = null;
+				ilv = new ItemListVO();
 
-        
+				ilv.setItemName(rs.getString("item_name"));
 
-        try {
+				ilv.setItemCode(rs.getString("item_code"));
 
-            con=getConnection();
+				ilv.setItemInfo(rs.getString("item_info"));
 
-            String selectItem="select item_name, item_code, item_info, hiredate, item_image, price from product where sold_flag='n'";
+				ilv.setHiredate(rs.getString("hiredate"));
 
-            if(typeCode!=0){
+				ilv.setImage(rs.getString("item_image"));
 
-                selectItem+=" and category_num=?";
+				ilv.setPrice(rs.getInt("price"));
 
-            }
+				list.add(ilv);
 
-            pstmt=con.prepareStatement(selectItem);
+			} // end while
 
- 
+		} finally {
 
-            if(typeCode!=0){
+			if (rs != null) {
 
-                pstmt.setInt(1, typeCode);
+				rs.close();
 
-            }
+			} // end if
 
-            rs=pstmt.executeQuery();
+			if (pstmt != null) {
 
-            
+				pstmt.close();
 
-            ItemListVO ilv=null;
+			} // end if
 
-            
+			if (con != null) {
 
-            while(rs.next()){
+				con.close();
 
-                ilv=new ItemListVO();
+			} // end if
 
-                ilv.setItemName(rs.getString("item_name"));
+		} // end finally
 
-                ilv.setItemCode(rs.getString("item_code"));
+		return list;
 
-                ilv.setItemInfo(rs.getString("item_info"));
+	}// selectItemList
 
-                ilv.setHiredate(rs.getString("hiredate"));
+	public List<String> selectItemType() throws SQLException {
 
-                ilv.setImage(rs.getString("item_image"));
+		List<String> list = new ArrayList<String>();
 
-                ilv.setPrice(rs.getInt("price"));
+		Connection con = null;
 
-                
+		PreparedStatement pstmt = null;
 
-                list.add(ilv);
+		ResultSet rs = null;
 
-            }//end while
+		try {
 
-        } finally{
+			// 1.드라이버 로딩
 
-            if (rs != null) {
+			// 2.Connection 얻기
 
-                rs.close();
+			con = getConnection();
 
-            } // end if
+			// 3.쿼리문 생성객체 얻기
 
- 
+			String selectItemType = "select product_group from product_category";
 
-            if (pstmt != null) {
+			pstmt = con.prepareStatement(selectItemType);
 
-                pstmt.close();
+			// 4.쿼리 실행 후, 결과 얻기 : : 바인드변수가 1개 존재(qu_num)
 
-            } // end if
+			rs = pstmt.executeQuery(); // select이기 때문에 executeQuery()
 
- 
+			while (rs.next()) {
 
-            if (con != null) {
+				list.add(rs.getString("product_group"));
 
-                con.close();
+			} // end if
 
-            } // end if
+		} finally {
 
-        }//end finally
+			// 5.연결끊기
 
-        return list;
+			if (rs != null) {
+				rs.close();
+			}
 
-    }//selectItemList
+			if (pstmt != null) {
+				pstmt.close();
+			}
 
-    
+			if (con != null) {
+				con.close();
+			}
 
-    public List<String> selectItemType() throws SQLException{
+		} // end try
 
-        List<String> list=new ArrayList<String>();
+		return list;
 
-        Connection con=null;
+	}// selectItemType
 
-        PreparedStatement pstmt=null;
+	/**
+	 * 
+	 * 판매완료정보 리스트를 보여주기 위한 method
+	 * 
+	 * @return list
+	 * 
+	 * @throws SQLException
+	 * 
+	 */
 
-        ResultSet rs=null;
+	public List<SellBuyVO> selectSellCompList(String id) throws SQLException {
 
-        
+		List<SellBuyVO> list = new ArrayList<SellBuyVO>();
 
-        try{
+		Connection con = null;
 
-        //1.드라이버 로딩
+		PreparedStatement pstmt = null;
 
-        //2.Connection 얻기
+		ResultSet rs = null;
 
-            con=getConnection();
+		// 안올라간다
 
-        //3.쿼리문 생성객체 얻기
+		try {
 
-            String selectItemType="select product_group from product_category";
+			con = getConnection();
 
-            pstmt=con.prepareStatement(selectItemType);
+			String selectSell = "select buyer_id, item_code, item_name, sold_date from product where sold_flag='y' and id=? order by sold_date desc";
 
-        //4.쿼리 실행 후, 결과 얻기 :  : 바인드변수가 1개 존재(qu_num)
+			pstmt = con.prepareStatement(selectSell);
 
-            rs=pstmt.executeQuery(); //select이기 때문에 executeQuery()
+			pstmt.setString(1, id);
 
-            while(rs.next()){
+			rs = pstmt.executeQuery();
 
-                list.add(rs.getString("product_group"));
+			SellBuyVO sbv = null;
 
-            }//end if
+			while (rs.next()) {
 
-        }finally{
+				sbv = new SellBuyVO();
 
-        //5.연결끊기
+				sbv.setId(rs.getString("buyer_id"));
 
-            if( rs != null) { rs.close(); }
+				sbv.setItemCode(rs.getString("item_code"));
 
-            if( pstmt != null) { pstmt.close(); }
+				sbv.setItemName(rs.getString("item_name"));
 
-            if( con != null) { con.close(); }
+				sbv.setTradeDate(rs.getString("sold_date"));
 
-        }//end try
+				list.add(sbv);
 
-        
+			} // end while
 
-        return list;
+		} finally {
 
-    }//selectItemType
+			if (rs != null) {
 
- 
+				rs.close();
 
-    
+			} // end if
 
-    /**
+			if (pstmt != null) {
 
-     * 판매완료정보 리스트를 보여주기 위한 method
+				pstmt.close();
 
-     * @return list
+			} // end if
 
-     * @throws SQLException
+			if (con != null) {
 
-     */
+				con.close();
 
-    public List<SellBuyVO> selectSellCompList(String id) throws SQLException{
+			} // end if
 
-        List<SellBuyVO> list=new ArrayList<SellBuyVO>();
+		} // end finally
 
-        
+		return list;
 
-        Connection con = null;
+	}// selectSellList
 
-        PreparedStatement pstmt = null;
+	/**
+	 * 
+	 * 판매대기정보 리스트를 보여주기 위한 method
+	 * 
+	 * @param id
+	 * 
+	 * @return list
+	 * 
+	 * @throws SQLException
+	 * 
+	 */
 
-        ResultSet rs = null;
+	public List<SellingVO> selectSellWaitList(String id) throws SQLException {
 
-        //안올라간다
+		List<SellingVO> list = new ArrayList<SellingVO>();
 
-        try{ 
+		Connection con = null;
 
-            con=getConnection();
+		PreparedStatement pstmt = null;
 
-            
+		ResultSet rs = null;
 
-            String selectSell="select buyer_id, item_code, item_name, sold_date from product where sold_flag='y' and id=? order by sold_date desc";
+		try {
 
-            pstmt=con.prepareStatement(selectSell);
+			con = getConnection();
 
-            pstmt.setString(1, id);
+			String selectWait = "select b.id id, b.item_code item_code, b.phone phone, p.item_name name, b.requesting_date req_date from product p, buyer_contact b where (p.item_code=b.item_code) and p.sold_flag='n' and p.id=?";
 
-            
+			pstmt = con.prepareStatement(selectWait);
 
-            rs=pstmt.executeQuery();
+			pstmt.setString(1, id);
 
-             
+			rs = pstmt.executeQuery();
 
-            SellBuyVO sbv=null;
+			SellingVO sv = null;
 
-            while(rs.next()){
+			while (rs.next()) {
 
-                sbv=new SellBuyVO();
+				sv = new SellingVO();
 
-                sbv.setId(rs.getString("buyer_id"));
+				sv.setId(rs.getString("id"));
 
-                sbv.setItemCode(rs.getString("item_code"));
+				sv.setItemCode(rs.getString("item_code"));
 
-                sbv.setItemName(rs.getString("item_name"));
+				sv.setItemName(rs.getString("name"));
 
-                sbv.setTradeDate(rs.getString("sold_date"));
+				sv.setPhone(rs.getString("phone"));
 
-                
+				sv.setReqDate(rs.getString("req_date"));
 
-                list.add(sbv);
+				list.add(sv);
 
-            }//end while
+			} // end while
 
-            
+		} finally {
 
-        }finally{
+			if (rs != null) {
 
-            if (rs != null) {
+				rs.close();
 
-                rs.close();
+			} // end if
 
-            } // end if
+			if (pstmt != null) {
 
- 
+				pstmt.close();
 
-            if (pstmt != null) {
+			} // end if
 
-                pstmt.close();
+			if (con != null) {
 
-            } // end if
+				con.close();
 
- 
+			} // end if
 
-            if (con != null) {
+		}
 
-                con.close();
+		return list;
 
-            } // end if
+	}
 
-        }//end finally
+	/**
+	 * 
+	 * 판매희망자 테이블에서 해당하는 아이템 코드를 신청한 회원들을 삭제하기
+	 * 
+	 * @param itemCode
+	 * 
+	 * @throws SQLException
+	 * 
+	 */
 
-        return list;
+	public void deleteSellWait(String itemCode, String buyerId) throws SQLException {
 
-    }//selectSellList
+		Connection con = null;
 
-    
+		PreparedStatement pstmt = null;
 
-    /**
+		try {
 
-     * 판매대기정보 리스트를 보여주기 위한 method
+			con = getConnection();
 
-     * @param id
+			String deleteWait = "delete from buyer_contact where item_code=? and id!=?";
 
-     * @return list
+			pstmt = con.prepareStatement(deleteWait);
 
-     * @throws SQLException
+			pstmt.setString(1, itemCode);
 
-     */
+			pstmt.setString(2, buyerId);
 
-    public List<SellingVO> selectSellWaitList(String id) throws SQLException{
+			pstmt.executeUpdate();
 
-        List<SellingVO> list=new ArrayList<SellingVO>();
+		} finally {
 
-        
+			if (pstmt != null) {
 
-        Connection con = null;
+				pstmt.close();
 
-        PreparedStatement pstmt = null;
+			} // end if
 
-        ResultSet rs = null;
+			if (con != null) {
 
-        
+				con.close();
 
-        try{
+			} // end if
 
-            con = getConnection();
+		}
 
-            String selectWait="select b.id id, b.item_code item_code, b.phone phone, p.item_name name, b.requesting_date req_date from product p, buyer_contact b where (p.item_code=b.item_code) and p.sold_flag='n' and p.id=?";
+	}
 
-            pstmt=con.prepareStatement(selectWait);
+	/**
+	 * 
+	 * 구매신청취소
+	 * 
+	 * @param itemCode
+	 * 
+	 * @throws SQLException
+	 * 
+	 */
 
-            
+	public void deletePurchase(String itemCode, String buyerId) throws SQLException {
 
-            pstmt.setString(1, id);
+		Connection con = null;
 
-            
+		PreparedStatement pstmt = null;
 
-            rs=pstmt.executeQuery();
+		try {
 
-            
+			con = getConnection();
 
-            SellingVO sv=null;
+			String deletePurchase = "delete from buyer_contact where item_code=? and id=?";
 
-            while(rs.next()){
+			pstmt = con.prepareStatement(deletePurchase);
 
-                sv=new SellingVO();
+			pstmt.setString(1, itemCode);
 
-                sv.setId(rs.getString("id"));
+			pstmt.setString(2, buyerId);
 
-                sv.setItemCode(rs.getString("item_code"));
+			pstmt.executeUpdate();
 
-                sv.setItemName(rs.getString("name"));
+		} finally {
 
-                sv.setPhone(rs.getString("phone"));
+			if (pstmt != null) {
 
-                sv.setReqDate(rs.getString("req_date"));
+				pstmt.close();
 
-                
+			} // end if
 
-                list.add(sv);
+			if (con != null) {
 
-            }//end while
+				con.close();
 
-        }finally{
+			} // end if
 
-            if (rs != null) {
+		}
 
-                rs.close();
+	}
 
-            } // end if
+	/**
+	 * 
+	 * 판매자 정보를 조회하는 method
+	 * 
+	 * @param ItemCode
+	 * 
+	 * @return SellerInfoVO
+	 * 
+	 * @throws SQLException
+	 * 
+	 */
 
- 
+	public SellerInfoVO selectSellerInfo(String itemCode) throws SQLException {
 
-            if (pstmt != null) {
+		SellerInfoVO siv = new SellerInfoVO();
 
-                pstmt.close();
+		Connection con = null;
 
-            } // end if
+		PreparedStatement pstmt = null;
 
- 
+		ResultSet rs = null;
 
-            if (con != null) {
+		try {
 
-                con.close();
+			con = getConnection();
 
-            } // end if
+			String selectSeller = "select m.id id, m.info info, m.image image from member m, product p where (m.id=p.id) and item_code=?";
 
-        }
+			pstmt = con.prepareStatement(selectSeller);
 
-        
+			pstmt.setString(1, itemCode);
 
-        return list;
+			rs = pstmt.executeQuery();
 
-    }
+			if (rs.next()) {
 
-    
+				siv = new SellerInfoVO();
 
-    /**
+				siv.setId(rs.getString("id"));
 
-     * 판매희망자 테이블에서 해당하는 아이템 코드를 신청한 회원들을 삭제하기
+				siv.setInfo(rs.getString("info"));
 
-     * @param itemCode
+				siv.setImg(rs.getString("image"));
 
-     * @throws SQLException
+			} // end if
 
-     */
+		} finally {
 
-    public void deleteSellWait(String itemCode, String buyerId) throws SQLException{
+			if (rs != null) {
 
-        Connection con = null;
+				rs.close();
 
-        PreparedStatement pstmt = null;
+			} // end if
 
-        
+			if (pstmt != null) {
 
-        try{
+				pstmt.close();
 
-            con = getConnection();
+			} // end if
 
-            
+			if (con != null) {
 
-            String deleteWait="delete from buyer_contact where item_code=? and id!=?";
+				con.close();
 
-            pstmt=con.prepareStatement(deleteWait);
+			} // end if
 
-            
+		}
 
-            pstmt.setString(1, itemCode);
+		return siv;
 
-            pstmt.setString(2, buyerId);
+	}// selectSellerInfo
 
-            
+	/**
+	 * 
+	 * 내 구매완료정보를 보이기 위한 method
+	 * 
+	 * @param flag
+	 * 
+	 * @param id
+	 * 
+	 * @return list
+	 * 
+	 * @throws SQLException
+	 * 
+	 */
 
-            pstmt.executeUpdate();
+	public List<SellBuyVO> selectBuyCompList(String id) throws SQLException {
 
-            
+		List<SellBuyVO> list = new ArrayList<SellBuyVO>();
 
-        }finally{
+		Connection con = null;
 
-            if (pstmt != null) {
+		PreparedStatement pstmt = null;
 
-                pstmt.close();
+		ResultSet rs = null;
 
-            } // end if
+		try {
 
- 
+			con = getConnection();
 
-            if (con != null) {
+			String selectSell = "select id, item_code, item_name, sold_date from product where sold_flag='y' and buyer_id=? order by sold_date desc";
 
-                con.close();
+			pstmt = con.prepareStatement(selectSell);
 
-            } // end if
+			pstmt.setString(1, id);
 
-        }
+			rs = pstmt.executeQuery();
 
-    }
+			SellBuyVO sbv = null;
 
-    
+			while (rs.next()) {
 
-    /**
+				sbv = new SellBuyVO();
 
-     * 구매신청취소
+				sbv.setId(rs.getString("id"));
 
-     * @param itemCode
+				sbv.setItemCode(rs.getString("item_code"));
 
-     * @throws SQLException
+				sbv.setItemName(rs.getString("item_name"));
 
-     */
+				sbv.setTradeDate(rs.getString("sold_date"));
 
-    public void deletePurchase(String itemCode, String buyerId) throws SQLException{
+				list.add(sbv);
 
-        Connection con = null;
+			} // end while
 
-        PreparedStatement pstmt = null;
+		} finally {
 
-        
+			if (rs != null) {
 
-        try{
+				rs.close();
 
-            con = getConnection();
+			} // end if
 
-            
+			if (pstmt != null) {
 
-            String deletePurchase="delete from buyer_contact where item_code=? and id=?";
+				pstmt.close();
 
-            pstmt=con.prepareStatement(deletePurchase);
+			} // end if
 
-            
+			if (con != null) {
 
-            pstmt.setString(1, itemCode);
+				con.close();
 
-            pstmt.setString(2, buyerId);
+			} // end if
 
-            
+		}
 
-            pstmt.executeUpdate();
+		return list;
 
-            
+	}// selectBuyList
 
-        }finally{
+	/**
+	 * 
+	 * 내 구매대기정보를 보이기 위한 method
+	 * 
+	 * @param id
+	 * 
+	 * @return list
+	 * 
+	 * @throws SQLException
+	 * 
+	 */
 
-            if (pstmt != null) {
+	public List<SellBuyVO> selectBuyWaitList(String id) throws SQLException {
 
-                pstmt.close();
+		List<SellBuyVO> list = new ArrayList<SellBuyVO>();
 
-            } // end if
+		Connection con = null;
 
- 
+		PreparedStatement pstmt = null;
 
-            if (con != null) {
+		ResultSet rs = null;
 
-                con.close();
+		try {
 
-            } // end if
+			con = getConnection();
 
-        }
+			String selectWait = "select p.id id, b.item_code item_code, p.item_name name, b.requesting_date req_date from product p, buyer_contact b where (p.item_code=b.item_code) and  p.sold_flag='n' and b.id=?";
 
-    }
+			pstmt = con.prepareStatement(selectWait);
 
-    
+			pstmt.setString(1, id);
 
-    
+			rs = pstmt.executeQuery();
 
-    
+			SellBuyVO sbv = null;
 
-    /**
+			while (rs.next()) {
 
-     * 판매자 정보를 조회하는 method
+				sbv = new SellBuyVO();
 
-     * @param ItemCode
+				sbv.setId(rs.getString("id"));
 
-     * @return SellerInfoVO
+				sbv.setItemCode(rs.getString("item_code"));
 
-     * @throws SQLException 
+				sbv.setItemName(rs.getString("name"));
 
-     */
+				sbv.setTradeDate(rs.getString("req_date"));
 
-    public SellerInfoVO selectSellerInfo(String itemCode) throws SQLException{
+				list.add(sbv);
 
-        SellerInfoVO siv=new SellerInfoVO();
+			} // end while
 
-        
+		} finally {
 
-        Connection con = null;
+			if (rs != null) {
 
-        PreparedStatement pstmt = null;
+				rs.close();
 
-        ResultSet rs = null;
+			} // end if
 
-        
+			if (pstmt != null) {
 
-        try{
+				pstmt.close();
 
-            con = getConnection();
+			} // end if
 
-            String selectSeller="select m.id id, m.info info, m.image image from member m, product p where (m.id=p.id) and item_code=?";
+			if (con != null) {
 
-            pstmt=con.prepareStatement(selectSeller);
+				con.close();
 
-            
+			} // end if
 
-            pstmt.setString(1, itemCode);
+		}
 
-            
+		return list;
 
-            rs=pstmt.executeQuery();
+	}// selectBuyWaitList
 
-            
+	/**
+	 * 
+	 * 구매가 확정 플래그로 변경해주는 method
+	 * 
+	 * @param itemCode
+	 * 
+	 * @param buyerId
+	 * 
+	 * @throws SQLException
+	 * 
+	 */
 
-            if(rs.next()){
+	public void updateBuyComp(String itemCode, String buyerId) throws SQLException {
 
-                siv=new SellerInfoVO();
+		Connection con = null;
 
-                siv.setId(rs.getString("id"));
+		PreparedStatement pstmt = null;
 
-                siv.setInfo(rs.getString("info"));
+		try {
 
-                siv.setImg(rs.getString("image"));
+			con = getConnection();
 
-                
+			String updateBuy = "update product set sold_flag='y', buyer_id=?, sold_date=sysdate where item_code=?";
 
-            }//end if
+			pstmt = con.prepareStatement(updateBuy);
 
-            
+			pstmt.setString(1, buyerId);
 
-        }finally{
+			pstmt.setString(2, itemCode);
 
-            if (rs != null) {
+			pstmt.executeUpdate();
 
-                rs.close();
+		} finally {
 
-            } // end if
+			if (pstmt != null) {
 
- 
+				pstmt.close();
 
-            if (pstmt != null) {
+			} // end if
 
-                pstmt.close();
+			if (con != null) {
 
-            } // end if
+				con.close();
 
- 
+			} // end if
 
-            if (con != null) {
+		}
 
-                con.close();
+	}// updateBuyComp
 
-            } // end if
+	/**
+	 * 
+	 * 보낸 메시지 리스트를 조회하는 method
+	 * 
+	 * @param id
+	 * 
+	 * @return
+	 * 
+	 * @throws SQLException
+	 * 
+	 */
 
-        }
+	public List<MsgListVO> selectSendMsgList(String id) throws SQLException {
 
-        
+		List<MsgListVO> list = new ArrayList<MsgListVO>();
 
-        return siv;
+		Connection con = null;
 
-    }//selectSellerInfo
+		PreparedStatement pstmt = null;
 
-    
+		ResultSet rs = null;
 
-    /**
+		try {
 
-     * 내 구매완료정보를 보이기 위한 method
+			con = getConnection();
 
-     * @param flag
+			String selectMsg = "select msg_num, send_id, item_code, send_date, msg_check_flag from send_msg where id=? order by msg_check_flag";
 
-     * @param id
+			pstmt = con.prepareStatement(selectMsg);
 
-     * @return list
+			pstmt.setString(1, id);
 
-     * @throws SQLException
+			rs = pstmt.executeQuery();
 
-     */
+			MsgListVO mlv = null;
 
-    public List<SellBuyVO> selectBuyCompList(String id) throws SQLException{
+			while (rs.next()) {
 
- 
+				mlv = new MsgListVO();
 
-        List<SellBuyVO> list=new ArrayList<SellBuyVO>();
+				mlv.setMsgCode(rs.getString("msg_num"));
 
-        
+				mlv.setId(rs.getString("send_id"));
 
-        Connection con = null;
+				mlv.setItem(rs.getString("item_code"));
 
-        PreparedStatement pstmt = null;
+				mlv.setMsgDate(rs.getString("send_date"));
 
-        ResultSet rs = null;
+				mlv.setFlag(rs.getString("msg_check_flag"));
 
-        
+				list.add(mlv);
 
-        try{
+			} // end while
 
-            con=getConnection();
+		} finally {
 
-            
+			if (rs != null) {
 
-            String selectSell="select id, item_code, item_name, sold_date from product where sold_flag='y' and buyer_id=? order by sold_date desc";
+				rs.close();
 
-            pstmt=con.prepareStatement(selectSell);
+			} // end if
 
-            pstmt.setString(1, id);
+			if (pstmt != null) {
 
-            rs=pstmt.executeQuery();
+				pstmt.close();
 
-            
+			} // end if
 
-            SellBuyVO sbv=null;
+			if (con != null) {
 
-            while(rs.next()){
+				con.close();
 
-                sbv=new SellBuyVO();
+			} // end if
 
-                sbv.setId(rs.getString("id"));
+		} // end finally
 
-                sbv.setItemCode(rs.getString("item_code"));
+		return list;
 
-                sbv.setItemName(rs.getString("item_name"));
+	}// selectSendMsgList
 
-                sbv.setTradeDate(rs.getString("sold_date"));
+	/**
+	 * 
+	 * 받은 메시지 리스트를 조회하는 method
+	 * 
+	 * @param id
+	 * 
+	 * @return
+	 * 
+	 * @throws SQLException
+	 * 
+	 */
 
-                
+	public List<MsgListVO> selectGetMsgList(String id) throws SQLException {
 
-                list.add(sbv);
+		List<MsgListVO> list = new ArrayList<MsgListVO>();
 
-            }//end while
+		Connection con = null;
 
-            
+		PreparedStatement pstmt = null;
 
-        }finally{
+		ResultSet rs = null;
 
-            if (rs != null) {
+		try {
 
-                rs.close();
+			con = getConnection();
 
-            } // end if
+			String selectMsg = "select msg_num, send_id, item_code, send_date, msg_check_flag from receive_msg where id=? order by msg_check_flag";
 
- 
+			pstmt = con.prepareStatement(selectMsg);
 
-            if (pstmt != null) {
+			pstmt.setString(1, id);
 
-                pstmt.close();
+			rs = pstmt.executeQuery();
 
-            } // end if
+			MsgListVO mlv = null;
 
- 
+			while (rs.next()) {
 
-            if (con != null) {
+				mlv = new MsgListVO();
 
-                con.close();
+				mlv.setMsgCode(rs.getString("msg_num"));
 
-            } // end if
+				mlv.setId(rs.getString("send_id"));
 
-        }
+				mlv.setItem(rs.getString("item_code"));
 
-        return list;
+				mlv.setMsgDate(rs.getString("send_date"));
 
-    }//selectBuyList
+				mlv.setFlag(rs.getString("msg_check_flag"));
 
-    
+				list.add(mlv);
 
-    /**
+			} // end while
 
-     * 내 구매대기정보를 보이기 위한 method
+		} finally {
 
-     * @param id
+			if (rs != null) {
 
-     * @return list
+				rs.close();
 
-     * @throws SQLException
+			} // end if
 
-     */
+			if (pstmt != null) {
 
-    public List<SellBuyVO> selectBuyWaitList(String id) throws SQLException{
+				pstmt.close();
 
-        List<SellBuyVO> list=new ArrayList<SellBuyVO>();
+			} // end if
 
-        
+			if (con != null) {
 
-        Connection con = null;
+				con.close();
 
-        PreparedStatement pstmt = null;
+			} // end if
 
-        ResultSet rs = null;
+		}
 
-        
+		return list;
 
-        try{
+	}// selectGetMsgList
 
-            con = getConnection();
+	/**
+	 * 
+	 * 보낸 메시지 읽기 확인을 업데이트하는 method
+	 * 
+	 * @param msgCode
+	 * 
+	 * @throws SQLException
+	 * 
+	 */
 
-            String selectWait="select p.id id, b.item_code item_code, p.item_name name, b.requesting_date req_date from product p, buyer_contact b where (p.item_code=b.item_code) and  p.sold_flag='n' and b.id=?";
+	public void updateChkSendMsg(String msgCode) throws SQLException {
 
-            pstmt=con.prepareStatement(selectWait);
+		Connection con = null;
 
-            
+		PreparedStatement pstmt = null;
 
-            pstmt.setString(1, id);
+		try {
 
-            
+			con = getConnection();
 
-            rs=pstmt.executeQuery();
+			String updateFlag = "update send_msg set msg_check_flag='y' where msg_num=?";
 
-            
+			pstmt = con.prepareStatement(updateFlag);
 
-            SellBuyVO sbv=null;
+			pstmt.setString(1, msgCode);
 
-            while(rs.next()){
+			pstmt.executeUpdate();
 
-                sbv=new SellBuyVO();
+		} finally {
 
-                sbv.setId(rs.getString("id"));
+			if (pstmt != null) {
 
-                sbv.setItemCode(rs.getString("item_code"));
+				pstmt.close();
 
-                sbv.setItemName(rs.getString("name"));
+			} // end if
 
-                sbv.setTradeDate(rs.getString("req_date"));
+			if (con != null) {
 
-                
+				con.close();
 
-                list.add(sbv);
+			} // end if
 
-            }//end while
+		}
 
-        }finally{
+	}// updateChkSendMsg
 
-            if (rs != null) {
+	/**
+	 * 
+	 * 받은 메시지 읽기 확인을 업데이트하는 method
+	 * 
+	 * @param msgCode
+	 * 
+	 * @throws SQLException
+	 * 
+	 */
 
-                rs.close();
+	public void updateChkGetMsg(String msgCode) throws SQLException {
 
-            } // end if
+		Connection con = null;
 
- 
+		PreparedStatement pstmt = null;
 
-            if (pstmt != null) {
+		try {
 
-                pstmt.close();
+			con = getConnection();
 
-            } // end if
+			String updateFlag = "update receive_msg set msg_check_flag='y' where msg_num=?";
 
- 
+			pstmt = con.prepareStatement(updateFlag);
 
-            if (con != null) {
+			pstmt.setString(1, msgCode);
 
-                con.close();
+			pstmt.executeUpdate();
 
-            } // end if
+		} finally {
 
-        }
+			if (pstmt != null) {
 
-        
+				pstmt.close();
 
-        return list;
+			} // end if
 
-    }//selectBuyWaitList
+			if (con != null) {
 
-    
+				con.close();
 
-    /**
+			} // end if
 
-     * 구매가 확정 플래그로 변경해주는 method
+		}
 
-     * @param itemCode
+	}// updateChkGetMsg
 
-     * @param buyerId
+	public String selectImg(String itemCode) throws SQLException {
 
-     * @throws SQLException
+		String img = null;
 
-     */
+		Connection con = null;
 
-    public void updateBuyComp(String itemCode, String buyerId) throws SQLException{
+		PreparedStatement pstmt = null;
 
-        Connection con = null;
+		ResultSet rs = null;
 
-        PreparedStatement pstmt = null;
+		try {
 
-        try{
+			con = getConnection();
 
-            con=getConnection();
+		} finally {
 
-            
+			if (rs != null) {
 
-            String updateBuy="update product set sold_flag='y', buyer_id=?, sold_date=sysdate where item_code=?";
+				rs.close();
 
-            pstmt=con.prepareStatement(updateBuy);
+			}
 
-            
+			if (pstmt != null) {
 
-            pstmt.setString(1, buyerId);
+				pstmt.close();
 
-            pstmt.setString(2, itemCode);
+			} // end if
 
-            
+			if (con != null) {
 
-            pstmt.executeUpdate();
+				con.close();
 
-        }finally{
+			} // end if
 
-            if (pstmt != null) {
+		}
 
-                pstmt.close();
+		return img;
 
-            } // end if
+	}
 
- 
+	public static void main(String[] args) throws SQLException {
 
-            if (con != null) {
+		MarketDAO md = new MarketDAO();
 
-                con.close();
+		// md.deleteProduct("HY_1705290104");
 
-            } // end if
+		//
 
-        }
+		// System.out.println(MarketDAO.getInstance().getConnection());
 
-    }//updateBuyComp
+		//
 
-    
+		// //selectItemList 단위테스트
 
-    /**
+		// List<ItemListVO> list1=md.selectItemList(2);
 
-     * 보낸 메시지 리스트를 조회하는 method
+		// List<ItemListVO> list1=md.selectItemList(0);
 
-     * @param id
+		// System.out.println(list1);
 
-     * @return
+		//
 
-     * @throws SQLException
+		// //selectSellCompList 단위테스트
 
-     */
+		// List<SellBuyVO> list2=md.selectSellCompList("hyunwan");
 
-    public List<MsgListVO> selectSendMsgList(String id) throws SQLException{
+		// System.out.println(list2);
 
-        List<MsgListVO> list=new ArrayList<MsgListVO>();
+		//
 
-        
+		// //selectSellWaitList 단위 테스트
 
-        Connection con = null;
+		// List<SellingVO> list3=md.selectSellWaitList("hyunwan");
 
-        PreparedStatement pstmt = null;
+		// System.out.println(list3);
 
-        ResultSet rs = null;
+		//
 
-        
+		// //deleteSellWait 단위 테스트
 
-        try{
+		// md.deleteSellWait("HY_1705240021");
 
-            con=getConnection();
+		//
 
-            
+		// //selectSellerInfo 단위 테스트
 
-            String selectMsg="select msg_num, send_id, item_code, send_date, msg_check_flag from send_msg where id=? order by msg_check_flag";
+		// System.out.println(md.selectSellerInfo("HY_1705240021"));
 
-            pstmt=con.prepareStatement(selectMsg);
+		//
 
-            
+		// //selectBuyCompList 단위 테스트
 
-            pstmt.setString(1, id);
+		// List<SellBuyVO> list4=md.selectBuyCompList("hyunwan");
 
-            
+		// System.out.println(list4);
 
-            rs=pstmt.executeQuery();
+		//
 
-            
+		// //selectBuyWaitList 단위 테스트
 
-            MsgListVO mlv=null;
+		// List<SellBuyVO> list5=md.selectBuyWaitList("hyunwan");
 
-            while(rs.next()){
+		// System.out.println(list5);
 
-                mlv=new MsgListVO();
+		//
 
-                mlv.setMsgCode(rs.getString("msg_num"));
+		// //updateBuyComp 단위 테스트
 
-                mlv.setId(rs.getString("send_id"));
+		// md.updateBuyComp("HY_1705240021", "hyunwan");
 
-                mlv.setItem(rs.getString("item_code"));
+		//
 
-                mlv.setMsgDate(rs.getString("send_date"));
+		// //selectSendMsgList 단위 테스트
 
-                mlv.setFlag(rs.getString("msg_check_flag"));
+		// List<MsgListVO> list6=md.selectSendMsgList("wkdwogns");
 
-                
+		// System.out.println(list6);
 
-                list.add(mlv);
+		//
 
-            }//end while
+		// List<MsgListVO> list7=md.selectGetMsgList("dongha");
 
-        }finally{
+		// System.out.println(list7);
 
-            if (rs != null) {
+		//
 
-                rs.close();
+		// //updateChkSendMsg 단위 테스트
 
-            } // end if
+		// md.updateChkSendMsg("SD_0525000041");
 
- 
+		//
 
-            if (pstmt != null) {
+		// //updateChkGetMsg 단위 테스트
 
-                pstmt.close();
+		// md.updateChkGetMsg("RC_0525000044");
 
-            } // end if
+	}
 
- 
-
-            if (con != null) {
-
-                con.close();
-
-            } // end if
-
-        }//end finally
-
-        
-
-        return list;
-
-    }//selectSendMsgList
-
-    
-
-    /**
-
-     * 받은 메시지 리스트를 조회하는 method
-
-     * @param id
-
-     * @return
-
-     * @throws SQLException
-
-     */
-
-    public List<MsgListVO> selectGetMsgList(String id) throws SQLException{
-
-        List<MsgListVO> list=new ArrayList<MsgListVO>();
-
-        
-
-        Connection con = null;
-
-        PreparedStatement pstmt = null;
-
-        ResultSet rs = null;
-
-        
-
-        try{
-
-            con=getConnection();
-
-            
-
-            String selectMsg="select msg_num, send_id, item_code, send_date, msg_check_flag from receive_msg where id=? order by msg_check_flag";
-
-            pstmt=con.prepareStatement(selectMsg);
-
-            
-
-            pstmt.setString(1, id);
-
-            
-
-            rs=pstmt.executeQuery();
-
-            MsgListVO mlv=null;
-
-            while(rs.next()){
-
-                mlv=new MsgListVO();
-
-                mlv.setMsgCode(rs.getString("msg_num"));
-
-                mlv.setId(rs.getString("send_id"));
-
-                mlv.setItem(rs.getString("item_code"));
-
-                mlv.setMsgDate(rs.getString("send_date"));
-
-                mlv.setFlag(rs.getString("msg_check_flag"));
-
-                
-
-                list.add(mlv);
-
-            }//end while
-
-        }finally{
-
-            if (rs != null) {
-
-                rs.close();
-
-            } // end if
-
- 
-
-            if (pstmt != null) {
-
-                pstmt.close();
-
-            } // end if
-
- 
-
-            if (con != null) {
-
-                con.close();
-
-            } // end if
-
-        }
-
-        
-
-        return list;
-
-    }//selectGetMsgList
-
-    
-
-    /**
-
-     * 보낸 메시지 읽기 확인을 업데이트하는 method
-
-     * @param msgCode
-
-     * @throws SQLException
-
-     */
-
-    public void updateChkSendMsg(String msgCode) throws SQLException{
-
-        Connection con = null;
-
-        PreparedStatement pstmt = null;
-
-        
-
-        try{
-
-            con=getConnection();
-
-            
-
-            String updateFlag="update send_msg set msg_check_flag='y' where msg_num=?";
-
-            pstmt=con.prepareStatement(updateFlag);
-
-            
-
-            pstmt.setString(1, msgCode);
-
-            
-
-            pstmt.executeUpdate();
-
-        }finally{
-
-            if (pstmt != null) {
-
-                pstmt.close();
-
-            } // end if
-
- 
-
-            if (con != null) {
-
-                con.close();
-
-            } // end if    
-
-        }
-
-    }//updateChkSendMsg
-
-    
-
-    /**
-
-     * 받은 메시지 읽기 확인을 업데이트하는 method
-
-     * @param msgCode
-
-     * @throws SQLException
-
-     */
-
-    public void updateChkGetMsg(String msgCode) throws SQLException{
-
-        Connection con = null;
-
-        PreparedStatement pstmt = null;
-
-        
-
-        try{
-
-            con=getConnection();
-
-            
-
-            String updateFlag="update receive_msg set msg_check_flag='y' where msg_num=?";
-
-            pstmt=con.prepareStatement(updateFlag);
-
-            
-
-            pstmt.setString(1, msgCode);
-
-            
-
-            pstmt.executeUpdate();
-
-        }finally{
-
-            if (pstmt != null) {
-
-                pstmt.close();
-
-            } // end if
-
-            
-
-            if (con != null) {
-
-                con.close();
-
-            } // end if    
-
-        }
-
-    }//updateChkGetMsg
-
-    
-
- 
-
-    public String selectImg(String itemCode) throws SQLException{
-
-        String img=null;
-
-        
-
-        Connection con=null;
-
-        PreparedStatement pstmt=null;
-
-        ResultSet rs=null;
-
-        
-
-        try{
-
-            con=getConnection();
-
-            
-
-            
-
-        }finally{
-
-            if(rs != null){
-
-                rs.close();
-
-            }
-
-            
-
-            if (pstmt != null) {
-
-                pstmt.close();
-
-            } // end if
-
-            
-
-            if (con != null) {
-
-                con.close();
-
-            } // end if    
-
-        }
-
-        
-
-        return img;
-
-    }
-
-    
-
-    public static void main(String[] args) throws SQLException{
-
-        MarketDAO md=new MarketDAO();
-
-        
-
-//        md.deleteProduct("HY_1705290104");
-
-        
-
-//        
-
-//        System.out.println(MarketDAO.getInstance().getConnection());
-
-//
-
-//        //selectItemList 단위테스트
-
-//        List<ItemListVO> list1=md.selectItemList(2);
-
-//        List<ItemListVO> list1=md.selectItemList(0);
-
-//        System.out.println(list1);
-
-//
-
-//        //selectSellCompList 단위테스트
-
-//        List<SellBuyVO> list2=md.selectSellCompList("hyunwan");
-
-//        System.out.println(list2);
-
-//        
-
-//        //selectSellWaitList 단위 테스트
-
-//        List<SellingVO> list3=md.selectSellWaitList("hyunwan");
-
-//        System.out.println(list3);
-
-//        
-
-//        //deleteSellWait 단위 테스트
-
-//        md.deleteSellWait("HY_1705240021");
-
-//        
-
-//        //selectSellerInfo 단위 테스트
-
-//        System.out.println(md.selectSellerInfo("HY_1705240021"));
-
-//        
-
-//        //selectBuyCompList 단위 테스트
-
-//        List<SellBuyVO> list4=md.selectBuyCompList("hyunwan");
-
-//        System.out.println(list4);
-
-//        
-
-//        //selectBuyWaitList 단위 테스트
-
-//        List<SellBuyVO> list5=md.selectBuyWaitList("hyunwan");
-
-//        System.out.println(list5);
-
-//        
-
-//        //updateBuyComp 단위 테스트
-
-//        md.updateBuyComp("HY_1705240021", "hyunwan");
-
-//    
-
-//        //selectSendMsgList 단위 테스트
-
-//        List<MsgListVO> list6=md.selectSendMsgList("wkdwogns");
-
-//        System.out.println(list6);
-
-//        
-
-//        List<MsgListVO> list7=md.selectGetMsgList("dongha");
-
-//        System.out.println(list7);
-
-//        
-
-//        //updateChkSendMsg 단위 테스트
-
-//        md.updateChkSendMsg("SD_0525000041");
-
-//        
-
-//        //updateChkGetMsg 단위 테스트
-
-//        md.updateChkGetMsg("RC_0525000044");
-
-    }
-
-}//class
-
- 
-
- 
-
- 
-
+}// class

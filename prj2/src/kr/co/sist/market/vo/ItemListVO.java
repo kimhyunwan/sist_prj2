@@ -1,18 +1,19 @@
 package kr.co.sist.market.vo;
 
 public class ItemListVO {
-	private String itemName, itemCode, itemInfo, hiredate, image;
+	private String itemName, itemCode, itemInfo, hiredate, image, itemType;
 	private int price;
 	
 	public ItemListVO() {
 	
 	}
 	
-	public ItemListVO(String itemName, String itemCode, String itemInfo, String hiredate, String image, int price) {
+	public ItemListVO(String itemName, String itemCode, String itemInfo, String hiredate, String itemType, String image, int price) {
 		this.itemName = itemName;
 		this.itemCode = itemCode;
 		this.itemInfo = itemInfo;
 		this.hiredate = hiredate;
+		this.itemType=itemType;
 		this.image = image;
 		this.price = price;
 	}
@@ -52,6 +53,14 @@ public class ItemListVO {
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	
+	public String getItemType() {
+		return itemType;
+	}
+
+	public void setItemType(String itemType) {
+		this.itemType = itemType;
 	}
 
 	@Override

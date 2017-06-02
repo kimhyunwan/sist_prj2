@@ -68,18 +68,33 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 		}//end catch 
 	}//setItem
 	
+	private int typeCode(String itemCode){
+		int code=0;
+		m_dao=MarketDAO.getInstance();
+		
+		try {
+			code=m_dao.selectItemType(itemCode);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return code;
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent me) {
 		if(me.getClickCount()==2){
 			JTable temp = mv.getJtItemList();
 			int selectedRow = temp.getSelectedRow();
+			String itemCode=(String) temp.getValueAt(selectedRow, 2);
 			ItemListVO iv = new ItemListVO();
-			iv.setItemCode((String) temp.getValueAt(selectedRow, 2));
+			int typeCode=typeCode(itemCode);
+			iv.setItemCode(itemCode);
 			iv.setItemName((String) temp.getValueAt(selectedRow, 1));
 			iv.setPrice((Integer) temp.getValueAt(selectedRow,4));
 			iv.setItemInfo((String) temp.getValueAt(selectedRow, 3));
 			iv.setHiredate((String) temp.getValueAt(selectedRow, 5));
-			
+			iv.setItemType(mv.getJcbType().getItemAt(typeCode));
 			new ItemInfoView(iv);//띄어주어야할 항목들이 mv가 가지고있으므로 안에 넣어주는 것이다.
 		}//end if
 	}//mouseClicked

@@ -37,7 +37,7 @@ public class ItemInfoView extends JFrame {
       
       jtfItemName = new JTextField(iv.getItemName());
       jtfItemcode = new JTextField(iv.getItemCode());
-      jtfItemType = new JTextField();
+      jtfItemType = new JTextField(iv.getItemType());
       jtfPrice = new JTextField(String.valueOf(iv.getPrice()));
       jtfHiredate = new JTextField(iv.getHiredate());
       
@@ -48,6 +48,7 @@ public class ItemInfoView extends JFrame {
       //제품코드, 상품명, 가격은 읽기 전용
       jtfItemcode.setEditable(false);
       jtfItemName.setEditable(false);
+      jtfItemType.setEditable(false);
       jtfPrice.setEditable(false);
       jtfHiredate.setEditable(false);
       jtProExplain.setEditable(false);

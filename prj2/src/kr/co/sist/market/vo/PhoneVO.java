@@ -2,7 +2,7 @@ package kr.co.sist.market.vo;
 
 public class PhoneVO {
 	private String id, phone, itemCode;
-
+	
 	public PhoneVO(String id, String phone, String itemCode) {
 		this.id = id;
 		this.phone = phone;
@@ -10,7 +10,7 @@ public class PhoneVO {
 	}
 
 	public PhoneVO() {
-
+		
 	}
 
 	public String getId() {

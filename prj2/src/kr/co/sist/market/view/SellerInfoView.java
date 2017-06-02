@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 
 import kr.co.sist.market.dao.MarketDAO;
 import kr.co.sist.market.evt.SellerInfoViewEvt;
+import kr.co.sist.market.vo.ReqVO;
 import kr.co.sist.market.vo.SellerInfoVO;
 
 @SuppressWarnings("serial")
@@ -23,9 +24,9 @@ public class SellerInfoView extends JFrame {
 	private JTextArea jtaIntro;
 	private JTextField jtfId;
 	private String itemCode;
-	private String id="";
+	private int price;
 	
-	public SellerInfoView(SellerInfoVO seller) throws SQLException{
+	public SellerInfoView(SellerInfoVO seller, ReqVO rv) throws SQLException{
 		super("판매자 정보");
 		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/bg_pink.jpg");
 		JLabel backgroundImg = new JLabel(icon);
@@ -35,12 +36,17 @@ public class SellerInfoView extends JFrame {
 		JLabel jlIntro = new JLabel("자기소개");
 	
 		jtaIntro = new JTextArea(seller.getInfo());  //JTextArea 생성  
+		
+		jtaIntro.setEditable(false);
 		JScrollPane jspIntro = new JScrollPane(jtaIntro);
 
 		jtfId=new JTextField(seller.getId());
+		jtfId.setEditable(false);
 		jbMsg=new JButton("메세지 보내기");
 		jbBuyReq=new JButton("구매신청");
 		
+		itemCode=rv.getItemCode();
+		price=rv.getPrice();
 		//자동배치 해제
 		setLayout(null);
 		//컴포넌트의 배치 위치설정
@@ -62,11 +68,10 @@ public class SellerInfoView extends JFrame {
 		add(jbBuyReq);
 		add(backgroundImg);
 		
-		id=getJtfId().getText();
 		
 		//이벤트 추가
 		SellerInfoViewEvt sive;
-		sive = new SellerInfoViewEvt(this,id);
+		sive = new SellerInfoViewEvt(this);
 		jbMsg.addActionListener(sive);
 		jbBuyReq.addActionListener(sive);
 		
@@ -103,6 +108,10 @@ public class SellerInfoView extends JFrame {
 
 	public String getItemCode() {
 		return itemCode;
+	}
+
+	public int getPrice() {
+		return price;
 	}
 	
 }//class

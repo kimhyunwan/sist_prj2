@@ -12,6 +12,8 @@ import javax.swing.JTextField;
 
 import kr.co.sist.market.evt.BuyReqViewEvt;
 import kr.co.sist.market.evt.LoginViewEvt;
+import kr.co.sist.market.vo.PhoneVO;
+import kr.co.sist.market.vo.ReqVO;
 
 @SuppressWarnings("serial")
 public class BuyReqView extends JFrame {
@@ -20,7 +22,7 @@ public class BuyReqView extends JFrame {
 	private JComboBox<String> phone;
 	private LoginViewEvt lve;
 	
-	public BuyReqView(ItemInfoView iiv){
+	public BuyReqView(ReqVO rv){
 		super("구매신청");
 		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/bg_pink.jpg");
 		JLabel backgroundImg = new JLabel(icon);
@@ -28,7 +30,12 @@ public class BuyReqView extends JFrame {
 		JLabel itemImage = new JLabel(itemImg);
 		JLabel jlId = new JLabel("구매자");
 		JLabel jlItemcode = new JLabel("아이템 코드");
-		jtfItemcode = new JTextField(iiv.getJtfItemcode().getText());
+		jtfItemcode = new JTextField(rv.getItemCode());
+		jtfTotalPrice = new JTextField();
+		jtfTotalPrice.getText();
+		jtfTotalPrice.setText(String.valueOf(rv.getPrice()));
+		
+	
 		JLabel jlPayment = new JLabel("결제수단");
 		JLabel jlTotalPrice = new JLabel("결제 금액");
 		jtfId=new JTextField();
@@ -41,10 +48,9 @@ public class BuyReqView extends JFrame {
 		JLabel hyphen1 = new JLabel("-");
 		jtfPhone3 = new JTextField(4);
 		
-		jtfId=new JTextField("dongha");
+		jtfId=new JTextField(lve.id);
 		String[] payments = {"----- 선택 -----","카드","현금","계좌이체"};
 		JComboBox<String> jcbPayment = new JComboBox<String>(payments);
-		jtfTotalPrice = new JTextField(iiv.getJtfPrice().getText());
 		jbBuyReq=new JButton("구매신청 완료");
 		jbCancel=new JButton("취소");
 		
