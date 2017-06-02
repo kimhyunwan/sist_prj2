@@ -10,7 +10,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import kr.co.sist.market.evt.MsgListViewEvt;
 
@@ -61,8 +64,20 @@ public class MsgListView extends JFrame {
 		jtSendMsgList.getColumnModel().getColumn(1).setPreferredWidth(70);
 		jtSendMsgList.getColumnModel().getColumn(2).setPreferredWidth(150);
 		jtSendMsgList.getColumnModel().getColumn(3).setPreferredWidth(60);
-
 		
+		// DefaultTableCellHeaderRenderer 생성 (가운데 정렬을 위한)
+		DefaultTableCellRenderer dtcr1 = new DefaultTableCellRenderer();
+				 
+		// DefaultTableCellHeaderRenderer의 정렬을 가운데 정렬로 지정
+		dtcr1.setHorizontalAlignment(SwingConstants.CENTER);
+
+		// 정렬할 테이블의 ColumnModel을 가져옴
+		TableColumnModel tcm1 = jtSendMsgList.getColumnModel();
+				 
+		// 반복문을 이용하여 테이블을 가운데 정렬로 지정
+		for (int i = 0; i < tcm1.getColumnCount(); i++) {
+			tcm1.getColumn(i).setCellRenderer(dtcr1);
+		}
 		JScrollPane jspSendMsgList = new JScrollPane(jtSendMsgList);
 		
 		jspSendMsgList.setBounds(0, 0, 800, 500);
@@ -108,7 +123,20 @@ public class MsgListView extends JFrame {
 		jtReceiveMsgList.getColumnModel().getColumn(2).setPreferredWidth(150);
 		jtReceiveMsgList.getColumnModel().getColumn(3).setPreferredWidth(80);
 		jtReceiveMsgList.getColumnModel().getColumn(3).setPreferredWidth(60);
+		
+		// DefaultTableCellHeaderRenderer 생성 (가운데 정렬을 위한)
+		DefaultTableCellRenderer dtcr2 = new DefaultTableCellRenderer();
+						 
+		// DefaultTableCellHeaderRenderer의 정렬을 가운데 정렬로 지정
+		dtcr2.setHorizontalAlignment(SwingConstants.CENTER);
 
+		// 정렬할 테이블의 ColumnModel을 가져옴
+		TableColumnModel tcm2 = jtReceiveMsgList.getColumnModel();
+						 
+		// 반복문을 이용하여 테이블을 가운데 정렬로 지정
+		for (int i = 0; i < tcm2.getColumnCount(); i++) {
+			tcm2.getColumn(i).setCellRenderer(dtcr2);
+		}
 		
 		JScrollPane jspReceiveMsgList = new JScrollPane(jtReceiveMsgList);
 		

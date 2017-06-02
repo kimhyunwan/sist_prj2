@@ -1,15 +1,11 @@
 
 package kr.co.sist.market.view;
 
- 
-
 import java.awt.Color;
 
 import java.awt.event.WindowAdapter;
 
 import java.awt.event.WindowEvent;
-
- 
 
 import javax.swing.ImageIcon;
 
@@ -26,380 +22,271 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import javax.swing.JTable;
-
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
- 
+import javax.swing.table.TableColumnModel;
 
 import kr.co.sist.market.evt.BuyListViewEvt;
 
- 
-
 /**
-
+ * 
  * 탭을 가지고 사용자에게 보여주는 Form.
-
+ * 
  * @author user
-
  *
-
+ * 
+ * 
  */
 
 @SuppressWarnings("serial")
 
 public class BuyListView extends JFrame {
 
-    private JTable jtComplet,jtWait ;
+	private JTable jtComplet, jtWait;
 
-    private DefaultTableModel dtmComplet,dtmWait;
+	private DefaultTableModel dtmComplet, dtmWait;
 
-    private JTabbedPane jtpTab;
+	private JTabbedPane jtpTab;
 
-    private JButton jbClose,jbWClose;
+	private JButton jbClose, jbWClose;
 
-    
+	public BuyListView(int tabNum) {
 
-    public BuyListView(int tabNum){
+		super("구매목록");
 
-        super("구매목록");
+		String[] columnNames = { "번호", "판매자", "제품코드", "제품명", "구매완료일시" };
 
- 
+		String[][] data = {};
 
-        
+		jbClose = new JButton("닫기");
 
-        String[] columnNames={"번호","판매자","제품코드","제품명","구매완료일시"};
+		dtmComplet = new DefaultTableModel(data, columnNames) {
 
-        String[][] data = {};
+			// 편집불가
 
-        
+			@Override
 
-        jbClose = new JButton("닫기");
+			public boolean isCellEditable(int row, int column) {
 
-        
+				return false;
 
-        dtmComplet=new DefaultTableModel(data, columnNames){
+			}// isCellEditable
 
-            //편집불가
+		};
 
-            @Override
+		jtComplet = new JTable(dtmComplet) {
 
-            public boolean isCellEditable(int row, int column) {
+			// 컬럼에 이미지를 넣기위한 method를 Override
 
-                return false;
+			@Override
 
-            }//isCellEditable
+			public Class<?> getColumnClass(int column) {
 
-            
+				return getValueAt(0, column).getClass();
 
-        };
+			}// getColumnClass
 
-        
+		};
 
-        jtComplet=new JTable(dtmComplet){
+		// DefaultTableCellHeaderRenderer 생성 (가운데 정렬을 위한)
+		DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
 
-            //컬럼에 이미지를 넣기위한 method를 Override
+		// DefaultTableCellHeaderRenderer의 정렬을 가운데 정렬로 지정
+		dtcr.setHorizontalAlignment(SwingConstants.CENTER);
 
-            @Override
+		// 정렬할 테이블의 ColumnModel을 가져옴
+		TableColumnModel tcm = jtComplet.getColumnModel();
 
-            public Class<?> getColumnClass(int column) {
+		// 반복문을 이용하여 테이블을 가운데 정렬로 지정
+		for (int i = 0; i < tcm.getColumnCount(); i++) {
+			tcm.getColumn(i).setCellRenderer(dtcr);
+		}
 
-                return getValueAt(0, column).getClass();
+		// 컬럼을 선택하여 움직이지 못하도록 설정
 
-            }//getColumnClass
+		jtComplet.getTableHeader().setReorderingAllowed(false);
 
-            
+		// 컬럼의 높이 설정
 
-        };
+		jtComplet.setRowHeight(40);
 
-        //컬럼을 선택하여 움직이지 못하도록 설정
+		// 컬럼의 넓이 설정
 
-        jtComplet.getTableHeader().setReorderingAllowed(false);
+		jtComplet.getColumnModel().getColumn(0).setPreferredWidth(10);
+		jtComplet.getColumnModel().getColumn(1).setPreferredWidth(100);
+		jtComplet.getColumnModel().getColumn(2).setPreferredWidth(150);
+		jtComplet.getColumnModel().getColumn(3).setPreferredWidth(80);
+		jtComplet.getColumnModel().getColumn(4).setPreferredWidth(60);
+		JScrollPane jspComplet = new JScrollPane(jtComplet);
+		jspComplet.setBounds(0, 0, 800, 500);
+		jbClose.setBounds(700, 505, 60, 25);
+		JPanel jpComplete = new JPanel();
+		jpComplete.add(jspComplet);
+		jpComplete.add(jbClose);
 
-        //컬럼의 높이 설정
+		// 수동배치
 
-        jtComplet.setRowHeight(40);
+		jpComplete.setLayout(null);
 
-        //컬럼의 넓이 설정
+		////////////////////////////////////// 구매대기 목록 탭
+		////////////////////////////////////// /////////////////////////////////////////
 
-        jtComplet.getColumnModel().getColumn(0).setPreferredWidth(10);
+		String[] columnWNames = { "번호", "판매등록자", "제품코드", "제품명", "신청일" };
 
-        jtComplet.getColumnModel().getColumn(1).setPreferredWidth(100);
+		String[][] wdata = {};
 
-        jtComplet.getColumnModel().getColumn(2).setPreferredWidth(150);
+		jbWClose = new JButton("닫기");
+		dtmWait = new DefaultTableModel(wdata, columnWNames) {
+			// 편집불가
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}// isCellEditable
+		};
+		jtWait = new JTable(dtmWait) {
 
-        jtComplet.getColumnModel().getColumn(3).setPreferredWidth(80);
+			// 컬럼에 이미지를 넣기위한 method를 Override
+			@Override
+			public Class<?> getColumnClass(int column) {
+				return getValueAt(0, column).getClass();
+			}// getColumnClass
+		};
+		// DefaultTableCellHeaderRenderer 생성 (가운데 정렬을 위한)
+		DefaultTableCellRenderer dtcr1 = new DefaultTableCellRenderer();
 
-        jtComplet.getColumnModel().getColumn(4).setPreferredWidth(60);
+		// DefaultTableCellHeaderRenderer의 정렬을 가운데 정렬로 지정
+		dtcr1.setHorizontalAlignment(SwingConstants.CENTER);
 
- 
+		// 정렬할 테이블의 ColumnModel을 가져옴
+		TableColumnModel tcm1 = jtWait.getColumnModel();
 
-        
+		// 반복문을 이용하여 테이블을 가운데 정렬로 지정
+		for (int i = 0; i < tcm1.getColumnCount(); i++) {
+			tcm1.getColumn(i).setCellRenderer(dtcr1);
+		}
+		// 컬럼을 선택하여 움직이지 못하도록 설정
 
-        JScrollPane jspComplet = new JScrollPane(jtComplet);
+		jtWait.getTableHeader().setReorderingAllowed(false);
 
-        
+		// 컬럼의 높이 설정
 
-        jspComplet.setBounds(0, 0, 800, 500);
+		jtWait.setRowHeight(40);
 
-        jbClose.setBounds(700, 505, 60, 25);
+		// 컬럼의 넓이 설정
 
-        
+		jtWait.getColumnModel().getColumn(0).setPreferredWidth(10);
+		jtWait.getColumnModel().getColumn(1).setPreferredWidth(100);
+		jtWait.getColumnModel().getColumn(2).setPreferredWidth(150);
+		jtWait.getColumnModel().getColumn(3).setPreferredWidth(80);
+		jtWait.getColumnModel().getColumn(4).setPreferredWidth(60);
 
-        JPanel jpComplete = new JPanel();
+		JScrollPane jspWait = new JScrollPane(jtWait);
 
-        jpComplete.add(jspComplet);
+		jspWait.setBounds(0, 0, 800, 500);
 
-        jpComplete.add(jbClose);
+		jbWClose.setBounds(700, 505, 60, 25);
 
-        //수동배치
+		JPanel jpWait = new JPanel();
 
-        jpComplete.setLayout(null);
+		jpWait.add(jspWait);
 
- 
+		jpWait.add(jbWClose);
 
-    ////////////////////////////////////// 구매대기 목록 탭 /////////////////////////////////////////
+		// 수동배치
 
-        String[] columnWNames={"번호","판매등록자","제품코드","제품명","신청일"};
+		jpWait.setLayout(null);
 
-        String[][] wdata = {};
+		///////////////////////////////////////////////////////////////////////////////////////////////
 
-        
+		jtpTab = new JTabbedPane();
 
-        jbWClose = new JButton("닫기");
+		jtpTab.add("구매완료 목록", jpComplete);
 
-        
+		jtpTab.addTab("구매대기 목록", jpWait);
 
- 
+		jtpTab.setSelectedIndex(tabNum);
 
-        dtmWait=new DefaultTableModel(wdata, columnWNames){
+		add("Center", jtpTab);
 
-            //편집불가
+		jpComplete.setBackground(Color.WHITE);
 
-            @Override
+		jpWait.setBackground(Color.WHITE);
 
-            public boolean isCellEditable(int row, int column) {
+		// 이벤트 추가
 
-                return false;
+		BuyListViewEvt blve = new BuyListViewEvt(this);
 
-            }//isCellEditable
+		jbClose.addActionListener(blve);
 
-            
+		jbWClose.addActionListener(blve);
 
-        };
+		jtWait.addMouseListener(blve);
 
-        
+		addWindowListener(new WindowAdapter() {
 
-        jtWait=new JTable(dtmWait){
+			@Override
 
-            //컬럼에 이미지를 넣기위한 method를 Override
+			public void windowClosing(WindowEvent e) {
 
-            @Override
+				dispose();
 
-            public Class<?> getColumnClass(int column) {
+			}// windowClosing
 
-                return getValueAt(0, column).getClass();
+		});
 
-            }//getColumnClass
+		setBounds(100, 100, 800, 600);
 
-            
+		// 가시화
 
-        };
+		setVisible(true);
 
-        //컬럼을 선택하여 움직이지 못하도록 설정
+		// 창 크기 고정
 
-        jtWait.getTableHeader().setReorderingAllowed(false);
+		setResizable(false);
 
-        //컬럼의 높이 설정
+	}// MenuForm
 
-        jtWait.setRowHeight(40);
+	public JTable getJtComplet() {
 
-        //컬럼의 넓이 설정
+		return jtComplet;
 
-        jtWait.getColumnModel().getColumn(0).setPreferredWidth(10);
+	}
 
-        jtWait.getColumnModel().getColumn(1).setPreferredWidth(100);
+	public JTable getJtWait() {
 
-        jtWait.getColumnModel().getColumn(2).setPreferredWidth(150);
+		return jtWait;
 
-        jtWait.getColumnModel().getColumn(3).setPreferredWidth(80);
+	}
 
-        jtWait.getColumnModel().getColumn(4).setPreferredWidth(60);
+	public DefaultTableModel getDtmComplet() {
 
-        
+		return dtmComplet;
 
-        JScrollPane jspWait = new JScrollPane(jtWait);
+	}
 
-        
+	public DefaultTableModel getDtmWait() {
 
-        jspWait.setBounds(0, 0, 800, 500);
+		return dtmWait;
 
-        jbWClose.setBounds(700, 505, 60, 25);
+	}
 
-        
+	public JTabbedPane getJtpTab() {
 
-        
+		return jtpTab;
 
-        JPanel jpWait = new JPanel();
+	}
 
-        jpWait.add(jspWait);
+	public JButton getJbClose() {
 
-        jpWait.add(jbWClose);
+		return jbClose;
 
-        //수동배치
+	}
 
-        jpWait.setLayout(null);
+	public JButton getJbWClose() {
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////
+		return jbWClose;
 
-        jtpTab=new JTabbedPane();
+	}
 
-        jtpTab.add("구매완료 목록", jpComplete);
-
-        jtpTab.addTab("구매대기 목록", jpWait);
-
-        jtpTab.setSelectedIndex(tabNum);
-
-        
-
-        add("Center",jtpTab);
-
- 
-
-        jpComplete.setBackground(Color.WHITE);
-
-        jpWait.setBackground(Color.WHITE);
-
-        
-
-        //이벤트 추가
-
-        BuyListViewEvt blve = new BuyListViewEvt(this);
-
-        jbClose.addActionListener(blve);
-
-        jbWClose.addActionListener(blve);
-
-        jtWait.addMouseListener(blve);
-
-        
-
-        addWindowListener(new WindowAdapter(){
-
- 
-
-            @Override
-
-            public void windowClosing(WindowEvent e) {
-
-                dispose();
-
-            }//windowClosing
-
-            
-
-        });
-
-        
-
-        setBounds(100,100,800,600);
-
-        //가시화
-
-        setVisible(true);
-
-        //창 크기 고정
-
-        setResizable(false);
-
-    }//MenuForm
-
- 
-
- 
-
-    public JTable getJtComplet() {
-
-        return jtComplet;
-
-    }
-
- 
-
- 
-
-    public JTable getJtWait() {
-
-        return jtWait;
-
-    }
-
- 
-
- 
-
-    public DefaultTableModel getDtmComplet() {
-
-        return dtmComplet;
-
-    }
-
- 
-
- 
-
-    public DefaultTableModel getDtmWait() {
-
-        return dtmWait;
-
-    }
-
- 
-
- 
-
-    public JTabbedPane getJtpTab() {
-
-        return jtpTab;
-
-    }
-
- 
-
- 
-
-    public JButton getJbClose() {
-
-        return jbClose;
-
-    }
-
- 
-
- 
-
-    public JButton getJbWClose() {
-
-        return jbWClose;
-
-    }
-
- 
-
- 
-
-    public static void main(String[] args) {
-
-        new BuyListView(0);
-
-    }//main
-
-    
-
-}//class
-
- 
-
- 
-
- 
-
+}// class

@@ -227,7 +227,7 @@ public class MarketDAO {
 
 			con = getConnection();
 
-			String selectItem = "select item_name, item_code, item_info, hiredate, item_image, price from product where sold_flag='n'";
+			String selectItem = "select item_name, item_code, item_info, to_char(hiredate, 'yy-mm-dd hh:mi:ss') hiredate, item_image, price from product where sold_flag='n'";
 
 			if (typeCode != 0) {
 
@@ -909,7 +909,7 @@ public class MarketDAO {
 
 			con = getConnection();
 
-			String selectMsg = "select msg_num, send_id, item_code, send_date, msg_check_flag from send_msg where id=? order by desc send_date";
+			String selectMsg = "select msg_num, send_id, item_code, send_date, msg_check_flag from send_msg where id=? order by send_date desc";
 
 			pstmt = con.prepareStatement(selectMsg);
 
@@ -989,7 +989,7 @@ public class MarketDAO {
 
 			con = getConnection();
 
-			String selectMsg = "select msg_num, send_id, item_code, send_date, msg_check_flag from receive_msg where id=? order by msg_check_flag, send_date";
+			String selectMsg = "select msg_num, send_id, item_code, send_date, msg_check_flag from receive_msg where id=? order by msg_check_flag, send_date desc";
 
 			pstmt = con.prepareStatement(selectMsg);
 

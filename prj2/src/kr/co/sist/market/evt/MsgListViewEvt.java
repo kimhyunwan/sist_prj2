@@ -170,7 +170,7 @@ public class MsgListViewEvt extends MouseAdapter implements ActionListener {
             } catch (SQLException e) {
                e.printStackTrace();
             }//end catch
-            new MsgReadView(mvvo);
+            new MsgReadView(mvvo, mlv);
       
          //더블 클릭한 창이 받은 메세지 창일 경우   
          }else if(chkNum==2){//recieveMsg
@@ -195,7 +195,7 @@ public class MsgListViewEvt extends MouseAdapter implements ActionListener {
                e.printStackTrace();
             }//end catch
             
-            new MsgReadView(mvvo);
+            new MsgReadView(mvvo, mlv);
             
          }//end else
       }//end if

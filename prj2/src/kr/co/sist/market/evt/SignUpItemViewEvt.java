@@ -18,15 +18,19 @@ import javax.swing.JOptionPane;
 
 import kr.co.sist.market.dao.CustomerDAO;
 import kr.co.sist.market.dao.MarketDAO;
+import kr.co.sist.market.view.MainView;
 import kr.co.sist.market.view.SignUpItemView;
 import kr.co.sist.market.vo.ItemInfoVO;
 
 public class SignUpItemViewEvt extends WindowAdapter implements ActionListener {
 	private SignUpItemView suiv;
 	private MarketDAO md;
+	private MainView mv;
+	private LoginViewEvt lve;
 
-	public SignUpItemViewEvt(SignUpItemView suiv) {
+	public SignUpItemViewEvt(SignUpItemView suiv, MainView mv) {
 		this.suiv = suiv;
+		this.mv=mv;
 		md=MarketDAO.getInstance();
 		
 		DefaultComboBoxModel<String> dcbm=suiv.getDcbmTp();
@@ -70,12 +74,12 @@ public class SignUpItemViewEvt extends WindowAdapter implements ActionListener {
 			int price = Integer.parseInt(suiv.getJtfPrice().getText().trim());
 			String itemInfo = suiv.getJtaItemInfo().getText().trim();
 
-			if (!file.getParent().equals("C:/dev/workspace/prj2/src/kr/co/sist/market/img/market")) {
+			if (!file.getParent().equals(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/market")) {
 				try {
 					// 원본 파일 복붙
 					FileInputStream fis = new FileInputStream(file);
 					FileOutputStream fos = new FileOutputStream(
-							"C:/dev/workspace/prj2/src/kr/co/sist/market/img/market" + file.getName());
+							System.getProperty("user.dir")+"/src/kr/co/sist/market/img/market/" + file.getName());
 
 					byte[] temp = new byte[512];
 
@@ -109,9 +113,13 @@ public class SignUpItemViewEvt extends WindowAdapter implements ActionListener {
 			iiv.setPrice(price);
 			iiv.setImage(tempFile);
 			iiv.setItemInfo(itemInfo);
+			iiv.setId(lve.id);
 
 			cd.insertItem(iiv);
 			JOptionPane.showMessageDialog(suiv, "판매 물품이 등록되었습니다.");
+			suiv.dispose();
+			MainViewEvt mve=new MainViewEvt(mv);
+			mve.setItem(0);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch(NumberFormatException nfe){

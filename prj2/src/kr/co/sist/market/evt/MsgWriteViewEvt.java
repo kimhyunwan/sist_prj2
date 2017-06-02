@@ -24,9 +24,11 @@ public class MsgWriteViewEvt extends WindowAdapter implements ActionListener {
    private MsgWriteView mwv;
    private LoginViewEvt lve;
    private CustomerDAO cd;
+   private MsgListView mlv;
    
    public MsgWriteViewEvt(MsgWriteView mwv) {
       this.mwv=mwv;
+      this.mlv=mlv;
    }//MsgWriteViewEvt
    
    private void SendMsg(){

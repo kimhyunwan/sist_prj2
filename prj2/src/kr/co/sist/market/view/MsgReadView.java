@@ -25,11 +25,14 @@ public class MsgReadView extends JFrame {
    private MsgListVO mlvo;
    private MsgViewVO mvvo;
    private MsgListViewEvt mlve;
+   private MsgListView mlv;
    
-   public MsgReadView(MsgViewVO mvvo) {
+   public MsgReadView(MsgViewVO mvvo, MsgListView mlv) {
       super("나에게 온 메세지");
-      mv= new MsgVO();
       this.mvvo=mvvo;
+      this.mlv=mlv;
+      mv= new MsgVO();
+      
       String msg=mvvo.getMsg();
       String id=mvvo.getSendId();
       String title=mlve.msg_title;
@@ -61,7 +64,7 @@ public class MsgReadView extends JFrame {
       
       
    //이벤트처리
-      MsgReadViewEvt mrve=new MsgReadViewEvt(this);
+      MsgReadViewEvt mrve=new MsgReadViewEvt(this, mlv);
       jbOk.addActionListener(mrve);
       jbSend.addActionListener(mrve);
       

@@ -55,7 +55,7 @@ public class SignUpItemView extends JFrame {
 
     
 
-    public SignUpItemView() {
+    public SignUpItemView(MainView mv) {
 
         super("판매제품 등록");
 
@@ -197,7 +197,7 @@ public class SignUpItemView extends JFrame {
 
             // 이벤트 추가
 
-            SignUpItemViewEvt blve = new SignUpItemViewEvt(this);
+            SignUpItemViewEvt blve = new SignUpItemViewEvt(this, mv);
 
             jbCancel.addActionListener(blve);
 
@@ -315,13 +315,6 @@ public class SignUpItemView extends JFrame {
 
     }
 
- 
-
-    public static void main(String[] args) {
-
-        new SignUpItemView();
-
-    }// main
 
  
 

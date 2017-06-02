@@ -41,7 +41,7 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 		setItem(0);
 	}//MainViewEvtEvt
 	
-	private void setItem(int item){
+	public void setItem(int item){
 		DefaultTableModel dtmItem = mv.getDtmItem();
 		try {
 			List<ItemListVO> lstItem = m_dao.selectItemList(item);
@@ -127,7 +127,7 @@ public class MainViewEvt extends MouseAdapter implements ActionListener {
 		}//end if
 		
 		if(ae.getSource()==mv.getJbSignUp()){
-			new SignUpItemView();
+			new SignUpItemView(mv);
 		}
 		if(ae.getSource()==mv.getJbMemberLeave()){
 			int flag =JOptionPane.showConfirmDialog(mv, "회원탈퇴를 하시겠습니까?");

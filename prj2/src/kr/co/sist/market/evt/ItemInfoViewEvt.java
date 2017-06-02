@@ -47,7 +47,6 @@ public class ItemInfoViewEvt extends WindowAdapter implements ActionListener {
 			String id=lve.id;
 			String itemCode=iiv.getJtfItemcode().getText().trim();
 			int price=Integer.parseInt(iiv.getJtfPrice().getText().trim());
-			System.out.println(id+" "+itemCode+" "+price);
 			rv=new ReqVO(id, itemCode, price);
 			/////SellerInfoVO///////
 			//String id, info, img

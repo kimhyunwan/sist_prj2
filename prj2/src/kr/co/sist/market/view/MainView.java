@@ -90,7 +90,7 @@ public class MainView extends JFrame {
 		 
 		// 반복문을 이용하여 테이블을 가운데 정렬로 지정
 		for (int i = 0; i < tcm.getColumnCount(); i++) {
-		tcm.getColumn(i).setCellRenderer(dtcr);
+			tcm.getColumn(i).setCellRenderer(dtcr);
 		}
 		//컬럼을 선택하여 움직이지 못하도록 설정
 		jtItemList.getTableHeader().setReorderingAllowed(false);
@@ -159,10 +159,10 @@ public class MainView extends JFrame {
 		jlPurchaseRst.setBounds(350, 110, 150, 20);
 		jlNotReadMsgRst.setBounds(350, 150, 150, 20);
 		jbMyInfoCh.setBounds(530, 30,130 , 20);
-		jbSellList.setBounds(30, 250,130 , 20);
-		jbBuyList.setBounds(200, 250,130 , 20);
-		jbSignUp.setBounds(30, 290,130 , 20);
-		jbMsgList.setBounds(200, 290,130 , 20);
+		jbSellList.setBounds(130, 250,200 , 50);
+		jbBuyList.setBounds(400, 250,200 , 50);
+		jbSignUp.setBounds(130, 350,200 , 50);
+		jbMsgList.setBounds(400, 350,200 , 50);
 		jbMemberLeave.setBounds(640, 500,130 , 20);
 		backgroundImg.setBounds(0, 0, 790, 600);
 		
