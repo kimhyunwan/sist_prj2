@@ -94,10 +94,10 @@ public class MyInfoChViewEvt extends WindowAdapter implements ActionListener {
 			
 			cd.updateMember(cv);
 			JOptionPane.showMessageDialog(micv, "회원정보가 수정되었습니다.");
+			micv.dispose();
 		} catch(SQLException se){
 			JOptionPane.showMessageDialog(micv, "수정형식이 올바르지 않습니다.");
 		}
-		
 	}//changeInfo
 	
 	private void addImg(){

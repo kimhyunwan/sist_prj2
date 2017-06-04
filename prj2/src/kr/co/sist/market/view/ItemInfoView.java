@@ -2,6 +2,7 @@ package kr.co.sist.market.view;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -11,6 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import kr.co.sist.market.dao.MarketDAO;
 import kr.co.sist.market.evt.ItemInfoViewEvt;
 import kr.co.sist.market.vo.ItemListVO;
 
@@ -20,11 +22,20 @@ public class ItemInfoView extends JFrame {
    private JButton jbSellerInfo,jbBuyReq,jbCancel;
    private JTextArea jtProExplain;
    private ImageIcon pro;
+   private MarketDAO m_dao;
+   private String imgName="";
+   
    public ItemInfoView( ItemListVO iv){
       super(iv.getItemName());
 		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/bg_pink.jpg");
 		JLabel backgroundImg = new JLabel(icon);
-      pro = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/default.jpg");
+			m_dao=MarketDAO.getInstance();
+			try {
+				imgName = m_dao.selectItemImg(iv.getItemCode());
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+      pro = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/market/"+imgName);
       JLabel itemImg = new JLabel(pro);
       JLabel jlItemName = new JLabel("惑前疙");
       JLabel jlItemCode = new JLabel("力前内靛");

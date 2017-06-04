@@ -13,7 +13,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import kr.co.sist.market.dao.CustomerDAO;
 import kr.co.sist.market.dao.MarketDAO;
+import kr.co.sist.market.evt.LoginViewEvt;
 import kr.co.sist.market.evt.SellerInfoViewEvt;
 import kr.co.sist.market.vo.ReqVO;
 import kr.co.sist.market.vo.SellerInfoVO;
@@ -25,12 +27,17 @@ public class SellerInfoView extends JFrame {
 	private JTextField jtfId;
 	private String itemCode;
 	private int price;
+	private CustomerDAO c_dao;
+	private LoginViewEvt lve;
 	
 	public SellerInfoView(SellerInfoVO seller, ReqVO rv) throws SQLException{
 		super("판매자 정보");
 		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/bg_pink.jpg");
 		JLabel backgroundImg = new JLabel(icon);
-		ImageIcon itemImg = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/default.jpg");
+		c_dao=CustomerDAO.getInstance();
+		
+	   String imgName=c_dao.selectImgName(seller.getId());
+		ImageIcon itemImg = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/customer/"+imgName);
 		JLabel itemImage = new JLabel(itemImg);
 		JLabel jlId = new JLabel("아이디");
 		JLabel jlIntro = new JLabel("자기소개");
