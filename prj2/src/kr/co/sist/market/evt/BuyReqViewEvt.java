@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import kr.co.sist.market.dao.CustomerDAO;
 import kr.co.sist.market.view.BuyReqView;
 import kr.co.sist.market.vo.PhoneVO;
@@ -29,6 +31,7 @@ public class BuyReqViewEvt extends WindowAdapter implements ActionListener {
 			cd.insertPhone(phv);
 			
 		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(brv, "구매신청 정보를 모두 입력해주세요.");
 			e.printStackTrace();
 		}
 	}//setPhone
@@ -42,6 +45,8 @@ public class BuyReqViewEvt extends WindowAdapter implements ActionListener {
 		if(ae.getSource()==brv.getJbBuyReq()){
 			//구매 신청버튼을 눌렀을 때 setItem()함수 호출
 			setPhone();
+			JOptionPane.showMessageDialog(brv, "구매신청이 완료되었습니다.");
+			brv.dispose();
 		}
 	}
 	

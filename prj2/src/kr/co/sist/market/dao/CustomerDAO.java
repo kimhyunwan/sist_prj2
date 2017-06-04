@@ -117,7 +117,8 @@ public class CustomerDAO {
 
         try {
 
-                File file=new File(System.getProperty("user.dir")+"/src/kr/co/sist/market/dao/market.properties");
+            // File file=new File(System.getProperty("user.dir")+"/src/kr/co/sist/market/dao/market.properties");
+            File file = new File("C:/Temp/sist_prj2/prj2/src/kr/co/sist/market/dao/market.properties");
 
                 if(file.exists()){ 
 
@@ -217,54 +218,32 @@ public class CustomerDAO {
 
      */
 
-    public void deleteCustomer(String id,String pass) throws SQLException{
+    public int deleteCustomer(String id,String pass) throws SQLException{
+        Connection con=null;
 
-        Connection con = null;
-
-        PreparedStatement pstmt = null;
-
-        
+        PreparedStatement pstmt=null;
+        int result=0;
 
         try{
-
             con = getConnection();
-
-            
 
             String deleteCustomer="delete from member where  id=? and pass=? ";
 
             pstmt=con.prepareStatement(deleteCustomer);
-
-            
-
             pstmt.setString(1, id);
-
             pstmt.setString(2, pass);
-
             
-
-            pstmt.executeUpdate();
-
-            
+            result=pstmt.executeUpdate();
 
         }finally{
-
             if (pstmt != null) {
-
                 pstmt.close();
-
             } // end if
-
- 
-
             if (con != null) {
-
                 con.close();
-
             } // end if
-
         }
-
+        return result;
     }
 
 /*    public static void main(String[] args){
@@ -2071,7 +2050,7 @@ public class CustomerDAO {
 
             con=getConnection();
 
-            String selectItem="select item_name, item_code, item_info, hiredate, item_image, price from product where id=?";
+            String selectItem="select item_name, item_code, item_info, hiredate, item_image, price from product where id=? and sold_flag='n'";
 
             pstmt=con.prepareStatement(selectItem);
 
@@ -2141,7 +2120,59 @@ public class CustomerDAO {
 
     }//selectMyItemList
 
-    
+    /**
+
+     * id에 해당하는 이미지명을 불러오는 일
+     * @param id
+     * @return String
+     */
+
+    public String selectImgName(String id) throws SQLException{
+
+        String result="";
+
+        Connection con=null;
+
+        PreparedStatement pstmt=null;
+
+        ResultSet rs=null;
+
+        
+
+        try{
+            con=getConnection();
+
+            String selectImgName="select image from member where id=?";
+
+            pstmt=con.prepareStatement(selectImgName);
+            pstmt.setString(1, id);
+            rs=pstmt.executeQuery();
+
+
+            if(rs.next()){
+               result=rs.getString("Image");
+            }
+            
+
+        }finally{
+
+            if( rs != null) {
+                rs.close(); 
+            }
+            if( pstmt != null) {
+                pstmt.close(); 
+            }
+
+            if( con != null) { 
+                con.close(); 
+            }
+        }
+
+        
+
+        return result;
+
+    }//selectImgName
 
 }//class
 

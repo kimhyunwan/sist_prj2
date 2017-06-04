@@ -304,7 +304,7 @@ public class JoinViewEvt extends WindowAdapter implements ActionListener {
             cd.insertMember(mjv);
 
             JOptionPane.showMessageDialog(jv, "가입을 축하합니다.");
-
+            jv.dispose();
         } catch (SQLException e) {
 
             JOptionPane.showMessageDialog(jv, "입력 형식이 올바르지 않습니다.");

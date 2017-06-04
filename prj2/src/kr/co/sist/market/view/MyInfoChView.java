@@ -38,7 +38,9 @@ public class MyInfoChView extends JFrame {
 		this.cd=cd;
 		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/bg_pink.jpg");
 		JLabel backgroundImg = new JLabel(icon);
-		ImageIcon itemImg = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/default.jpg");
+		String imgName=cd.selectImgName(lve.id);
+		
+		ImageIcon itemImg = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/customer/"+imgName);
 		jlItemImage = new JLabel(itemImg);
 		JLabel jlName = new JLabel("이름");
 		JLabel jlPass = new JLabel("비밀번호");
