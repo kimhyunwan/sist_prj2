@@ -176,8 +176,7 @@ public class CustomerDAO {
 
 
 	/**
-	 * 로그인 성공여부를 결정하는 일
-	 * 아이디가 존재하고, 그 아이디에 해당하는 비밀번호와 일치하면 로그인 성공
+	 * 현재 아이디가 중복인지 확인하는 method
 	 * @return boolean
 	 * @param LoginVO
 	 */
