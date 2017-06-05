@@ -41,7 +41,6 @@ public class MainView extends JFrame {
 	private JTabbedPane jtpTab;
 	private JComboBox<String> jcbType;
 	private JButton jbType, jbMyInfoCh, jbSellList, jbBuyList, jbSignUp, jbMsgList, jbMemberLeave;
-	private CustomerDAO cd;
 	private LoginViewEvt lve;
 	private JLabel jlIdRst, jlSellRst, jlPurchaseRst, jlNotReadMsgRst, lblInfo;
 

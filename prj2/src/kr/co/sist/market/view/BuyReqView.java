@@ -12,7 +12,6 @@ import javax.swing.JTextField;
 
 import kr.co.sist.market.evt.BuyReqViewEvt;
 import kr.co.sist.market.evt.LoginViewEvt;
-import kr.co.sist.market.vo.PhoneVO;
 import kr.co.sist.market.vo.ReqVO;
 
 @SuppressWarnings("serial")
