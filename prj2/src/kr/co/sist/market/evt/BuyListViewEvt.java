@@ -54,7 +54,6 @@ public class BuyListViewEvt extends MouseAdapter implements ActionListener {
 	public void setBuyListComp() {
 
 		try {
-
 			String id = lve.id; // 진데이터 ID
 
 			// String id="hyunwan"; //가데이터 ID
