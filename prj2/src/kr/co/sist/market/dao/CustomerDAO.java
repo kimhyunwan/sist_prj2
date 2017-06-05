@@ -41,7 +41,6 @@ import kr.co.sist.market.vo.MemberInfoVO;
 
 import kr.co.sist.market.vo.MemberJoinVO;
 
-
 import kr.co.sist.market.vo.MsgVO;
 
 import kr.co.sist.market.vo.MsgViewVO;
@@ -49,7 +48,6 @@ import kr.co.sist.market.vo.MsgViewVO;
 import kr.co.sist.market.vo.PassVO;
 
 import kr.co.sist.market.vo.PhoneVO;
-
 
 /**
  * 
@@ -95,7 +93,7 @@ public class CustomerDAO {
 
 		try {
 
-			File file=new File(System.getProperty("user.dir")+"/src/kr/co/sist/market/dao/market.properties");
+			File file = new File(System.getProperty("user.dir") + "/src/kr/co/sist/market/dao/market.properties");
 
 			if (file.exists()) {
 
@@ -498,34 +496,6 @@ public class CustomerDAO {
 
 	}// selectPassQu
 
-	/////////////////// selectPassQu()단위테스트(완료)/////////////////////////
-
-	// public static void main(String[] args){
-
-	// try {
-
-	// //////////////////////////IdVO////////////////////////
-
-	// //String name, ssn;
-
-	// List<String> list=new ArrayList<String>();
-
-	// CustomerDAO cd=CustomerDAO.getInstance();
-
-	// list=cd.selectPassQu();
-
-	// System.out.println(list);
-
-	// } catch (SQLException e) {
-
-	// e.printStackTrace();
-
-	// }//end catch
-
-	// }//main
-
-	///////////////////////////////////////////////////////////////////////////
-
 	/**
 	 * => ItemInfoVO에 id를 추가하기
 	 * 
@@ -595,38 +565,6 @@ public class CustomerDAO {
 		} // end try
 
 	}// insertItem
-
-	// //////////////////////////////(완료)insertItem()메소드
-	// 단위테스트////////////////////////////// id받아오는 부분이 약간 이상한듯? VO수정해야하나?
-
-	// public static void main(String[] args){
-
-	// try {
-
-	// //////////////////////////ItemInfoVO////////////////////////
-
-	// //String itemName, itemType, itemInfo, hiredate, image;
-
-	// //int price;
-
-	// CustomerDAO cd=CustomerDAO.getInstance();
-
-	// ItemInfoVO iiv=new ItemInfoVO("라이츄인형", "110v에 충전하세요", "fkdlcb.jpg",
-	// "wkdwogns", 3, 30000);
-
-	// cd.insertItem(iiv);
-
-	// System.out.println("메뉴 추가성공!!");
-
-	// } catch (SQLException e) {
-
-	// e.printStackTrace();
-
-	// }//end catch
-
-	// }//main
-
-	// /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * 
@@ -710,31 +648,6 @@ public class CustomerDAO {
 
 	}// selectPreMember
 
-	// //////////////////////////(테스트완료)selectPreMember()메소드
-	// 단위테스트/////////////////////////////////
-
-	// public static void main(String[] args){
-
-	// try {
-
-	// MemberInfoVO miv=new MemberInfoVO();
-
-	// CustomerDAO cd=CustomerDAO.getInstance();
-
-	// miv=cd.selectPreMember("hyunwan");
-
-	// System.out.println(miv);
-
-	// } catch (SQLException e) {
-
-	// e.printStackTrace();
-
-	// }//end catch
-
-	// }//main
-
-	// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 	/**
 	 * 
 	 * 입력한 회원정보로 회원테이블에 추가하는 일
@@ -817,39 +730,6 @@ public class CustomerDAO {
 
 	}// insertMember
 
-	// ////////////////////////////////(테스트완료)insertMember()메소드
-	// 단위테스트/////////////////////////////////////
-
-	// public static void main(String[] args){
-
-	// try {
-
-	// ///////////////////////MemberJoinVO//////////////////////
-
-	// // String id, ssn, name, pass, passAnswer, image, info
-
-	// // int quNum
-
-	// CustomerDAO cd=CustomerDAO.getInstance();
-
-	// MemberJoinVO mjv=new
-	// MemberJoinVO("dongha","9205061234567","우동하","dongha","의정부","dongha.jpg","안녕하세요
-	// 2조 프로젝트의 기둥 우동하입니다",2);
-
-	// cd.insertMember(mjv);
-
-	// System.out.println("메뉴 추가성공!!");
-
-	// } catch (SQLException e) {
-
-	// e.printStackTrace();
-
-	// }//end catch
-
-	// }//main
-
-	// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 	/**
 	 * 
 	 * 회원의 정보를 수정하는 일
@@ -924,39 +804,6 @@ public class CustomerDAO {
 
 	}// updateMember
 
-	// ////////////////////////////////(테스트완료)updateMember()메소드
-	// 단위테스트///////////////////////////////
-
-	// public static void main(String[] args){
-
-	// try {
-
-	// /////////////MemberInfoVO////////////////
-
-	// //String id, pass, passAnswer, image, info
-
-	// //int quNum
-
-	// CustomerDAO cd=CustomerDAO.getInstance();
-
-	// MemberInfoVO miv=new
-	// MemberInfoVO("hyunwan","tiger","피카츄","hyunwan.jpg","김현완입니다!!",3); // id,
-	// pass, passAnswer, image, info, quNum
-
-	// cd.updateMember(miv);
-
-	// System.out.println("회원정보 업데이트 성공!!");
-
-	// } catch (SQLException e) {
-
-	// e.printStackTrace();
-
-	// }//end catch
-
-	// }//main
-
-	// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 	/**
 	 * 
 	 * 입력한 메세지를 보낸메세지함에 추가하는 일
@@ -1017,36 +864,6 @@ public class CustomerDAO {
 
 	}// insertSendMsg
 
-	//////////////////////////////// (완료)insertSendMsg()메소드
-	//////////////////////////////// 단위테스트///////////////////////////////
-
-	// public static void main(String[] args){
-
-	// try {
-
-	// //////////////////////////MsgVO////////////////////////
-
-	// //String sendId, msg, id, itemCode;
-
-	// CustomerDAO cd=CustomerDAO.getInstance();
-
-	// MsgVO mv=new MsgVO("dongha","ㅋㅋㅋㅋㅋㅋㅋㅋㅋ","hyunwan","HY_1705240024");
-	// //sendId, msg, id, itemCode
-
-	// cd.insertSendMsg(mv);
-
-	// System.out.println("메세지 추가성공!!");
-
-	// } catch (SQLException e) {
-
-	// e.printStackTrace();
-
-	// }//end catch
-
-	// }//main
-
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 	/**
 	 * 
 	 * 메세지정보를 받아 메시지테이블에 추가하는 일
@@ -1106,36 +923,6 @@ public class CustomerDAO {
 		} // end try
 
 	}// insertGetMsg
-
-	////////////////////////////// (완료)insertSendMsg()메소드
-	////////////////////////////// 단위테스트///////////////////////////////
-
-	// public static void main(String[] args){
-
-	// try {
-
-	// //////////////////////////MsgVO////////////////////////
-
-	// //String sendId, msg, id, itemCode;
-
-	// CustomerDAO cd=CustomerDAO.getInstance();
-
-	// MsgVO mv=new MsgVO("dongha","ㅋㅋㅋㅋㅋㅋㅋㅋㅋ","hyunwan","HY_1705240024");
-	// //sendId, msg, id, itemCode
-
-	// cd.insertGetMsg(mv);
-
-	// System.out.println("메세지 추가성공!!");
-
-	// } catch (SQLException e) {
-
-	// e.printStackTrace();
-
-	// }//end catch
-
-	// }//main
-
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * 
@@ -1212,37 +999,6 @@ public class CustomerDAO {
 		return result;
 
 	}// selectMyId
-
-	// ///////////////////(테스트완료)selectMyId(IdVO
-	// iv)단위테스트/////////////////////////
-
-	// public static void main(String[] args){
-
-	// try {
-
-	// //////////////////////////IdVO////////////////////////
-
-	// //String name, ssn;
-
-	// String result="";
-
-	// CustomerDAO cd=CustomerDAO.getInstance();
-
-	// IdVO iv=new IdVO("김현완","9106071234567"); //name, ssn
-
-	// result=cd.selectMyId(iv);
-
-	// System.out.println("ID : "+result);
-
-	// } catch (SQLException e) {
-
-	// e.printStackTrace();
-
-	// }//end catch
-
-	// }//main
-
-	// ////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * 
@@ -1333,37 +1089,6 @@ public class CustomerDAO {
 
 	}// selectMyPass
 
-	// ///////////////////(테스트완료)selectMyPass(PassVO
-	// pv)단위테스트/////////////////////////
-
-	// public static void main(String[] args){
-
-	// try {
-
-	// //////////////////////////PassVO////////////////////////
-
-	// //String name, ssn, id, passAnswer;
-
-	// //int quNum;
-
-	// String result="";
-
-	// CustomerDAO cd=CustomerDAO.getInstance();
-
-	// PassVO pv=new PassVO("김현완","9106071234567","hyunwan","부산",1);
-
-	// result=cd.selectMyPass(pv);
-
-	// System.out.println("Pass : "+result);
-
-	// } catch (SQLException e) {
-
-	// e.printStackTrace();
-
-	// }//end catch
-
-	// }//main
-
 	// //////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
@@ -1423,34 +1148,6 @@ public class CustomerDAO {
 		} // end try
 
 	}// insertPhone
-
-	// //////////////////////////////(테스트완료)insertPhone()메소드
-	// 단위테스트///////////////////////////////
-
-	// public static void main(String[] args){
-
-	// try {
-
-	// //////////////PhoneVO//////////////
-
-	// //String id, phone, itemCode;
-
-	// CustomerDAO cd=CustomerDAO.getInstance();
-
-	// PhoneVO phv=new PhoneVO("dongha","01077777777","HY_1705240025"); //id,
-	// phone, itemCode;
-
-	// cd.insertPhone(phv);
-
-	// System.out.println("휴대전화번호 추가 성공!!");
-
-	// } catch (SQLException e) {
-
-	// e.printStackTrace();
-
-	// }//end catch
-
-	// }//main
 
 	// ////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1524,36 +1221,6 @@ public class CustomerDAO {
 		return result;
 
 	}// selectPhone
-
-	// ///////////////////(테스트완료)selectPhone()단위테스트/////////////////////////
-
-	// public static void main(String[] args){
-
-	// try {
-
-	// //////////////////////////IdVO////////////////////////
-
-	// //String name, ssn;
-
-	// String result="";
-
-	// CustomerDAO cd=CustomerDAO.getInstance();
-
-	// String itemCode="HY_1705240021";
-
-	// result=cd.selectPhone(itemCode);
-
-	// System.out.println(itemCode+" 회원의 핸드폰번호 : "+result);
-
-	// } catch (SQLException e) {
-
-	// e.printStackTrace();
-
-	// }//end catch
-
-	// }//main
-
-	// ////////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * 
@@ -1819,31 +1486,6 @@ public class CustomerDAO {
 
 	}// selectMsgInfo
 
-	// ///////////////////(테스트완료)selectMsgInfo()단위테스트////////////////////////
-
-	// public static void main(String[] args){
-
-	// try {
-
-	// String result="";
-
-	// CustomerDAO cd=CustomerDAO.getInstance();
-
-	// String id="dongha";
-
-	// result=cd.selectMsgInfo(id);
-
-	// System.out.println(id+" 회원이 받은 메세지는 : "+result);
-
-	// } catch (SQLException e) {
-
-	// e.printStackTrace();
-
-	// }//end catch
-
-	// }//main
-
-	// ///////////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * 
@@ -1917,31 +1559,6 @@ public class CustomerDAO {
 
 	}// selectMsgInfo
 
-	// ///////////////////(테스트완료)selectMsgInfo()단위테스트////////////////////////
-
-	// public static void main(String[] args){
-
-	// try {
-
-	// String result="";
-
-	// CustomerDAO cd=CustomerDAO.getInstance();
-
-	// String id="dongha";
-
-	// result=cd.selectMsgInfo(id);
-
-	// System.out.println(id+" 회원이 받은 메세지는 : "+result);
-
-	// } catch (SQLException e) {
-
-	// e.printStackTrace();
-
-	// }//end catch
-
-	// }//main
-
-	// /////////////////////////////////////////////////////////
 
 	/**
 	 * 
