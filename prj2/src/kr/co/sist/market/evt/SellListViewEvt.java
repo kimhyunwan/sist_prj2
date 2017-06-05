@@ -224,6 +224,9 @@ public class SellListViewEvt extends MouseAdapter implements ActionListener {
                case JOptionPane.OK_OPTION:
                   modifyBuyComp(itemCode, buyerId);
                   new SellListView(indexNum);
+                  setSellListComp(); // 판매완료목록 최신화
+                  setSellListWait(); // 판매대기목록 최신화
+                  setMySellList(); 
                   break;
                }// end switch
             } // end if
@@ -244,6 +247,9 @@ public class SellListViewEvt extends MouseAdapter implements ActionListener {
                      m_dao.deleteProduct(itemCode);
                      new SellListView(indexNum );
                      slv.dispose();
+                     setSellListComp(); // 판매완료목록 최신화
+                     setSellListWait(); // 판매대기목록 최신화
+                     setMySellList(); 
                   } catch (SQLException e) {
                      e.printStackTrace();
                   }//end catch
