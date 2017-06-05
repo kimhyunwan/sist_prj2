@@ -80,7 +80,7 @@ public class MainViewEvt extends MouseAdapter implements ActionListener, Runnabl
 
 			for (int i = 0; i < lstItem.size(); i++) {
 				iv = lstItem.get(i);
-				rowData = new Object[6]; // 번호,컬럼명,데이터형,크기 이렇게 총 6개
+				rowData = new Object[6]; // 번호,제품명,제품코드,제품설명,가격,등록일 총 6개
 				rowData[0] = i + 1;
 				rowData[1] = iv.getItemName();
 				rowData[2] = iv.getItemCode();
@@ -123,7 +123,7 @@ public class MainViewEvt extends MouseAdapter implements ActionListener, Runnabl
 			iv.setItemInfo((String) temp.getValueAt(selectedRow, 3));
 			iv.setHiredate((String) temp.getValueAt(selectedRow, 5));
 			iv.setItemType(mv.getJcbType().getItemAt(typeCode));
-			new ItemInfoView(iv);// 띄어주어야할 항목들이 mv가 가지고있으므로 안에 넣어주는 것이다.
+			new ItemInfoView(iv);// 띄어주어야할 항목들이 iv가 가지고있으므로 안에 넣어주는 것이다.
 		} // end if
 	}// mouseClicked
 
