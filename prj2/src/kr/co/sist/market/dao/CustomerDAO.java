@@ -218,7 +218,7 @@ public class CustomerDAO {
 	}// selectLogin
 
 	/**
-	 * 비밀번호 질문을 선택하여 불러오는 일
+	 * 비밀번호 질문을 불러오는 일
 	 * @param int
 	 * @return String
 	 * @author 김현완
@@ -236,7 +236,6 @@ public class CustomerDAO {
 			// 3.쿼리문 생성객체 얻기
 			String selectPassQu = "select question from pass_question";
 			pstmt = con.prepareStatement(selectPassQu);
-			// 4.쿼리 실행 후, 결과 얻기 : : 바인드변수가 1개 존재(qu_num)
 			rs = pstmt.executeQuery(); // select이기 때문에 executeQuery()
 			while (rs.next()) {
 				list.add(rs.getString("question"));
