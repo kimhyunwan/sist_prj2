@@ -44,7 +44,7 @@ public class BuyReqViewEvt extends WindowAdapter implements ActionListener {
 		
 		if(ae.getSource()==brv.getJbBuyReq()){
 			//구매 신청버튼을 눌렀을 때 setItem()함수 호출
-			if(brv.getPhone().getSelectedIndex()==0){
+			if(brv.getJcbPayment().getSelectedIndex()==0){
 				JOptionPane.showMessageDialog(brv, "결제수단은 선택해 주세요");
 				return;
 			}

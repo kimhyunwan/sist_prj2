@@ -18,7 +18,7 @@ import kr.co.sist.market.vo.ReqVO;
 public class BuyReqView extends JFrame {
 	private JTextField jtfId, jtfTotalPrice,jtfPhone2,jtfPhone3,jtfItemcode;
 	private JButton jbBuyReq,jbCancel;
-	private JComboBox<String> phone;
+	private JComboBox<String> phone, jcbPayment;
 	private LoginViewEvt lve;
 	
 	public BuyReqView(ReqVO rv){
@@ -49,7 +49,7 @@ public class BuyReqView extends JFrame {
 		
 		jtfId=new JTextField(lve.id);
 		String[] payments = {"----- 선택 -----","카드","현금","계좌이체"};
-		JComboBox<String> jcbPayment = new JComboBox<String>(payments);
+		jcbPayment = new JComboBox<String>(payments);
 		jbBuyReq=new JButton("구매신청 완료");
 		jbCancel=new JButton("취소");
 		//제품코드는 읽기 전용
@@ -143,6 +143,9 @@ public class BuyReqView extends JFrame {
 	public LoginViewEvt getLve() {
 		return lve;
 	}
+	public JComboBox<String> getJcbPayment() {
+		return jcbPayment;
+	}
 
-
+	
 }//class

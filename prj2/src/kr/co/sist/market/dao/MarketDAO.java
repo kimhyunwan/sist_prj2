@@ -46,65 +46,38 @@ public class MarketDAO {
 	}// MarketDAO
 
 	public static MarketDAO getInstance() {
-
 		if (m_dao == null) {
-
 			m_dao = new MarketDAO();
-
 		} // end if
-
 		return m_dao;
-
 	}// getInstance
 
 	private Connection getConnection() throws SQLException {
-
 		Connection con = null;
-
 		Properties prop = new Properties();
-
 		try {
-
 		    File file=new File(System.getProperty("user.dir")+"/src/kr/co/sist/market/dao/market.properties");
-
 			if (file.exists()) {
-
 				prop.load(new FileInputStream(file));
-
 				String driver = prop.getProperty("driver");
-
 				String url = prop.getProperty("url");
-
 				String id = prop.getProperty("dboid");
-
 				String pass = prop.getProperty("dbopwd");
-
 				try {
-
 					Class.forName(driver);
-
 					con = DriverManager.getConnection(url, id, pass);
-
 				} catch (ClassNotFoundException e) {
-
 					e.printStackTrace();
-
 				} // end catch
 
 			} else {
-
 				JOptionPane.showMessageDialog(null, "설정파일의 경로를 확인해주세요");
-
 			} // end else
 
 		} catch (FileNotFoundException e) {
-
 			e.printStackTrace();
-
 		} catch (IOException e) {
-
 			e.printStackTrace();
-
 		} // end catch
 
 		return con;
@@ -121,15 +94,11 @@ public class MarketDAO {
 	 */
 	public int selectItemType(String itemCode) throws SQLException{
 		int itemType=0;
-		
 		Connection con = null;
-
 		PreparedStatement pstmt = null;
-
 		ResultSet rs = null;
 
 		try {
-
 			con = getConnection();
 			String selectType="select category_num from product where item_code=?";
 			pstmt=con.prepareStatement(selectType);
@@ -142,21 +111,15 @@ public class MarketDAO {
 		} finally {
 
 			if (rs != null) {
-
 				rs.close();
-
 			} // end if
 
 			if (pstmt != null) {
-
 				pstmt.close();
-
 			} // end if
 
 			if (con != null) {
-
 				con.close();
-
 			} // end if
 
 		} // end finally
@@ -174,33 +137,23 @@ public class MarketDAO {
 	public void deleteProduct(String itemCode) throws SQLException {
 
 		Connection con = null;
-
 		PreparedStatement pstmt = null;
 
 		try {
-
 			con = getConnection();
-
 			String deleteProduct = "delete from product where item_code=?";
-
 			pstmt = con.prepareStatement(deleteProduct);
-
 			pstmt.setString(1, itemCode);
-
 			pstmt.executeUpdate();
 
 		} finally {
 
 			if (pstmt != null) {
-
 				pstmt.close();
-
 			} // end if
 
 			if (con != null) {
-
 				con.close();
-
 			} // end if
 
 		}
@@ -220,55 +173,31 @@ public class MarketDAO {
 	 */
 
 	public List<ItemListVO> selectItemList(int typeCode) throws SQLException {
-
 		List<ItemListVO> list = new ArrayList<ItemListVO>();
-
 		Connection con = null;
-
 		PreparedStatement pstmt = null;
-
 		ResultSet rs = null;
 
 		try {
-
 			con = getConnection();
-
 			String selectItem = "select item_name, item_code, item_info, to_char(hiredate, 'yy-mm-dd hh:mi:ss') hiredate, item_image, price from product where sold_flag='n'";
-
 			if (typeCode != 0) {
-
 				selectItem += " and category_num=?";
-
 			}
-			
 			selectItem +=" order by hiredate desc";
-
 			pstmt = con.prepareStatement(selectItem);
-
 			if (typeCode != 0) {
-
 				pstmt.setInt(1, typeCode);
-
 			}
-
 			rs = pstmt.executeQuery();
-
 			ItemListVO ilv = null;
-
 			while (rs.next()) {
-
 				ilv = new ItemListVO();
-
 				ilv.setItemName(rs.getString("item_name"));
-
 				ilv.setItemCode(rs.getString("item_code"));
-
 				ilv.setItemInfo(rs.getString("item_info"));
-
 				ilv.setHiredate(rs.getString("hiredate"));
-
 				ilv.setImage(rs.getString("item_image"));
-
 				ilv.setPrice(rs.getInt("price"));
 
 				list.add(ilv);

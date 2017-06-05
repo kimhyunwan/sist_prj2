@@ -28,7 +28,7 @@ public class MsgReadView extends JFrame {
    private MsgListView mlv;
    
    public MsgReadView(MsgViewVO mvvo, MsgListView mlv) {
-      super("나에게 온 메세지");
+      super();
       this.mvvo=mvvo;
       this.mlv=mlv;
       mv= new MsgVO();

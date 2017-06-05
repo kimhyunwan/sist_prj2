@@ -49,7 +49,7 @@ public class MainViewEvt extends MouseAdapter implements ActionListener, Runnabl
 			int cntBuyWait = c_dao.selectCntBuyWait(id);
 			int cntSellWait = c_dao.selectCntSellWait(id);
 			int cntMsg = c_dao.selectCntMsg(id);
-			String imgName=c_dao.selectImgName(lve.id);
+			String imgName=c_dao.selectImgName(id);
 			File file = new File(System.getProperty("user.dir") + "/src/kr/co/sist/market/img/customer/" + imgName);
 			ImageIcon iiInfo = null;
 			if (!file.exists()) {
