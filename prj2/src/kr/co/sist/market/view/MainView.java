@@ -105,7 +105,6 @@ public class MainView extends JFrame {
       jtItemList.getColumnModel().getColumn(4).setPreferredWidth(70);
       jtItemList.getColumnModel().getColumn(5).setPreferredWidth(150);
       
-      
       JScrollPane jspMenu = new JScrollPane(jtItemList);
       
       JLabel jlType = new JLabel("제품분류");
