@@ -11,8 +11,6 @@ import java.awt.event.MouseAdapter;
 
 import java.awt.event.MouseEvent;
 
-import java.awt.event.WindowAdapter;
-
 import java.sql.SQLException;
 
 import java.util.List;
@@ -30,8 +28,6 @@ import javax.swing.table.DefaultTableModel;
 import kr.co.sist.market.dao.MarketDAO;
 
 import kr.co.sist.market.view.BuyListView;
-
-import kr.co.sist.market.view.SellListView;
 
 import kr.co.sist.market.vo.SellBuyVO;
 
@@ -252,8 +248,6 @@ public class BuyListViewEvt extends MouseAdapter implements ActionListener {
                   blv.dispose();
 
                 } catch (SQLException e) {
-
-                   // TODO Auto-generated catch block
 
                    e.printStackTrace();
 

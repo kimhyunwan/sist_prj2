@@ -109,12 +109,12 @@ public class SignUpItemViewEvt extends WindowAdapter implements ActionListener {
 			CustomerDAO cd = CustomerDAO.getInstance();
 
 			iiv.setItemName(itemName);
-			iiv.setItemType(typeNum);
+			iiv.setItemType(typeNum+1);
 			iiv.setPrice(price);
 			iiv.setImage(tempFile);
 			iiv.setItemInfo(itemInfo);
 			iiv.setId(lve.id);
-
+			
 			cd.insertItem(iiv);
 			JOptionPane.showMessageDialog(suiv, "판매 물품이 등록되었습니다.");
 			suiv.dispose();

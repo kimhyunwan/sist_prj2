@@ -4,14 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
-import java.nio.channels.ShutdownChannelGroupException;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
 import kr.co.sist.market.dao.CustomerDAO;
-import kr.co.sist.market.view.MsgListView;
 import kr.co.sist.market.view.MsgWriteView;
 import kr.co.sist.market.vo.MsgVO;
 
@@ -24,11 +21,9 @@ public class MsgWriteViewEvt extends WindowAdapter implements ActionListener {
    private MsgWriteView mwv;
    private LoginViewEvt lve;
    private CustomerDAO cd;
-   private MsgListView mlv;
    
    public MsgWriteViewEvt(MsgWriteView mwv) {
       this.mwv=mwv;
-      this.mlv=mlv;
    }//MsgWriteViewEvt
    
    private void SendMsg(){

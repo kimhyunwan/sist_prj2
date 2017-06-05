@@ -16,7 +16,6 @@ import kr.co.sist.market.vo.MsgVO;
 public class MsgReadViewEvt extends WindowAdapter implements ActionListener {
 
 	private MsgReadView mrv;
-	private CustomerDAO cd;
 	private MsgListViewEvt mlve;
 	private LoginViewEvt lve;
 	private MsgListView mlv;

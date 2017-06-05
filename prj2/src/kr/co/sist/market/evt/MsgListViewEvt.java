@@ -162,7 +162,7 @@ public class MsgListViewEvt extends MouseAdapter implements ActionListener {
             
             msg=mvvo.getMsg();
             msg_id=mvvo.getSendId();
-            msg_title=msg_id+" 님이 보낸 메세지";
+            msg_title=msg_id+" 님에게 보낸 메세지";
             item_code=(String)temp.getValueAt(selectedRow, 2);
             
             try { //c_dao 에 메세지 코드를 넣어 값 불러오기

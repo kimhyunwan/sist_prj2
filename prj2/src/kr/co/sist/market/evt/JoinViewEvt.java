@@ -1,8 +1,6 @@
 
 package kr.co.sist.market.evt;
 
- 
-
 import java.awt.FileDialog;
 
 import java.awt.event.ActionEvent;
@@ -25,15 +23,11 @@ import java.sql.SQLException;
 
 import java.util.List;
 
- 
-
 import javax.swing.DefaultComboBoxModel;
 
 import javax.swing.ImageIcon;
 
 import javax.swing.JOptionPane;
-
- 
 
 import kr.co.sist.market.dao.CustomerDAO;
 
@@ -41,327 +35,259 @@ import kr.co.sist.market.view.JoinView;
 
 import kr.co.sist.market.vo.MemberJoinVO;
 
- 
-
 public class JoinViewEvt extends WindowAdapter implements ActionListener {
 
-    private JoinView jv;
+	private JoinView jv;
 
-    private CustomerDAO cd;
+	private CustomerDAO cd;
 
-    
+	public JoinViewEvt(JoinView jv) {
 
-    public JoinViewEvt(JoinView jv){
+		this.jv = jv;
 
-        this.jv=jv;
+		cd = CustomerDAO.getInstance();
 
-        cd=CustomerDAO.getInstance();
+		DefaultComboBoxModel<String> dcbm = jv.getDcbmQu();
 
-        
+		try {
 
-        DefaultComboBoxModel<String> dcbm=jv.getDcbmQu();
+			List<String> listQu = cd.selectPassQu();
 
-        
+			for (String qu : listQu) {
 
-        try {
+				dcbm.addElement(qu);
 
-            List<String> listQu=cd.selectPassQu();
+			}
 
-            
+		} catch (SQLException e) {
 
-            for(String qu : listQu){
+			e.printStackTrace();
 
-                dcbm.addElement(qu);
+		}
 
-            }
+	}// JoinViewEvt
 
-        } catch (SQLException e) {
+	private void addImg() {
 
-            e.printStackTrace();
+		FileDialog fdImg = new FileDialog(jv, "프로필사진 선택", FileDialog.LOAD);
 
-        }
+		fdImg.setVisible(true);
 
-    }//JoinViewEvt
+		String path = fdImg.getDirectory();
 
-    
+		String file = fdImg.getFile();
 
-    private void addImg(){
+		if (file != null) {
 
-        FileDialog fdImg=new FileDialog(jv, "프로필사진 선택", FileDialog.LOAD);
+			String validFile = "jpg, gif, png, bmp";
 
-        fdImg.setVisible(true);
+			if (!validFile.contains(file.substring(file.lastIndexOf(".") + 1))) {
 
-        
+				JOptionPane.showMessageDialog(jv, "선택하신 파일은 이미지가 아닙니다.");
 
-        String path=fdImg.getDirectory();
+				return;
 
-        String file=fdImg.getFile();
+			} // end if
 
-        if(file !=null){
+			ImageIcon temp = new ImageIcon(path + file);
 
-            String validFile="jpg, gif, png, bmp";
+			jv.getJlimg().setIcon(temp);
 
-            if(!validFile.contains(file.substring(file.lastIndexOf(".")+1))){
+		} // end if
 
-                JOptionPane.showMessageDialog(jv, "선택하신 파일은 이미지가 아닙니다.");
+	}// addImg
 
-                return;
+	private void signUpMember() {
 
-            }//end if
+		ImageIcon icon = (ImageIcon) jv.getJlimg().getIcon();
 
-            
+		File file = new File(icon.toString());
 
-            ImageIcon temp=new ImageIcon(path+file);
+		String ssnBack = new String(jv.getJpwSsn().getPassword()).trim();
 
-            jv.getJlimg().setIcon(temp);
+		String ssnFront = jv.getJtfSsn().getText().trim();
 
-        }//end if
+		String tempFile = file.getName();
 
-    }//addImg
+		String name = jv.getJtfName().getText().trim();
 
-    
+		String ssn = ssnFront + ssnBack;
 
-    
+		String id = jv.getJtfId().getText().trim();
 
-    private void signUpMember(){
+		String pass = new String(jv.getJpwPass().getPassword()).trim();
 
-        ImageIcon icon=(ImageIcon)jv.getJlimg().getIcon();
+		String passChk = new String(jv.getJpwPassChk().getPassword()).trim();
 
-        
+		int quNum = jv.getJcbQuest().getSelectedIndex() + 1;
 
-        File file=new File(icon.toString());
+		String answer = jv.getJtfAnswer().getText().trim();
 
-        String ssnBack=new String(jv.getJpwSsn().getPassword()).trim();
+		String info = jv.getJtaIntro().getText().trim();
 
-        String ssnFront=jv.getJtfSsn().getText().trim();
+		MemberJoinVO mjv = new MemberJoinVO();
 
-        String tempFile=file.getName();
+		cd = CustomerDAO.getInstance();
 
-        String name=jv.getJtfName().getText().trim();
+		// 이름, 주민번호, 아이디, 비밀번호, 비밀번호 확인, 비밀번호 답변 중 빈칸이 하나라도 있다면
 
-        String ssn=ssnFront+ssnBack;
+		if (name.equals("") || ssnFront.equals("") || ssnBack.equals("") || id.equals("") ||
 
-        String id=jv.getJtfId().getText().trim();
+				pass.equals("") || passChk.equals("") || answer.equals("")) {
 
-        String pass=new String(jv.getJpwPass().getPassword()).trim();
+			JOptionPane.showMessageDialog(jv, "기재사항을 빠짐없이 입력해 주세요");
 
-        
+			return;
 
-        String passChk=new String(jv.getJpwPassChk().getPassword()).trim();
+		} // end if
 
-        int quNum=jv.getJcbQuest().getSelectedIndex()+1;
+		try {
 
-        String answer=jv.getJtfAnswer().getText().trim();
+			if (cd.selectDoubleId(id)) {
 
-        String info=jv.getJtaIntro().getText().trim();
+				JOptionPane.showMessageDialog(jv, "중복된 아이디입니다. 다른 아이디로 만들어주세요");
 
-        
+				return;
 
-        MemberJoinVO mjv=new MemberJoinVO();
+			}
 
-        cd=CustomerDAO.getInstance();
+		} catch (SQLException e1) {
 
-        
+			e1.printStackTrace();
 
-        //이름, 주민번호, 아이디, 비밀번호, 비밀번호 확인, 비밀번호 답변 중 빈칸이 하나라도 있다면
+		}
 
-        if(name.equals("")||ssnFront.equals("")||ssnBack.equals("")||id.equals("")||
+		if (!pass.equals(passChk)) {
 
-                pass.equals("")||passChk.equals("")||answer.equals("")){
+			JOptionPane.showMessageDialog(jv, "비밀번호확인이 제대로 되지 않습니다.\n비밀번호와 비밀번호 확인창의 입력값이 같은지 확인해주세요");
 
-            JOptionPane.showMessageDialog(jv, "기재사항을 빠짐없이 입력해 주세요");
+			return;
 
-            return;
+		}
 
-        }//end if
+		if (!ssnFront.equals("") && !ssnBack.equals("") && ssnFront.length() != 6 || ssnBack.length() != 7) {
 
-        
+			JOptionPane.showMessageDialog(jv, "주민번호를 올바르게 입력해주세요");
 
-        try {
+			return;
 
-            if(cd.selectDoubleId(id)){
+		}
 
-                JOptionPane.showMessageDialog(jv, "중복된 아이디입니다. 다른 아이디로 만들어주세요");
+		if (!file.getParent().equals(System.getProperty("user.dir") + "/src/kr/co/sist/market/img/customer")) {
 
-                return;
+			try {
 
-            }
+				// 사진 확장자 잘라내기
 
-        } catch (SQLException e1) {
+				int pointposition = file.getName().lastIndexOf('.');
 
-            e1.printStackTrace();
+				String tailName = file.getName().substring(pointposition);
 
-        }
+				FileInputStream fis = new FileInputStream(file);
 
-        if(!pass.equals(passChk)){
+				FileOutputStream fos = new FileOutputStream(
+						System.getProperty("user.dir") + "/src/kr/co/sist/market/img/customer/" + id + tailName);
 
-            JOptionPane.showMessageDialog(jv, "비밀번호확인이 제대로 되지 않습니다.\n비밀번호와 비밀번호 확인창의 입력값이 같은지 확인해주세요");
+				tempFile = id + tailName;
 
-            return;
+				byte[] temp = new byte[512];
 
-        }
+				int readData = 0;
 
-        
+				while ((readData = fis.read(temp)) != -1) {
 
-        if(!ssnFront.equals("")&&!ssnBack.equals("")&& ssnFront.length()!=6||ssnBack.length()!=7){
+					fos.write(temp, 0, readData);
 
-            JOptionPane.showMessageDialog(jv, "주민번호를 올바르게 입력해주세요");
+				} // end while
 
-            return;
+				fos.flush();
 
-        }
+				if (fis != null) {
 
-        
+					fis.close();
 
-        if(!file.getParent().equals(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/customer")){
+				} // end if
 
-             try {
+				if (fos != null) {
 
-                 //사진 확장자 잘라내기
+					fos.close();
 
-                 int pointposition=file.getName().lastIndexOf('.');
+				} // end if
 
-                 String tailName=file.getName().substring(pointposition);
+			} catch (FileNotFoundException e) {
 
-                FileInputStream fis=new FileInputStream(file);
+				e.printStackTrace();
 
-                FileOutputStream fos=new FileOutputStream(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/customer/"+id+tailName);
+			} catch (IOException e) {
 
-                tempFile=id+tailName;
+				e.printStackTrace();
 
-                byte[] temp=new byte[512];
+			}
 
-                
+		} // end if
 
-                int readData=0;
+		try {
 
-                while((readData=fis.read(temp))!=-1){
+			mjv.setImage(tempFile);
 
-                   fos.write(temp, 0, readData);
+			mjv.setName(name);
 
-                }//end while
+			mjv.setSsn(ssn);
 
-                
+			mjv.setId(id);
 
-                fos.flush();
+			mjv.setPass(pass);
 
-                
+			mjv.setQuNum(quNum);
 
-                if(fis!=null){
+			mjv.setPassAnswer(answer);
 
-                   fis.close();
+			mjv.setInfo(info);
 
-                }//end if
+			cd.insertMember(mjv);
 
-                
+			JOptionPane.showMessageDialog(jv, "가입을 축하합니다.");
+			jv.dispose();
+		} catch (SQLException e) {
 
-                if(fos!=null){
+			JOptionPane.showMessageDialog(jv, "입력 형식이 올바르지 않습니다.");
 
-                   fos.close();
+			e.printStackTrace();
 
-                }//end if
+		}
 
-                
+	}
 
-             } catch (FileNotFoundException e) {
+	@Override
 
-                e.printStackTrace();
+	public void actionPerformed(ActionEvent ae) {
 
-             } catch (IOException e) {
+		if (ae.getSource() == jv.getJbCancel()) {
 
-                e.printStackTrace();
+			jv.dispose();
 
-             }
+		} // end if
 
-             
+		if (ae.getSource() == jv.getJbImage()) {
 
-          }//end if
+			addImg();
 
-        
+		} // end if
 
-        
+		if (ae.getSource() == jv.getJbSignUp()) {
 
-        try {
+			int conf = JOptionPane.showConfirmDialog(jv, "가입하시겠습니까?");
 
-            mjv.setImage(tempFile);
+			switch (conf) {
 
-            mjv.setName(name);
+			case JOptionPane.OK_OPTION:
 
-            mjv.setSsn(ssn);
+				signUpMember();
 
-            mjv.setId(id);
+			}
 
-            mjv.setPass(pass);
+		} // end if
 
-            mjv.setQuNum(quNum);
-
-            mjv.setPassAnswer(answer);
-
-            mjv.setInfo(info);
-
-            
-
-            cd.insertMember(mjv);
-
-            JOptionPane.showMessageDialog(jv, "가입을 축하합니다.");
-
-        } catch (SQLException e) {
-
-            JOptionPane.showMessageDialog(jv, "입력 형식이 올바르지 않습니다.");
-
-            e.printStackTrace();
-
-        }
-
-    }
-
-    
-
-    @Override
-
-    public void actionPerformed(ActionEvent ae) {
-
-        if(ae.getSource()==jv.getJbCancel()){
-
-            jv.dispose();
-
-        }//end if
-
- 
-
-        if(ae.getSource()==jv.getJbImage()){
-
-            addImg();
-
-        }//end if
-
-        
-
-        if(ae.getSource()==jv.getJbSignUp()){
-
-            int conf=JOptionPane.showConfirmDialog(jv, "가입하시겠습니까?");
-
-            
-
-            switch(conf){
-
-            case JOptionPane.OK_OPTION:
-
-                signUpMember();
-
-            }
-
-            
-
-        }//end if
-
-    }
+	}
 
 }
-
- 
-
- 
-
- 
-

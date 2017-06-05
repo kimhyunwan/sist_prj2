@@ -2,6 +2,7 @@ package kr.co.sist.market.view;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -10,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import kr.co.sist.market.dao.CustomerDAO;
 import kr.co.sist.market.evt.LoginViewEvt;
 import kr.co.sist.market.evt.MainViewEvt;
 import kr.co.sist.market.evt.MemberLeaveViewEvt;
@@ -21,9 +23,13 @@ public class MemberLeaveView extends JFrame {
 	private JPasswordField jpwPass;
 	private JButton jbMemberLeave;
 	private LoginViewEvt lve;
+	private CustomerDAO c_dao;
+	private MainView mv;
+	
 	@SuppressWarnings("static-access")
-	public MemberLeaveView(){
+	public MemberLeaveView(MainView mv){
 		super("회원탈퇴");
+		this.mv=mv;
 		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/bg_green.jpg");
 		JLabel backgroundImg = new JLabel(icon);
 		ImageIcon logo = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/logo.jpg");
@@ -60,8 +66,9 @@ public class MemberLeaveView extends JFrame {
 		jtfId.setEditable(false);
 		
 		//이벤트 추가
-		MemberLeaveViewEvt mve = new MemberLeaveViewEvt(this);
-		jbMemberLeave.addActionListener(mve);
+			MemberLeaveViewEvt mve = new MemberLeaveViewEvt(this,mv);
+			jbMemberLeave.addActionListener(mve);
+			
 		//윈도우의 크기
 		setBounds(300,80,425,180);
 		//가시화
@@ -86,11 +93,5 @@ public class MemberLeaveView extends JFrame {
 	public JButton getJbMemberLeave() {
 		return jbMemberLeave;
 	}
-	
-	
-	public static void main(String[] args) {
-		new MemberLeaveView();
-	}
-
 
 }//class

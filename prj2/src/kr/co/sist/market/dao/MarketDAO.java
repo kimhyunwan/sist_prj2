@@ -65,7 +65,7 @@ public class MarketDAO {
 
 		try {
 
-			File file = new File(System.getProperty("user.dir") + "/src/kr/co/sist/market/dao/market.properties");
+		    File file=new File(System.getProperty("user.dir")+"/src/kr/co/sist/market/dao/market.properties");
 
 			if (file.exists()) {
 
@@ -1175,9 +1175,51 @@ public class MarketDAO {
 
 	}
 
+   /**
+    * 상품의 이미지 이름을 불러오는 일
+	 * @param itemCode
+	 * @return String
+	 * @throws SQLException
+	 */
+	public String selectItemImg(String itemCode) throws SQLException{
+	       String img=null;
+	       
+	        Connection con = null;
+	         PreparedStatement pstmt = null;
+	         ResultSet rs = null;
+	         
+	         try {
+	             con=getConnection();
+	             String selectImg="select item_image from product where item_code=?";
+	             pstmt=con.prepareStatement(selectImg);
+	             pstmt.setString(1, itemCode);
+	             rs=pstmt.executeQuery();
+	             
+	             if(rs.next()){
+	                img=rs.getString("item_image");
+	             }//end if
+	         }finally{
+
+	             if (rs != null) {
+	                 rs.close();
+	             } // end if
+
+	             if (pstmt != null) {
+	                 pstmt.close();
+	             } // end if
+
+	             if (con != null) {
+	                 con.close();
+	             } // end if
+	         }
+	       
+	       return img;
+	    }
+	
+	
 	public static void main(String[] args) throws SQLException {
 
-		MarketDAO md = new MarketDAO();
+//		MarketDAO md = new MarketDAO();
 
 		// md.deleteProduct("HY_1705290104");
 

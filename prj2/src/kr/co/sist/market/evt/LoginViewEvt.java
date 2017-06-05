@@ -58,12 +58,12 @@ public class LoginViewEvt extends WindowAdapter implements ActionListener {
 		try {
 			boolean chklog=cd.selectLogin(lvo);
 			if(chklog){
-			JOptionPane.showMessageDialog(lv, "즐거운 시간 되세요");
+			JOptionPane.showMessageDialog(lv, "중고장터에 오신 것을 환영합니다!");
 			logid.id=id;
 			flag=true;
 			new MainView(cd);
 			}else{
-				JOptionPane.showMessageDialog(lv, "가입내용이 없습니다.");
+				JOptionPane.showMessageDialog(lv, "가입내용이 존재하지 않습니다.");
 				new LoginView();
 			}//end else
 		} catch (SQLException e) {

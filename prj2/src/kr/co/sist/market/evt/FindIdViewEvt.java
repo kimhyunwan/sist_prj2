@@ -80,7 +80,7 @@ public class FindIdViewEvt extends WindowAdapter implements ActionListener {
 		String ssnFront = fiv.getJtfPwSsn().getText().trim();
 		String ssn = ssnFront + ssnBack;
 		String id = fiv.getJtfId().getText().trim();
-		int quNum = fiv.getJcbQuest().getSelectedIndex() + 1;
+		int quNum = fiv.getJcbQuest().getSelectedIndex();
 		String answer = fiv.getJtfAnswer().getText().trim();
 
 		//이름 칸이 비어있을 경우

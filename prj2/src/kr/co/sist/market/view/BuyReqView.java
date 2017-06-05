@@ -53,7 +53,6 @@ public class BuyReqView extends JFrame {
 		JComboBox<String> jcbPayment = new JComboBox<String>(payments);
 		jbBuyReq=new JButton("구매신청 완료");
 		jbCancel=new JButton("취소");
-		
 		//제품코드는 읽기 전용
 		jtfId.setEditable(false);
 		jtfItemcode.setEditable(false);

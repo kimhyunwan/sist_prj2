@@ -2,6 +2,7 @@ package kr.co.sist.market.view;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
@@ -38,7 +39,15 @@ public class MyInfoChView extends JFrame {
 		this.cd=cd;
 		ImageIcon icon = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/bg_pink.jpg");
 		JLabel backgroundImg = new JLabel(icon);
-		ImageIcon itemImg = new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/default.jpg");
+		String imgName=cd.selectImgName(lve.id);
+		
+		File file=new File(System.getProperty("user.dir") + "/src/kr/co/sist/market/img/customer/" + imgName);
+		ImageIcon itemImg=null;
+		if(!file.exists()){
+			itemImg=new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/default.jpg");
+		}else{
+			itemImg = new ImageIcon(System.getProperty("user.dir") + "/src/kr/co/sist/market/img/customer/" + imgName);
+		}
 		jlItemImage = new JLabel(itemImg);
 		JLabel jlName = new JLabel("이름");
 		JLabel jlPass = new JLabel("비밀번호");

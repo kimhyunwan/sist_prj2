@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowAdapter;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -19,8 +17,6 @@ import kr.co.sist.market.dao.MarketDAO;
 import kr.co.sist.market.view.SellListView;
 
 import kr.co.sist.market.vo.ItemListVO;
-
-import kr.co.sist.market.vo.ItemInfoVO;
 
 import kr.co.sist.market.vo.SellBuyVO;
 import kr.co.sist.market.vo.SellingVO;
@@ -45,14 +41,12 @@ public class SellListViewEvt extends MouseAdapter implements ActionListener {
       c_dao = CustomerDAO.getInstance();// 내 판매물품목록 테이블을 사용하기위해
       // 판매완료리스트를 조회하여 설정한다.
       setSellListComp();
+      
       // 판매대기리스트를 조회하여 설정한다.
-
       setSellListWait();
+      
       // 내 판매물품 목록을 조회하여 설정한다.
       setMySellList();
-
-      setSellListWait();
-
    }// SellListViewEvt
 
    /////////////////////////////////////////// 판매완료 목록을 띄우는
@@ -235,7 +229,6 @@ public class SellListViewEvt extends MouseAdapter implements ActionListener {
             } // end if
             
             if (indexNum == 2) {
-               
                JTable temp = slv.getJtLst(); // 테이블을 가져오고
                int selectedRow = temp.getSelectedRow();
                // 번호,구매신청자,상품코드,상품명,신청일
@@ -252,7 +245,6 @@ public class SellListViewEvt extends MouseAdapter implements ActionListener {
                      new SellListView(indexNum );
                      slv.dispose();
                   } catch (SQLException e) {
-                     // TODO Auto-generated catch block
                      e.printStackTrace();
                   }//end catch
                   break;
@@ -267,6 +259,7 @@ public class SellListViewEvt extends MouseAdapter implements ActionListener {
          m_dao.updateBuyComp(itemCode, buyerId);
          m_dao.deleteSellWait(itemCode, buyerId);
          JOptionPane.showMessageDialog(slv, "판매가 완료되었습니다!");
+         slv.dispose();
          setSellListComp(); // 판매완료목록 최신화
          setSellListWait(); // 판매대기목록 최신화
       } catch (SQLException e) {

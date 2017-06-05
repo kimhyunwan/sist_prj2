@@ -11,13 +11,11 @@ import kr.co.sist.market.dao.MarketDAO;
 import kr.co.sist.market.view.BuyReqView;
 import kr.co.sist.market.view.ItemInfoView;
 import kr.co.sist.market.view.SellerInfoView;
-import kr.co.sist.market.vo.PhoneVO;
 import kr.co.sist.market.vo.ReqVO;
 import kr.co.sist.market.vo.SellerInfoVO;
 
 public class ItemInfoViewEvt extends WindowAdapter implements ActionListener {
 	private ItemInfoView iiv;
-	private SellerInfoVO seller;
 	private MarketDAO md;
 	private LoginViewEvt lve;
 	private ReqVO rv;

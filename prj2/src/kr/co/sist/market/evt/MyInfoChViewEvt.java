@@ -9,17 +9,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import kr.co.sist.market.dao.CustomerDAO;
-import kr.co.sist.market.dao.MarketDAO;
 import kr.co.sist.market.view.MyInfoChView;
 import kr.co.sist.market.vo.ChangeVO;
-import kr.co.sist.market.vo.MemberJoinVO;
 
 public class MyInfoChViewEvt extends WindowAdapter implements ActionListener {
 	private MyInfoChView micv;
@@ -94,10 +91,10 @@ public class MyInfoChViewEvt extends WindowAdapter implements ActionListener {
 			
 			cd.updateMember(cv);
 			JOptionPane.showMessageDialog(micv, "회원정보가 수정되었습니다.");
+			micv.dispose();
 		} catch(SQLException se){
 			JOptionPane.showMessageDialog(micv, "수정형식이 올바르지 않습니다.");
 		}
-		
 	}//changeInfo
 	
 	private void addImg(){
