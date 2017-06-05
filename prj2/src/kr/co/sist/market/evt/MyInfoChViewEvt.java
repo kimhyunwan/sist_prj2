@@ -31,6 +31,7 @@ public class MyInfoChViewEvt extends WindowAdapter implements ActionListener {
 		ImageIcon icon=(ImageIcon)micv.getJlItemImage().getIcon();
 		
 		File file=new File(icon.toString());
+		String name=micv.getJtfName().getText().trim();
 		String pass=new String(micv.getJtfPass().getPassword()).trim();
 		String passChk=new String(micv.getJtfPassChk().getPassword()).trim();
 		String tempFile=file.getName();
@@ -81,13 +82,13 @@ public class MyInfoChViewEvt extends WindowAdapter implements ActionListener {
 		cd=CustomerDAO.getInstance();
 		
 		try{
-			cv.setName("동하");
+			cv.setName(name);
 			cv.setImage(tempFile);
 			cv.setPass(pass);
 			cv.setQuNum(quNum);
 			cv.setAnswer(answer);
 			cv.setInfo(info);
-			cv.setId("dongha");
+			cv.setId(lve.id);
 			
 			cd.updateMember(cv);
 			JOptionPane.showMessageDialog(micv, "회원정보가 수정되었습니다.");

@@ -52,7 +52,7 @@ public class MainView extends JFrame {
 		String[] columnNames = { "번호", "제품명", "제품코드", "판매 제품 설명", "가격", "등록일" };
 		String[][] data = {};
 
-		String[] types = { "----- 전체보기 -----", "뷰티/잡화", "식품/마트/유아", "가구/생활/건강", "스포츠/자동차/공구", "도서", "기타" };
+		String[] types = { "----- 전체보기 -----", "뷰티/잡화", "식품/마트/유아", "가구/생활/건강", "가전/디지털/컴퓨터", "스포츠/자동차/공구", "도서", "기타" };
 		jcbType = new JComboBox<String>(types);
 		jbType = new JButton("검색");
 
