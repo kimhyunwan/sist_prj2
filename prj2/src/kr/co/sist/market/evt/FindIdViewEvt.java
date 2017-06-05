@@ -22,52 +22,52 @@ public class FindIdViewEvt extends WindowAdapter implements ActionListener {
 
 	}// FindIdViewEvt
 
-	//아이디 찾기 창
+	// 아이디 찾기 창
 	private void findId() {
 		try {
 			String name = fiv.getJtfIdName().getText().trim();
 			String ssnBack = new String(fiv.getJpwIdSsn().getPassword()).trim();
 			String ssnFront = fiv.getJtfIdSsn().getText().trim();
 			String ssn = ssnFront + ssnBack;
-			
-			//이름 칸이 비어있을 경우
-			if(name.equals("")){
+
+			// 이름 칸이 비어있을 경우
+			if (name.equals("")) {
 				JOptionPane.showMessageDialog(fiv, "이름을 입력해 주세요");
 				fiv.getJtfIdName().requestFocus();
 				return;
-			}else{
-			
-				//주민번호 칸이 비어있을 경우
-				if(ssnBack.equals("")||ssnFront.equals("")){
+			} else {
+
+				// 주민번호 칸이 비어있을 경우
+				if (ssnBack.equals("") || ssnFront.equals("")) {
 					JOptionPane.showMessageDialog(fiv, "주민번호를 입력해 주세요");
 					fiv.getJtfIdSsn().requestFocus();
 					return;
-				
-				//주민번호 자리수 확인
-				}else if(ssnFront.length()!=6||ssnBack.length()!=7){
-					 JOptionPane.showMessageDialog(fiv, "올바른 주민번호를 입력해주세요");
-					 fiv.getJtfIdSsn().requestFocus();
-					 return;
-				 }else{ //주민번호 창에 수가 입력되고 자릿수가 맞다면
-	
-				IdVO iv = new IdVO(name, ssn);
-				CustomerDAO cd = CustomerDAO.getInstance();
-				String id;
-				id = cd.selectMyId(iv);
 
-					//id의 존재여부
-					if(id.equals("")){ //id를 가져오지 못한다면 없다는 것이니
+					// 주민번호 자리수 확인
+				} else if (ssnFront.length() != 6 || ssnBack.length() != 7) {
+					JOptionPane.showMessageDialog(fiv, "올바른 주민번호를 입력해주세요");
+					fiv.getJtfIdSsn().requestFocus();
+					return;
+				} else { // 주민번호 창에 수가 입력되고 자릿수가 맞다면
+
+					IdVO iv = new IdVO(name, ssn);
+					CustomerDAO cd = CustomerDAO.getInstance();
+					String id;
+					id = cd.selectMyId(iv);
+
+					// id의 존재여부
+					if (id.equals("")) { // id를 가져오지 못한다면 없다는 것이니
 						JOptionPane.showMessageDialog(fiv, "가입하신 이력이 없습니다.");
 						return;
-					}else{ //가져온다면 해당 아이디를 알려준다.
-					String msg = "해당 아이디는 " + id + " 입니다.";
-					JOptionPane.showMessageDialog(fiv, msg);
-					}//end else 아이디 진위여부
-				}//else 주민번호 칸 과 자릿수
-			}//else  이름칸
+					} else { // 가져온다면 해당 아이디를 알려준다.
+						String msg = "해당 아이디는 " + id + " 입니다.";
+						JOptionPane.showMessageDialog(fiv, msg);
+					} // end else 아이디 진위여부
+				} // else 주민번호 칸 과 자릿수
+			} // else 이름칸
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}//end catch
+		} // end catch
 
 		fiv.getJtfIdName().setText("");
 		fiv.getJtfIdSsn().setText("");
@@ -83,59 +83,58 @@ public class FindIdViewEvt extends WindowAdapter implements ActionListener {
 		int quNum = fiv.getJcbQuest().getSelectedIndex();
 		String answer = fiv.getJtfAnswer().getText().trim();
 
-		//이름 칸이 비어있을 경우
-		if(name.equals("")){
+		// 이름 칸이 비어있을 경우
+		if (name.equals("")) {
 			JOptionPane.showMessageDialog(fiv, "이름을 입력해 주세요");
 			fiv.getJtfPwName().requestFocus();
 			return;
-		}else{
-		
-			//주민번호 칸이 비어있을 경우
-			if(ssnBack.equals("")||ssnFront.equals("")){
+		} else {
+
+			// 주민번호 칸이 비어있을 경우
+			if (ssnBack.equals("") || ssnFront.equals("")) {
 				JOptionPane.showMessageDialog(fiv, "주민번호를 입력해 주세요");
 				fiv.getJtfPwSsn().requestFocus();
 				return;
-			
-			}else if (ssnFront.length() != 6 || ssnBack.length() != 7) {
-				//주민번호 길이가 맞는지
+
+			} else if (ssnFront.length() != 6 || ssnBack.length() != 7) {
+				// 주민번호 길이가 맞는지
 				JOptionPane.showMessageDialog(fiv, "올바른 주민번호를 입력해주세요");
 				fiv.getJtfPwSsn().requestFocus();
 				return;
-			}else{
-	
-				//아이디 칸이 빈칸일 경우
-				if(id.equals("")){
+			} else {
+
+				// 아이디 칸이 빈칸일 경우
+				if (id.equals("")) {
 					JOptionPane.showMessageDialog(fiv, "아이디를 입력해 주세요");
 					fiv.getJtfId().requestFocus();
 					return;
-				}else{
-				CustomerDAO cd = CustomerDAO.getInstance();
-		
-					//비밀번호 질문 답변이 빈칸일 경우
-					if(answer.equals("")){
+				} else {
+					CustomerDAO cd = CustomerDAO.getInstance();
+
+					// 비밀번호 질문 답변이 빈칸일 경우
+					if (answer.equals("")) {
 						JOptionPane.showMessageDialog(fiv, "비밀번호 질문에 답해주세요");
 						return;
-					}else{
+					} else {
 						try {
 							PassVO pv = new PassVO(name, ssn, id, answer, quNum);
 							String pass = cd.selectMyPass(pv);
 							String msg = "해당 아이디의 비밀번호는 " + pass + "입니다.";
-							
-								//해당 비밀번호 도출
-								if(pass.equals("")){
-									JOptionPane.showMessageDialog(fiv, "해당 아이디는 존재하지 않습니다"
-											+ "\n미가입자시면 회원가입을"
-											+ "\n가입자시면 정보를 정확히 입력해 주세요");
-								}else{
-									JOptionPane.showMessageDialog(fiv, msg);
-								}//end else
-							} catch (SQLException e) {
-								e.printStackTrace();
-							}//end catch
-						}//end else 비밀번호 질문 답변 빈칸
-					}//end 아이디칸
-				}//end else 주민번호 칸 과 길이
-			}//end else 이름칸
+
+							// 해당 비밀번호 도출
+							if (pass.equals("")) {
+								JOptionPane.showMessageDialog(fiv,
+										"해당 아이디는 존재하지 않습니다" + "\n미가입자시면 회원가입을" + "\n가입자시면 정보를 정확히 입력해 주세요");
+							} else {
+								JOptionPane.showMessageDialog(fiv, msg);
+							} // end else
+						} catch (SQLException e) {
+							e.printStackTrace();
+						} // end catch
+					} // end else 비밀번호 질문 답변 빈칸
+				} // end 아이디칸
+			} // end else 주민번호 칸 과 길이
+		} // end else 이름칸
 
 		fiv.getJtfPwName().setText("");
 		fiv.getJtfPwSsn().setText("");
