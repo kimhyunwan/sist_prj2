@@ -26,14 +26,10 @@ public class SellListViewEvt extends MouseAdapter implements ActionListener {
    private SellListView slv;
    private MarketDAO m_dao;
    private CustomerDAO c_dao;
-   LoginViewEvt lve;
+   private LoginViewEvt lve;
 
-   int chkNum1 = 0;
-   int chkNum2 = 0;
-   int chkNum3 = 0;
-
-   int indexNum = 0;
-   String phone = "";
+   private int chkNum1, chkNum2, chkNum3, indexNum;
+   String phone;
 
    public SellListViewEvt(SellListView slv) {
       this.slv = slv;
