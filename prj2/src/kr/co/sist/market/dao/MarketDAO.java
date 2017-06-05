@@ -111,16 +111,14 @@ public class MarketDAO {
 
 	}// getConnection
 
-	/**
-	 * 
-	 * 내가 팔려고 한 물품 삭제
-	 * 
-	 * @param itemCode
-	 * 
-	 * @throws SQLException
-	 * 
-	 */
+
 	
+	/**
+	 * 제픔타입이 어떤 것인지 알려주는 method
+	 * @param itemCode
+	 * @return
+	 * @throws SQLException
+	 */
 	public int selectItemType(String itemCode) throws SQLException{
 		int itemType=0;
 		
@@ -164,7 +162,15 @@ public class MarketDAO {
 		} // end finally
 		return itemType;
 	}
-	
+	/**
+	 * 
+	 * 내가 팔려고 한 물품 삭제
+	 * 
+	 * @param itemCode
+	 * 
+	 * @throws SQLException
+	 * 
+	 */
 	public void deleteProduct(String itemCode) throws SQLException {
 
 		Connection con = null;
@@ -234,6 +240,8 @@ public class MarketDAO {
 				selectItem += " and category_num=?";
 
 			}
+			
+			selectItem +=" order by hiredate desc";
 
 			pstmt = con.prepareStatement(selectItem);
 
