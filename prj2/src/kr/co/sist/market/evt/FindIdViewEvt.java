@@ -34,20 +34,17 @@ public class FindIdViewEvt extends WindowAdapter implements ActionListener {
 			if (name.equals("")) {
 				JOptionPane.showMessageDialog(fiv, "이름을 입력해 주세요");
 				fiv.getJtfIdName().requestFocus();
-				return;
 			} else {
 
 				// 주민번호 칸이 비어있을 경우
 				if (ssnBack.equals("") || ssnFront.equals("")) {
 					JOptionPane.showMessageDialog(fiv, "주민번호를 입력해 주세요");
 					fiv.getJtfIdSsn().requestFocus();
-					return;
 
 					// 주민번호 자리수 확인
 				} else if (ssnFront.length() != 6 || ssnBack.length() != 7) {
 					JOptionPane.showMessageDialog(fiv, "올바른 주민번호를 입력해주세요");
 					fiv.getJtfIdSsn().requestFocus();
-					return;
 				} else { // 주민번호 창에 수가 입력되고 자릿수가 맞다면
 
 					IdVO iv = new IdVO(name, ssn);
@@ -58,7 +55,6 @@ public class FindIdViewEvt extends WindowAdapter implements ActionListener {
 					// id의 존재여부
 					if (id.equals("")) { // id를 가져오지 못한다면 없다는 것이니
 						JOptionPane.showMessageDialog(fiv, "가입하신 이력이 없습니다.");
-						return;
 					} else { // 가져온다면 해당 아이디를 알려준다.
 						String msg = "해당 아이디는 " + id + " 입니다.";
 						JOptionPane.showMessageDialog(fiv, msg);
