@@ -39,8 +39,23 @@ public class MyInfoChViewEvt extends WindowAdapter implements ActionListener {
 		String answer=micv.getJtfAnswer().getText().trim();
 		String info=micv.getJtaIntro().getText().trim();
 		
+		if(name.trim().equals("")){
+			JOptionPane.showMessageDialog(micv, "이름을 입력해주세요");
+			return;
+		}
+		
+		if(pass.trim().equals("")){
+			JOptionPane.showMessageDialog(micv, "비밀번호를 입력해주세요");
+			return;
+		}
+		
 		if(!pass.equals(passChk)){
 			JOptionPane.showMessageDialog(micv, "비밀번호를 확인해주세요");
+			return;
+		}
+		
+		if(answer.trim().equals("")){
+			JOptionPane.showMessageDialog(micv, "비밀번호 답변을 선택해주세요");
 			return;
 		}
 		
@@ -82,6 +97,7 @@ public class MyInfoChViewEvt extends WindowAdapter implements ActionListener {
 		cd=CustomerDAO.getInstance();
 		
 		try{
+			
 			cv.setName(name);
 			cv.setImage(tempFile);
 			cv.setPass(pass);

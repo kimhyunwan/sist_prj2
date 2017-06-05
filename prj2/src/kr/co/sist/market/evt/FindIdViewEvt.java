@@ -31,13 +31,13 @@ public class FindIdViewEvt extends WindowAdapter implements ActionListener {
 			String ssn = ssnFront + ssnBack;
 
 			// 이름 칸이 비어있을 경우
-			if (name.equals("")) {
+			if (name.trim().equals("")) {
 				JOptionPane.showMessageDialog(fiv, "이름을 입력해 주세요");
 				fiv.getJtfIdName().requestFocus();
 			} else {
 
 				// 주민번호 칸이 비어있을 경우
-				if (ssnBack.equals("") || ssnFront.equals("")) {
+				if (ssnBack.trim().equals("") || ssnFront.trim().equals("")) {
 					JOptionPane.showMessageDialog(fiv, "주민번호를 입력해 주세요");
 					fiv.getJtfIdSsn().requestFocus();
 
@@ -53,7 +53,7 @@ public class FindIdViewEvt extends WindowAdapter implements ActionListener {
 					id = cd.selectMyId(iv);
 
 					// id의 존재여부
-					if (id.equals("")) { // id를 가져오지 못한다면 없다는 것이니
+					if (id.trim().equals("")) { // id를 가져오지 못한다면 없다는 것이니
 						JOptionPane.showMessageDialog(fiv, "가입하신 이력이 없습니다.");
 					} else { // 가져온다면 해당 아이디를 알려준다.
 						String msg = "해당 아이디는 " + id + " 입니다.";
@@ -80,37 +80,32 @@ public class FindIdViewEvt extends WindowAdapter implements ActionListener {
 		String answer = fiv.getJtfAnswer().getText().trim();
 
 		// 이름 칸이 비어있을 경우
-		if (name.equals("")) {
+		if (name.trim().equals("")) {
 			JOptionPane.showMessageDialog(fiv, "이름을 입력해 주세요");
 			fiv.getJtfPwName().requestFocus();
-			return;
 		} else {
 
 			// 주민번호 칸이 비어있을 경우
-			if (ssnBack.equals("") || ssnFront.equals("")) {
+			if (ssnBack.trim().equals("") || ssnFront.trim().equals("")) {
 				JOptionPane.showMessageDialog(fiv, "주민번호를 입력해 주세요");
 				fiv.getJtfPwSsn().requestFocus();
-				return;
 
 			} else if (ssnFront.length() != 6 || ssnBack.length() != 7) {
 				// 주민번호 길이가 맞는지
 				JOptionPane.showMessageDialog(fiv, "올바른 주민번호를 입력해주세요");
 				fiv.getJtfPwSsn().requestFocus();
-				return;
 			} else {
 
 				// 아이디 칸이 빈칸일 경우
-				if (id.equals("")) {
+				if (id.trim().equals("")) {
 					JOptionPane.showMessageDialog(fiv, "아이디를 입력해 주세요");
 					fiv.getJtfId().requestFocus();
-					return;
 				} else {
 					CustomerDAO cd = CustomerDAO.getInstance();
 
 					// 비밀번호 질문 답변이 빈칸일 경우
-					if (answer.equals("")) {
+					if (answer.trim().equals("")) {
 						JOptionPane.showMessageDialog(fiv, "비밀번호 질문에 답해주세요");
-						return;
 					} else {
 						try {
 							PassVO pv = new PassVO(name, ssn, id, answer, quNum);
@@ -118,7 +113,7 @@ public class FindIdViewEvt extends WindowAdapter implements ActionListener {
 							String msg = "해당 아이디의 비밀번호는 " + pass + "입니다.";
 
 							// 해당 비밀번호 도출
-							if (pass.equals("")) {
+							if (pass.trim().equals("")) {
 								JOptionPane.showMessageDialog(fiv,
 										"해당 아이디는 존재하지 않습니다" + "\n미가입자시면 회원가입을" + "\n가입자시면 정보를 정확히 입력해 주세요");
 							} else {
