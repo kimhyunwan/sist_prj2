@@ -104,7 +104,7 @@ public class MyInfoChViewEvt extends WindowAdapter implements ActionListener {
 		String path=fdImg.getDirectory();
 		String file=fdImg.getFile();
 		if(file !=null){
-			String validFile="jpg, gif, png, bmp";
+			String validFile="jpg, gif, png, bmp, JPG, GIF, PNG, BMP";
 			if(!validFile.contains(file.substring(file.lastIndexOf(".")+1))){
 				JOptionPane.showMessageDialog(micv, "선택하신 파일은 이미지가 아닙니다.");
 				return;

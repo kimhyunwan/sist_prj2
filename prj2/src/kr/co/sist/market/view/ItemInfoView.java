@@ -36,11 +36,11 @@ public class ItemInfoView extends JFrame {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		File file=new File(System.getProperty("user.dir") + "/src/kr/co/sist/market/img/customer/" + imgName);
+		File file=new File(System.getProperty("user.dir") + "/src/kr/co/sist/market/img/market/" + imgName);
 		if(!file.exists()){
 			pro=new ImageIcon(System.getProperty("user.dir")+"/src/kr/co/sist/market/img/default.jpg");
 		}else{
-			pro = new ImageIcon(System.getProperty("user.dir") + "/src/kr/co/sist/market/img/customer/" + imgName);
+			pro = new ImageIcon(System.getProperty("user.dir") + "/src/kr/co/sist/market/img/market/" + imgName);
 		}
 		JLabel itemImg = new JLabel(pro);
 		JLabel jlItemName = new JLabel("ªÛ«∞∏Ì");

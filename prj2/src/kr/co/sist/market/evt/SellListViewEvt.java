@@ -262,6 +262,7 @@ public class SellListViewEvt extends MouseAdapter implements ActionListener {
          slv.dispose();
          setSellListComp(); // 판매완료목록 최신화
          setSellListWait(); // 판매대기목록 최신화
+         setMySellList(); 
       } catch (SQLException e) {
          e.printStackTrace();
       } // end catch

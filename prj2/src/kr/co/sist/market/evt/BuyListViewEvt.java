@@ -1,8 +1,6 @@
 
 package kr.co.sist.market.evt;
 
- 
-
 import java.awt.event.ActionEvent;
 
 import java.awt.event.ActionListener;
@@ -15,15 +13,11 @@ import java.sql.SQLException;
 
 import java.util.List;
 
- 
-
 import javax.swing.JOptionPane;
 
 import javax.swing.JTable;
 
 import javax.swing.table.DefaultTableModel;
-
- 
 
 import kr.co.sist.market.dao.MarketDAO;
 
@@ -31,247 +25,205 @@ import kr.co.sist.market.view.BuyListView;
 
 import kr.co.sist.market.vo.SellBuyVO;
 
- 
-
 public class BuyListViewEvt extends MouseAdapter implements ActionListener {
 
-    private BuyListView blv;
+	private BuyListView blv;
 
-    private MarketDAO m_dao;
+	private MarketDAO m_dao;
 
-    LoginViewEvt lve;
+	LoginViewEvt lve;
+	public BuyListViewEvt(BuyListView blv) {
 
-    
+		this.blv = blv;
 
-    
+		m_dao = MarketDAO.getInstance(); // 판매리스트테이블을 가져오기 위함
 
-    public BuyListViewEvt(BuyListView blv){
+		// 구매완료 목록을 조회하여 설정한다.
 
-        this.blv=blv;
+		setBuyListComp();
 
-        m_dao=MarketDAO.getInstance(); //판매리스트테이블을 가져오기 위함
+		// 구매대기 목록을 조회하여 설정한다.
 
-        //구매완료 목록을 조회하여 설정한다.
+		setBuyListWait();
 
-        setBuyListComp();
+	}// BuyListViewEvt
 
-        //구매대기 목록을 조회하여 설정한다.
+	/////////////////////////////////////////// 구매완료 목록을 띄우는
+	/////////////////////////////////////////// method////////////////////////////////////
 
-        setBuyListWait();
+	public void setBuyListComp() {
 
-    }//BuyListViewEvt
+		try {
 
-    
+			String id = lve.id; // 진데이터 ID
 
-///////////////////////////////////////////구매완료 목록을 띄우는 method////////////////////////////////////
+			// String id="hyunwan"; //가데이터 ID
 
-    public void setBuyListComp(){
+			List<SellBuyVO> lstItem = m_dao.selectBuyCompList(id);
 
-        try {
+			// "판매자", "번호", "상품명" , "구매완료일시"
 
-            String id=lve.id; //진데이터 ID
+			Object[] rowItem = new Object[5];
 
-//            String id="hyunwan"; //가데이터 ID
+			// DefaultTableModel을 받아와야한다.
 
-            List<SellBuyVO> lstItem=m_dao.selectBuyCompList(id);
+			DefaultTableModel dtmItem = blv.getDtmComplet(); // BuyListView클래스에서
+																// dtm객체를 가져옴
 
-            //"판매자", "번호", "상품명" , "구매완료일시"
+			SellBuyVO sbv = null;
 
-            
+			for (int i = 0; i < lstItem.size(); i++) {
 
-            Object[] rowItem=new Object[5];
+				// SellBuyVO //String id, itemCode, itemName, tradeDate;
 
-            
+				sbv = lstItem.get(i); // 리스트메뉴의 값을 가져와서 sbv에 집어넣음
 
-            //DefaultTableModel을 받아와야한다.
+				rowItem[0] = (i + 1);
 
-            DefaultTableModel dtmItem=blv.getDtmComplet(); //BuyListView클래스에서 dtm객체를 가져옴
+				rowItem[1] = sbv.getId();
 
-            
+				rowItem[2] = sbv.getItemCode();
 
-            SellBuyVO sbv=null;
+				rowItem[3] = sbv.getItemName();
 
-            for(int i=0; i<lstItem.size(); i++){
+				rowItem[4] = sbv.getTradeDate();
 
-                //SellBuyVO //String id, itemCode, itemName, tradeDate;
+				dtmItem.addRow(rowItem);
 
-                sbv=lstItem.get(i); //리스트메뉴의 값을 가져와서 sbv에 집어넣음
+			} // end for
 
-                rowItem[0]=(i+1);
+		} catch (SQLException e) {
 
-                rowItem[1]=sbv.getId();
+			JOptionPane.showMessageDialog(blv, "죄송합니다. 판매완료목록을 불러올 수 없습니다.\n잠시후 다시 시도해주세요.");
 
-                rowItem[2]=sbv.getItemCode();
+			e.printStackTrace();
 
-                rowItem[3]=sbv.getItemName();
+		}
 
-                rowItem[4]=sbv.getTradeDate();
+	}// setSellList()
 
-                dtmItem.addRow(rowItem);
+	/////////////////////////////////////////// 구매대기 목록을 띄우는
+	/////////////////////////////////////////// method////////////////////////////////////
 
-            }//end for
+	public void setBuyListWait() {
 
-        } catch (SQLException e) {
+		try {
 
-            JOptionPane.showMessageDialog(blv, "죄송합니다. 판매완료목록을 불러올 수 없습니다.\n잠시후 다시 시도해주세요.");
+			String id = lve.id; // 진데이터 ID
 
-            e.printStackTrace();
+			// String id="hyunwan"; //가데이터 ID
 
-        }
+			List<SellBuyVO> lstItem = m_dao.selectBuyWaitList(id);
 
-    }//setSellList()
+			// "구매신청자", "상품코드", "상품명" , "신청일"
 
- 
+			Object[] rowItem = new Object[5];
 
-///////////////////////////////////////////구매대기 목록을 띄우는 method////////////////////////////////////
+			// DefaultTableModel을 받아와야한다.
 
-    public void setBuyListWait(){
+			DefaultTableModel dtmItem = blv.getDtmWait(); // //BuyListView클래스에서
+															// dtm객체를 가져옴
 
-        try {
+			SellBuyVO sbv = null;
 
-            String id=lve.id; //진데이터 ID
+			for (int i = 0; i < lstItem.size(); i++) {
 
-            //String id="hyunwan"; //가데이터 ID
+				// SellBuyVO //String id, itemCode, itemName, tradeDate;
 
-            List<SellBuyVO> lstItem=m_dao.selectBuyWaitList(id);
+				sbv = lstItem.get(i); // 리스트메뉴의 값을 가져와서 sbv에 집어넣음
 
-            //"구매신청자", "상품코드", "상품명" , "신청일"
+				rowItem[0] = (i + 1);
 
-            
+				rowItem[1] = sbv.getId();
 
-            Object[] rowItem=new Object[5];
+				rowItem[2] = sbv.getItemCode();
 
-            
+				rowItem[3] = sbv.getItemName();
 
-            //DefaultTableModel을 받아와야한다.
+				rowItem[4] = sbv.getTradeDate();
 
-            DefaultTableModel dtmItem=blv.getDtmWait(); // //BuyListView클래스에서 dtm객체를 가져옴
+				dtmItem.addRow(rowItem);
 
-            
+			} // end for
 
-            SellBuyVO sbv=null;
+		} catch (SQLException e) {
 
-            for(int i=0; i<lstItem.size(); i++){
+			JOptionPane.showMessageDialog(blv, "죄송합니다. 판매대기목록을 불러올 수 없습니다.\n잠시후 다시 시도해주세요.");
 
-            //SellBuyVO //String id, itemCode, itemName, tradeDate;
+			e.printStackTrace();
 
-            sbv=lstItem.get(i); //리스트메뉴의 값을 가져와서 sbv에 집어넣음
+		}
 
-            rowItem[0]=(i+1);
+	}// setSellList()
 
-            rowItem[1]=sbv.getId();
+	@Override
 
-            rowItem[2]=sbv.getItemCode();
+	public void actionPerformed(ActionEvent ae) {
 
-            rowItem[3]=sbv.getItemName();
+		if (ae.getSource() == blv.getJbClose()) {
 
-            rowItem[4]=sbv.getTradeDate();
+			blv.dispose();
 
-            
+		} // end if
 
-            dtmItem.addRow(rowItem);
+		if (ae.getSource() == blv.getJbWClose()) {
 
-            }//end for
+			blv.dispose();
 
-        } catch (SQLException e) {
+		} // end if
 
-            JOptionPane.showMessageDialog(blv, "죄송합니다. 판매대기목록을 불러올 수 없습니다.\n잠시후 다시 시도해주세요.");
+	}
 
-            e.printStackTrace();
+	// 구매대기 목록에서 상품을 클릭했을 때
 
-        }
+	@Override
 
-    }//setSellList()
+	public void mouseClicked(MouseEvent me) {
 
-    
+		// 해당 물품을 더블 클릭했을 때
 
-    @Override
+		if (me.getClickCount() == 2) {
 
-    public void actionPerformed(ActionEvent ae) {
+			JTable temp = blv.getJtWait(); // 구매대기 창 호출
 
-        if(ae.getSource()==blv.getJbClose()){
+			int selectedRow = temp.getSelectedRow();
 
-            blv.dispose();
+			// 번호,구매신청자,상품코드,상품명,신청일
 
-        }//end if
+			String buyerId = lve.id;
 
-        if(ae.getSource()==blv.getJbWClose()){
+			String itemCode = ((String) temp.getValueAt(selectedRow, 2));
 
-            blv.dispose();
+			// updateBuyComp(String itemCode, String buyerId);
 
-        }//end if
+			int flag = JOptionPane.showConfirmDialog(blv, "구매요청을 취소하시겠습니까?");
 
-    }
+			switch (flag) {
 
- 
+			case JOptionPane.OK_OPTION:
 
-    //구매대기 목록에서 상품을 클릭했을 때
+				try {
 
-    @Override
+					m_dao = MarketDAO.getInstance();
 
-    public void mouseClicked(MouseEvent me) {
+					m_dao.deletePurchase(itemCode, buyerId);
 
-        
+					new BuyListView(1); // 실행창을 구매대기창으로 설정
 
-        //해당 물품을 더블 클릭했을 때
+					blv.dispose();
 
-        if(me.getClickCount()==2){
+				} catch (SQLException e) {
 
-            JTable temp = blv.getJtWait(); //구매대기 창 호출
+					e.printStackTrace();
 
-             int selectedRow = temp.getSelectedRow();
+				} // end catch
 
-             // 번호,구매신청자,상품코드,상품명,신청일
+				break;
 
-            String buyerId = lve.id;
+			}// end switch
 
-             String itemCode = ((String) temp.getValueAt(selectedRow, 2));
+		}
 
-             // updateBuyComp(String itemCode, String buyerId);
+	}// mouseClicked
 
-             int flag = JOptionPane.showConfirmDialog(blv, "구매요청을 취소하시겠습니까?");
-
-             
-
-             switch (flag) {
-
-             case JOptionPane.OK_OPTION:
-
-                try {
-
-                   m_dao= MarketDAO.getInstance();
-
-                   m_dao.deletePurchase(itemCode,buyerId);
-
-                   new BuyListView(1); //실행창을 구매대기창으로 설정
-
-                  blv.dispose();
-
-                } catch (SQLException e) {
-
-                   e.printStackTrace();
-
-                }//end catch
-
-                break;
-
-             }// end switch
-
-        }
-
-    }//mouseClicked
-
-    
-
-    
-
-    
-
-}//class
-
- 
-
- 
-
- 
-
+}// class

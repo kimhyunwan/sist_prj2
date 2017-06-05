@@ -49,7 +49,7 @@ public class MsgReadViewEvt extends WindowAdapter implements ActionListener {
 		if(ae.getSource()==mrv.getJbOk()){
 			mrv.dispose();
 			mlve=new MsgListViewEvt(mlv);
-			mlve.setRecieveMsg(lve.id);
+			mlve.setReceiveMsg(lve.id);
 			mlve.setSendMsg(lve.id);
 		}//end if
 		

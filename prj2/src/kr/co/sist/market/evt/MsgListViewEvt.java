@@ -43,7 +43,7 @@ public class MsgListViewEvt extends MouseAdapter implements ActionListener {
       String id=lve.id;
       
       setSendMsg(id);
-      setRecieveMsg(id);
+      setReceiveMsg(id);
    }//MsgListViewEvt
    
    //////////////////////////////////////////////////////////////////////
@@ -93,7 +93,7 @@ public class MsgListViewEvt extends MouseAdapter implements ActionListener {
     * 받은 메세지를 확인하는 탭
     * @param id
     */
-   public void setRecieveMsg(String id){
+   public void setReceiveMsg(String id){
       DefaultTableModel dtmMsg=mlv.getDtmReceiveMsgList();
       
       try{
@@ -191,6 +191,7 @@ public class MsgListViewEvt extends MouseAdapter implements ActionListener {
             
             try { //더블클릭하여 읽게 되었을 경우 읽었다는 표시 flag=Y
                m_dao.updateChkGetMsg((String)temp.getValueAt(selectedRow, 0));
+               setReceiveMsg(lve.id);
             } catch (SQLException e) {
                e.printStackTrace();
             }//end catch
